@@ -23,5 +23,15 @@ final class generalTests extends PHPUnit_Framework_TestCase
         $this->assertTrue(count($numberArray) == 3);
     }
 
+    /** @test */
+    public function filesExist()
+    {
+        $drawFile = file_exists('../draw.html');
+        $this->assertTrue($drawFile);
+        $fabricjs = file_exists('../fabric.min.js');
+        $this->assertTrue($fabricjs);
+        $jQuery = file_exists('../jquery.min.js');
+        $this->assertTrue($jQuery);
+    }
 
 }
