@@ -4,11 +4,13 @@ declare(strict_types=1);
 include_once('C:\xampp\php\phpunit');
 
 
-final class EmailTest extends PHPUnit_Framework_TestCase
+final class generalTests extends PHPUnit_Framework_TestCase
 {
+    /** @test */
     public function simpleTest()
     {
-        $stack = [];
-        $this->assertSame(0, count($stack));
+        $bool = true;
+        
+        $this->assertTrue($bool);
     }
 }
