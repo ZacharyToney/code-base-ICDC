@@ -136,9 +136,9 @@ function addPerson(){
 
 }
 
-function convertCanvasToJson(){
+/*function convertCanvasToJson(){
 
 	  var json = stage.toJSON();
 
     console.log(json);
-}
+} */
