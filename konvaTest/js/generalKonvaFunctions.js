@@ -1,12 +1,11 @@
-//Start canvas up
-$( document ).ready(function() {
+//Start canvas up and setup main stage
 // let's think our stage virtual size will be 1000x1000px
 // but the real size will be different to fit user's page
 // so the stage will be 100% visible on any device
 
-
-var stageWidth = 1000;
-var stageHeight = 1000;
+//This is set to the size of the roomlayout image
+var stageWidth = 1913;
+var stageHeight = 3073;
 
 var stage = new Konva.Stage({
     container: 'container',
@@ -16,28 +15,6 @@ var stage = new Konva.Stage({
 
 var layer = new Konva.Layer();
 stage.add(layer);
-
-// add circle into center
-var circle = new Konva.Circle({
-    radius: 50,
-    fill: 'red',
-    x: stage.width() / 2,
-    y: stage.height() / 2,
-    draggable: true
-});
-
-layer.add(circle);
-
-// rectangle in bottom right of the stage
-var rect = new Konva.Rect({
-    fill: 'green',
-    x: stage.width() - 100,
-    y: stage.height() - 100,
-    width: 100,
-    height: 100,
-    draggable: true
-});
-layer.add(rect);
 
 
 function fitStageIntoParentContainer() {
@@ -59,18 +36,83 @@ fitStageIntoParentContainer();
 // adapt the stage on any window resize
 window.addEventListener('resize', fitStageIntoParentContainer);
 
-});
+var classRoomLayout = new Image();
+classRoomLayout.onload = function() {
 
-// write out drag and drop events
-box.on('dragstart', function() {
-    writeMessage('dragstart');
-});
-box.on('dragend', function() {
-    writeMessage('dragend');
-});
+  var layout = new Konva.Image({
+    x: 50,
+    y: 50,
+    image: classRoomLayout,
+    //room layout image size
+    width: 1913,
+    height: 3073,
+    draggable:false
+  });
 
-layer.add(text);
-layer.add(box);
+  // add the shape to the layer
+  layer.add(layout);
 
-// add the layer to the stage
-stage.add(layer);
+  // add the layer to the stage
+  stage.add(layer);
+};
+
+classRoomLayout.src = '../konvaTest/assets/classroomLayouts/EmptyTC412.png';
+
+function addNodeChair(){
+
+	var nodeChair = new Image();
+	nodeChair.onload = function() {
+
+	  var newNodeChair = new Konva.Image({
+	    x: 50,
+	    y: 50,
+	    image: nodeChair,
+	    //node chair image size
+	    width: 145,
+	    height: 142,
+	    draggable:true
+	  });
+
+	  // add the shape to the layer
+	  layer.add(newNodeChair);
+
+	  // add the layer to the stage
+	  stage.add(layer);
+	};
+
+	nodeChair.src = '../konvaTest/assets/chairs/NodeChair.png';
+
+}
+
+function addTableWith4Chairs(){
+
+	var tableWith4Chairs = new Image();
+	tableWith4Chairs.onload = function() {
+
+	  var newtableWith4Chairs = new Konva.Image({
+	    x: 50,
+	    y: 50,
+	    image: tableWith4Chairs,
+	    //table with 4 chairs image size
+	    width: 337,
+	    height: 296,
+	    draggable:true
+	  });
+
+	  // add the shape to the layer
+	  layer.add(newtableWith4Chairs);
+
+	  // add the layer to the stage
+	  stage.add(layer);
+	};
+
+	tableWith4Chairs.src = '../konvaTest/assets/tables/Table4Chairs.png';
+
+}
+
+function convertCanvasToJson(){
+
+	  var json = stage.toJSON();
+
+    console.log(json);
+}

@@ -35,9 +35,6 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
@@ -54,16 +51,32 @@
 
 		<div class="container">
 			<br>
-			<div class="col-lg-6">
-				<!--BEGIN This is the canvas-->
-				<div id="stage-parent">
-        	<div id="container"></div>
-    		</div>
-    		<!--END This is the canvas-->
-			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<!--BEGIN This is the canvas-->
+					<div id="stage-parent">
+	        	<div id="container"></div>
+	    		</div>
+	    		<!--END This is the canvas-->
+				</div>
 			
-		</div>
 
+				<br>
+				<div class="col-lg-8" id="addObjectArea">
+					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Add Chair</button>
+					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table with 4 Chairs</button>
+				</div>
+
+
+				<div class="row">
+					<div class="col-lg-12" id="adminControls">
+						<button type="button" class="btn btn-primary" onclick="convertCanvasToJson()">Convert To Json(Goes to console.log now)</button>
+					</div>				
+				</div>
+
+
+			</div>
+		</div>
 	</body>
 	<!-- Load general Konva Funtionality-->
 	<script src="js/generalKonvaFunctions.js"></script>
