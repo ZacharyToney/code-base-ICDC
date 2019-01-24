@@ -110,6 +110,32 @@ function addTableWith4Chairs(){
 
 }
 
+function addPerson(){
+
+	var person = new Image();
+	person.onload = function() {
+
+	  var newPerson = new Konva.Image({
+	    x: 50,
+	    y: 50,
+	    image: person,
+	    //table with 4 chairs image size
+	    width: 150,
+	    height: 150,
+	    draggable:true
+	  });
+
+	  // add the shape to the layer
+	  layer.add(newPerson);
+
+	  // add the layer to the stage
+	  stage.add(layer);
+	};
+
+	person.src = '../konvaTest/assets/people/people.png';
+
+}
+
 function convertCanvasToJson(){
 
 	  var json = stage.toJSON();
