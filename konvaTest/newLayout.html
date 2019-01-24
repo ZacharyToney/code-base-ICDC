@@ -50,13 +50,33 @@
 <!--END navbar -->
 
 		<div class="container">
-			<div class="jumbotron">
-			  <h1 class="display-4">In-Classroom Data Collector</h1>
-			  <p class="lead">This tool is used by the instructor or party that is interested in collecting behaviorol data on the students in class.</p>
-			  <hr class="my-4">
-			  <p class="lead">
-			    <a class="btn btn-primary btn-lg" href="../konvaTest/newLayout.html" role="button">Create new Layout for 412</a>
-			  </p>
+			<br>
+			<div class="row">
+				<div class="col-lg-4">
+					<!--BEGIN This is the canvas-->
+					<div id="stage-parent">
+	        	<div id="container"></div>
+	    		</div>
+	    		<!--END This is the canvas-->
+				</div>
+			
+
+				<br>
+				<div class="col-lg-8" id="addObjectArea">
+					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Add Chair</button>
+					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table with 4 Chairs</button>
+				</div>
+
+
+				<hr class="my-4">
+				
+				<div class="row">
+					<div class="col-lg-12" id="adminControls">
+						<button type="button" class="btn btn-primary" onclick="convertCanvasToJson()">Convert To Json(Goes to console.log now)</button>
+					</div>				
+				</div>
+
+
 			</div>
 		</div>
 	</body>
