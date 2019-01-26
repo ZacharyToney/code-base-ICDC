@@ -78,6 +78,12 @@ function addNodeChair(){
 
 	  // add the layer to the stage
 	  stage.add(layer);
+
+	  // add transform box around newNodeChair and able to rotate
+	  var tr = new Konva.Transformer();
+      layer.add(tr);
+      tr.attachTo(newNodeChair);
+	  layer.draw();
 	};
 
 	nodeChair.src = '../konvaTest/assets/chairs/NodeChair.png';
@@ -104,6 +110,12 @@ function addTableWith4Chairs(){
 
 	  // add the layer to the stage
 	  stage.add(layer);
+
+      // add transform box around newNodeChair and able to rotate
+      var tr = new Konva.Transformer();
+	  layer.add(tr);
+	  tr.attachTo(newNodeChair);
+	  layer.draw();
 	};
 
 	tableWith4Chairs.src = '../konvaTest/assets/tables/Table4Chairs.png';
@@ -130,6 +142,12 @@ function addPerson(){
 
 	  // add the layer to the stage
 	  stage.add(layer);
+
+      // add transform box around newNodeChair and able to rotate
+	  var tr = new Konva.Transformer();
+	  layer.add(tr);
+	  tr.attachTo(newPerson);
+	  layer.draw();
 	};
 
 	person.src = '../konvaTest/assets/people/people.png';
