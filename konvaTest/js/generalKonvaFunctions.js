@@ -114,7 +114,7 @@ function addTableWith4Chairs(){
       // add transform box around newNodeChair and able to rotate
       var tr = new Konva.Transformer();
 	  layer.add(tr);
-	  tr.attachTo(newNodeChair);
+	  tr.attachTo(newtableWith4Chairs);
 	  layer.draw();
 	};
 
@@ -153,10 +153,19 @@ function addPerson(){
 	person.src = '../konvaTest/assets/people/people.png';
 
 }
+stage.on('click tap', function (e) {
+	// if click on empty area - remove all transformers
+	if (e.target === stage) {
+		stage.find('Transformer').destroy();
+		layer.draw();
+		return;
+	}
+	stage.find('Transformer').destroy();
+});
 
-/*function convertCanvasToJson(){
+function convertCanvasToJson(){
 
 	  var json = stage.toJSON();
 
     console.log(json);
-} */
+} 
