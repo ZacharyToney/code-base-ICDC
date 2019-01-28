@@ -56,7 +56,7 @@ classRoomLayout.onload = function() {
   stage.add(layer);
 };
 
-classRoomLayout.src = '../konvaTest/assets/classroomLayouts/EmptyTC412.png';
+classRoomLayout.src = '../assets/classroomLayouts/EmptyTC412.png';
 
 function addNodeChair(){
 
@@ -86,7 +86,7 @@ function addNodeChair(){
 	  layer.draw();
 	};
 
-	nodeChair.src = '../konvaTest/assets/chairs/NodeChair.png';
+	nodeChair.src = '../assets/chairs/NodeChair.png';
 
 }
 
@@ -118,7 +118,7 @@ function addTableWith4Chairs(){
 	  layer.draw();
 	};
 
-	tableWith4Chairs.src = '../konvaTest/assets/tables/Table4Chairs.png';
+	tableWith4Chairs.src = '../assets/tables/Table4Chairs.png';
 
 }
 
@@ -150,7 +150,7 @@ function addPerson(){
 	  layer.draw();
 	};
 
-	person.src = '../konvaTest/assets/people/people.png';
+	person.src = '../assets/people/people.png';
 
 }
 stage.on('click tap', function (e) {
