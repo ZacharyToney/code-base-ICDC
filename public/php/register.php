@@ -23,7 +23,8 @@ if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['passwor
 	} else {
 	    $errorMessage = "We could not create an account for you. This could be due to the fact that another user has the same username or the email address is already registered.";
 	    $_SESSION['errorMessage'] = $errorMessage;
-	    header("../errorMessagePage.php");
+	    echo $_SESSION['errorMessage'];
+	    header('location: ../errorMessagePage.php');
 	    $conn->close();
 	    exit;
 	    
