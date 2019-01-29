@@ -17,23 +17,27 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-		$row = $result->fetch_assoc();
-		if ($row['password'] == $password) {
-			$_SESSION['loggedIn'] = true;
-			$_SESSION['username'] = $username;
-			$_SESSION['successMessage'] = "You have successfully logged in!";
-			header('location: ../successMessagePage.php');
-	    $conn->close();
-	    exit;
-		}
-		else{
-			$errorMessage = "The password you entered was incorrect.";
-	    $_SESSION['errorMessage'] = $errorMessage;
-	    header('location: ../errorMessagePage.php');
-	    $conn->close();
-	    exit;
-		}
-} else {
+	  while($row = $result->fetch_assoc()) {
+	  	print_r($row);
+			if ($row['password'] == $password) {
+				$_SESSION['loggedIn'] = true;
+				$_SESSION['username'] = $username;
+				$_SESSION['successMessage'] = "You have successfully logged in!";
+				header('location: ../successMessagePage.php');
+		    $conn->close();
+		    exit;
+			}
+			else{
+				$row = $result->fetch_assoc();
+				$errorMessage = "The password you entered was incorrect. {$password} |||| {$row}";
+		    $_SESSION['errorMessage'] = $errorMessage;
+		    header('location: ../errorMessagePage.php');
+		    $conn->close();
+		    exit;
+			}
+    }
+} 
+else {
     $errorMessage = "The username you entered does not exist.";
     $_SESSION['errorMessage'] = $errorMessage;
     echo $_SESSION['errorMessage'];
