@@ -9,7 +9,6 @@ require('connectToDatabase.php');
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$password = password_hash($password, PASSWORD_DEFAULT);
 
 $sql = "SELECT * FROM users WHERE username = '".$username."'";
 
@@ -18,8 +17,8 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
 	  while($row = $result->fetch_assoc()) {
-	  	print_r($row);
-			if ($row['password'] == $password) {
+	  	
+			if (password_verify($password,$row['password'])) {
 				$_SESSION['loggedIn'] = true;
 				$_SESSION['username'] = $username;
 				$_SESSION['successMessage'] = "You have successfully logged in!";
@@ -28,8 +27,7 @@ if ($result->num_rows > 0) {
 		    exit;
 			}
 			else{
-				$row = $result->fetch_assoc();
-				$errorMessage = "The password you entered was incorrect. {$password} |||| {$row}";
+				$errorMessage = "The password you entered was incorrect.";
 		    $_SESSION['errorMessage'] = $errorMessage;
 		    header('location: ../errorMessagePage.php');
 		    $conn->close();
