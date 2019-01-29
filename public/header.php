@@ -16,27 +16,36 @@ if(!isset($_SESSION))
       <li class="nav-item">
         <a class="nav-link" href="../newLayout.php">Create New Layout for 412</a>
       </li>
+      <?php
+        if (!isset($_SESSION['loggedIn'])) {
+      ?>
       <li class="nav-item">
         <a class="nav-link" href="../login.php">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../register.php">Register</a>
       </li>
+      <?php
+      }
+      ?>
     </ul>
-    <?php 
-      if ($_SESSION['loggedIn']) {
-        
-      
-    ?>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <p>Logged in: <?php echo $_SESSION['username']; ?></p>
-      </li>
-    </ul>
-    <?php 
-    }
-    ?>
 
+    <ul class="navbar-nav ml-auto">
+      <?php 
+        if (isset($_SESSION['loggedIn'])) {
+      ?>
+        <li class="nav-item">
+          <p>Logged in: <?php echo $_SESSION['username']; ?></p>
+        </li>
+
+        <li class="nav-item" style="padding-left: 1em;">
+          <form action="../php/logout.php" method="post"><input type="submit" class="btn btn-primary" value="Log Out"></form>
+        </li>
+      <?php 
+      }
+      ?>
+      <li></li>
+    </ul>
   </div>
 </nav>
 <!--END navbar -->
