@@ -21,9 +21,9 @@ if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['passwor
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record created successfully";
 	} else {
+
 	    $errorMessage = "We could not create an account for you. This could be due to the fact that another user has the same username or the email address is already registered.";
 	    $_SESSION['errorMessage'] = $errorMessage;
-	    echo $_SESSION['errorMessage'];
 	    header('location: ../errorMessagePage.php');
 	    $conn->close();
 	    exit;
