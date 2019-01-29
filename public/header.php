@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+?>
 <!--BEGIN navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="../index.php">In Classroom Data Collector</a>
@@ -17,6 +23,20 @@
         <a class="nav-link" href="../register.php">Register</a>
       </li>
     </ul>
+    <?php 
+      if ($_SESSION['loggedIn']) {
+        
+      
+    ?>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <p>Logged in: <?php echo $_SESSION['username']; ?></p>
+      </li>
+    </ul>
+    <?php 
+    }
+    ?>
+
   </div>
 </nav>
 <!--END navbar -->
