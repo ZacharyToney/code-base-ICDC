@@ -20,25 +20,7 @@
 
 	<body>
 
-<!--BEGIN navbar-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="../index.html">In Classroom Data Collector</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="../newLayout.html">Create New Layout for 412</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../register.html">Register</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<!--END navbar -->
+<?php include_once('header.html'); ?>
 
 		<div class="container">
 			<div class="jumbotron">
@@ -46,7 +28,7 @@
 			  <p class="lead">This tool is used by the instructor or party that is interested in collecting behavioral data on the students in class.</p>
 			  <hr class="my-4">
 			  <p class="lead">
-			    <a class="btn btn-primary btn-lg" href="../newLayout.html" role="button">Create new Layout for 412</a>
+			    <a class="btn btn-primary btn-lg" href="../newLayout.php" role="button">Create new Layout for 412</a>
 			  </p>
 			</div>
 		</div>
