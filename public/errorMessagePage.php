@@ -1,3 +1,14 @@
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+}
+if (isset($_SESSION['errorMessage'])) {
+	$errorMessage = $_SESSION['errorMessage'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -44,13 +55,10 @@
 <!--END navbar -->
 
 		<div class="container">
-			<div class="jumbotron">
-			  <h1 class="display-4">In-Classroom Data Collector</h1>
-			  <p class="lead">This tool is used by the instructor or party that is interested in collecting behavioral data on the students in class.</p>
-			  <hr class="my-4">
-			  <p class="lead">
-			    <a class="btn btn-primary btn-lg" href="../newLayout.html" role="button">Create new Layout for 412</a>
-			  </p>
+			<br>
+			<div class="alert alert-danger col-lg-8" role="alert">
+			  <h4 class="alert-heading">There has been an error</h4>
+			  <p><?php echo $errorMessage; ?></p>	
 			</div>
 		</div>
 	</body>
