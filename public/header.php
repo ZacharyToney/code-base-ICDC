@@ -13,9 +13,7 @@ if(!isset($_SESSION))
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="../newLayout.php">Create New Layout for 412</a>
-      </li>
+
       <?php
         if (!isset($_SESSION['loggedIn'])) {
       ?>
@@ -26,6 +24,13 @@ if(!isset($_SESSION))
         <a class="nav-link" href="../register.php">Register</a>
       </li>
       <?php
+      }
+      else{
+        ?>
+      <li class="nav-item">
+        <a class="nav-link" href="../newLayout.php">Create New Layout for 412</a>
+      </li>
+        <?php
       }
       ?>
     </ul>

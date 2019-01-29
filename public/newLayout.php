@@ -23,7 +23,23 @@
 
 	<body>
 
-<?php include_once('header.php'); ?>
+<?php
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+} 
+
+ include_once('header.php'); 
+
+if (!isset($_SESSION['loggedIn'])) {
+	    $errorMessage = "You must be logged in to create a new layout.";
+	    $_SESSION['errorMessage'] = $errorMessage;
+	    header('location: ../errorMessagePage.php');
+	    exit;
+}
+else{
+?>
+
 
 		<div class="container">
 			<br>
@@ -56,6 +72,9 @@
 
 			</div>
 		</div>
+		<?php
+		}
+		?>
 	</body>
 	<!-- Load general Konva Funtionality-->
 	<script src="js/generalKonvaFunctions.js"></script>
