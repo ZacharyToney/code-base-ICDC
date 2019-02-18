@@ -72,6 +72,7 @@ function addNodeChair(){
 	    height: 142,
 	    draggable:true
 	  });
+	  newNodeChair.setAttr('src',"../assets/classroomObjects/chair.png");
 
 	  // add the shape to the layer
 	  layer.add(newNodeChair);
@@ -104,7 +105,7 @@ function addTableWith4Chairs(){
 	    height: 296,
 	    draggable:true
 	  });
-
+	  newtableWith4Chairs.setAttr('src',"../assets/classroomObjects/table.png");
 	  // add the shape to the layer
 	  layer.add(newtableWith4Chairs);
 
@@ -136,7 +137,7 @@ function addPerson(){
 	    height: 150,
 	    draggable:true
 	  });
-
+	  newPerson.setAttr('src',"../assets/classroomObjects/person.png");
 	  // add the shape to the layer
 	  layer.add(newPerson);
 
@@ -169,3 +170,25 @@ function convertCanvasToJson(){
 
     console.log(json);
 } 
+
+function loadJsonString(){
+	  var json = '{"attrs":{"width":290,"height":465.84945112388914,"scaleX":0.15159435441714583,"scaleY":0.15159435441714583},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"x":50,"y":50,"width":1913,"height":3073},"className":"Image"},{"attrs":{"x":505.1620689655173,"y":1791.489655172414,"width":145,"height":142,"draggable":true,"src":"../assets/classroomObjects/chair.png","scaleY":2.4203819523163377},"className":"Image"},{"attrs":{"x":683.2689655172414,"y":1916.8241379310346,"width":337,"height":296,"draggable":true,"src":"../assets/classroomObjects/table.png"},"className":"Image"},{"attrs":{"x":1257.6249075547632,"y":1880.8441480868232,"width":150,"height":150,"draggable":true,"src":"../assets/classroomObjects/person.png","rotation":82.10247852562145},"className":"Image"}]}]}';
+
+    // create node using json string
+    stage = Konva.Node.create(json, 'container');
+
+    
+    
+		stage.find('Image').forEach((imageNode) => {
+		    const src = imageNode.getAttr('src');
+		    const image = new Image();
+		    image.onload = () => {
+		        imageNode.image(image);
+		        imageNode.getLayer().batchDraw();
+		    }
+		    image.src = src;
+		});
+
+		var json = stage.toJSON();
+		console.log(json);
+}
