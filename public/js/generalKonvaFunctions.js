@@ -86,7 +86,7 @@ function addNodeChair(){
 	  layer.draw();
 	};
 
-	nodeChair.src = '../assets/chairs/NodeChair.png';
+	nodeChair.src = '../assets/classroomObjects/chair.png';
 
 }
 
@@ -118,7 +118,7 @@ function addTableWith4Chairs(){
 	  layer.draw();
 	};
 
-	tableWith4Chairs.src = '../assets/tables/Table4Chairs.png';
+	tableWith4Chairs.src = '../assets/classroomObjects/table.png';
 
 }
 
@@ -150,7 +150,7 @@ function addPerson(){
 	  layer.draw();
 	};
 
-	person.src = '../assets/people/people.png';
+	person.src = '../assets/classroomObjects/person.png';
 
 }
 stage.on('click tap', function (e) {
