@@ -68,9 +68,14 @@ else{
 					<div class="col-lg-12" id="adminControls">
 						<button type="button" class="btn btn-primary" onclick="convertCanvasToJson()">Convert To Json(Goes to console.log now)</button>
 						<button type="button" class="btn btn-primary" onclick="loadJsonString()">Load JSON String</button>
-					</div>				
+					</div>
+					<div class="col-lg-12" id="databaseControls">
+						<form method="post">
+							<input type="hidden" value="" id="jsonForDatabase">
+							<button type="submit" class="btn btn-primary">Save Current Layout To Database</button>
+						</form>
+					</div>					
 				</div>
-
 
 			</div>
 		</div>
@@ -80,5 +85,6 @@ else{
 	</body>
 	<!-- Load general Konva Funtionality-->
 	<script src="js/generalKonvaFunctions.js"></script>
+	<script src="js/layoutFormValues.js"></script>
 
 </html>

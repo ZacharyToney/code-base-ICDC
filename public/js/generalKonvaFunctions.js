@@ -170,6 +170,8 @@ function convertCanvasToJson(){
 	  var json = stage.toJSON();
 
     console.log(json);
+
+    return json;
 } 
 
 function loadJsonString(){
