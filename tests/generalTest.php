@@ -26,12 +26,11 @@ final class generalTests extends PHPUnit_Framework_TestCase
     /** @test */
     public function filesExist()
     {
-        $drawFile = file_exists('../draw.html');
+        $drawFile = file_exists('public/js/generalKonvaFunctions.js');
         $this->assertTrue($drawFile);
-        $fabricjs = file_exists('../fabric.min.js');
-        $this->assertTrue($fabricjs);
-        $jQuery = file_exists('../jquery.min.js');
-        $this->assertTrue($jQuery);
+        
+        $file = file_exists('public/assets/classroomLayouts/EmptyTC412.png');
+        $this->assertTrue($file);
     }
 
 }
