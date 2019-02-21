@@ -24,6 +24,8 @@
 	<body>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 if(!isset($_SESSION)) 
 { 
     session_start(); 
@@ -57,6 +59,32 @@ else
 					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Add Chair</button>
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table with 4 Chairs</button>
 					<button type="button" class="btn btn-primary" onclick="addPerson()">Add Person</button>
+
+					<?php
+					require('php/connectToDatabase.php');
+					$username = $_SESSION['username'];
+					$sql = "SELECT * FROM classmaps WHERE username = '".$username."'";
+					$result = mysqli_fetch_all($conn->query($sql));
+					//got selection
+							?>
+							<div class="form-group">
+					  		<label for="jsonClassRoomStringsFromDatabase">Select layout:</label>
+					  		<select class="form-control" id="jsonClassRoomStringsFromDatabase">
+							<?php
+
+								$result = mysqli_fetch_all($conn->query($sql)); 
+								//print_r($result);
+								$numResults = count($result) - 1;
+								for($x = 0;$x<=$numResults;$x++){
+									echo'<option value="'. $result[$x][0] .'">'.$result[$x][1].'</option>';
+								}
+							?>
+								</select>
+							</div>
+							<?php
+						
+					$conn->close();
+					?>
 				</div>
 
 
