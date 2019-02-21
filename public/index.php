@@ -24,10 +24,10 @@
 
 		<div class="container">
 			<div class="jumbotron">
-			  <h1 class="display-4">In-Classroom Data Collector</h1>
-			  <p class="lead">This tool is used by the instructor or party that is interested in collecting behavioral data on the students in class.</p>
+			  <h1 class="display-4 text-center">In-Classroom Data Collector</h1>
+			  <p class="lead text-center">This tool is used by the instructor or party that is interested in collecting behavioral data on the students in class.</p>
 			  <hr class="my-4">
-			  <p class="lead">
+			  <p class="lead text-center">
 			    <a class="btn btn-primary btn-lg" href="../newLayout.php" role="button">Create new Layout for 412</a>
 			  </p>
 			</div>
