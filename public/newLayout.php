@@ -37,10 +37,9 @@ if (!isset($_SESSION['loggedIn'])) {
 	    header('location: ../errorMessagePage.php');
 	    exit;
 }
-else{
+else
+{
 ?>
-
-
 		<div class="container">
 			<br>
 			<div class="row">
@@ -51,14 +50,13 @@ else{
 	    		</div>
 	    		<!--END This is the canvas-->
 				</div>
-			
-
+				
 				<br>
+
 				<div class="col-lg-8" id="addObjectArea">
 					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Add Chair</button>
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table with 4 Chairs</button>
 					<button type="button" class="btn btn-primary" onclick="addPerson()">Add Person</button>
-
 				</div>
 
 
@@ -66,15 +64,15 @@ else{
 				
 				<div class="row">
 					<div class="col-lg-12" id="adminControls">
-						<button type="button" class="btn btn-primary" onclick="convertCanvasToJson()">Convert To Json(Goes to console.log now)</button>
 						<button type="button" class="btn btn-primary" onclick="loadJsonString()">Load JSON String</button>
-					</div>
-					<div class="col-lg-12" id="databaseControls">
-						<form method="post">
-							<input type="hidden" value="" id="jsonForDatabase">
+
+						<form method="post" action="../php/uploadLayoutToDatabase.php">
+							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+							<input type="hidden" name="jsonForDatabase" value="" id="jsonForDatabase">
 							<button type="submit" class="btn btn-primary">Save Current Layout To Database</button>
 						</form>
-					</div>					
+
+					</div>				
 				</div>
 
 			</div>
