@@ -28,7 +28,18 @@
 			  <p class="lead text-center">This tool is used by the instructor or party that is interested in collecting behavioral data on the students in class.</p>
 			  <hr class="my-4">
 			  <p class="lead text-center">
-			    <a class="btn btn-primary btn-lg" href="../newLayout.php" role="button">Create new Layout for 412</a>
+			  	<?php
+			  		if (!isset($_SESSION['loggedIn'])){
+			  			?>
+			  			<a class="btn btn-primary btn-lg" href="../login.php" role="button">Login</a>
+			  			<?php
+			  		}else{
+			  		?>
+			  		<a class="btn btn-primary btn-lg" href="../newLayout.php" role="button">Create new Layout for 412</a>
+			  		<?php
+			  		}
+			  	?>
+			    
 			  </p>
 			</div>
 		</div>

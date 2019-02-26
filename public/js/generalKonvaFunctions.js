@@ -196,9 +196,8 @@ function loadJsonString(jsonParam){
 		console.log(json);
 }
 
-$('select').change(function () {
+$('#jsonClassRoomStringsFromDatabase').change(function () {
    var optionSelected = $(this).find("option:selected");
    var valueSelected  = optionSelected.val();
    loadJsonString(valueSelected);
-   var textSelected   = optionSelected.text();
 });
