@@ -201,3 +201,12 @@ $('#jsonClassRoomStringsFromDatabase').change(function () {
    var valueSelected  = optionSelected.val();
    loadJsonString(valueSelected);
 });
+
+document.getElementById('save').addEventListener(
+	'click',
+	function() {
+		var dataURL = stage.toDataURL({ pixelRatio: 3 });
+		downloadURI(dataURL, 'stage.png');
+	},
+	false
+);

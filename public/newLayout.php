@@ -98,7 +98,7 @@ else
 							<input type="hidden" name="jsonForDatabase" value="" id="jsonForDatabase">
 							<button type="submit" class="btn btn-primary">Save Current Layout To Database</button>
 						</form>
-
+						<button id="save" type="button" class="btn btn-primary">Download Stage</button>
 					</div>				
 				</div>
 
