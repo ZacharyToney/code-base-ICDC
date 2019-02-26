@@ -56,9 +56,9 @@ else
 				<br>
 
 				<div class="col-lg-8" id="addObjectArea">
-					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Add Chair</button>
-					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table with 4 Chairs</button>
-					<button type="button" class="btn btn-primary" onclick="addPerson()">Add Person</button>
+					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
+					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
+					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
 
 					<?php
 					require('php/connectToDatabase.php');
