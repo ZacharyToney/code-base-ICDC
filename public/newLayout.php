@@ -76,7 +76,7 @@ else
 								//print_r($result);
 								$numResults = count($result) - 1;
 								for($x = 0;$x<=$numResults;$x++){
-									echo'<option value="'. $result[$x][0] .'">'.$result[$x][1].'</option>';
+									echo"<option value='". $result[$x][0] ."'>".$result[$x][1]."</option>";
 								}
 							?>
 								</select>
@@ -92,7 +92,6 @@ else
 				
 				<div class="row">
 					<div class="col-lg-12" id="adminControls">
-						<button type="button" class="btn btn-primary" onclick="loadJsonString()">Load JSON String</button>
 
 						<form method="post" action="../php/uploadLayoutToDatabase.php">
 							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">

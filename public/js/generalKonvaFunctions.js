@@ -174,8 +174,8 @@ function convertCanvasToJson(){
     return json;
 } 
 
-function loadJsonString(){
-	  var json = '{"attrs":{"width":290,"height":465.84945112388914,"scaleX":0.15159435441714583,"scaleY":0.15159435441714583},"className":"Stage","children":[{"attrs":{},"className":"Layer","children":[{"attrs":{"x":50,"y":50,"width":1913,"height":3073,"src":"../assets/classroomLayouts/EmptyTC412.png"},"className":"Image"},{"attrs":{"x":439.196551724138,"y":1718.9275862068966,"width":145,"height":142,"draggable":true,"src":"../assets/classroomObjects/chair.png","scaleY":2.8384732587757826},"className":"Image"},{"attrs":{"x":663.4793103448276,"y":1725.5241379310346,"width":337,"height":296,"draggable":true,"src":"../assets/classroomObjects/table.png"},"className":"Image"},{"attrs":{"x":1167.3028067465534,"y":1756.3669598412955,"width":150,"height":150,"draggable":true,"src":"../assets/classroomObjects/person.png","rotation":93.3108148054566},"className":"Image"},{"attrs":{},"className":"Transformer"}]}]}';
+function loadJsonString(jsonParam){
+	  var json = jsonParam;
 
     // create node using json string
     stage = Konva.Node.create(json, 'container');
@@ -195,3 +195,10 @@ function loadJsonString(){
 		var json = stage.toJSON();
 		console.log(json);
 }
+
+$('select').change(function () {
+   var optionSelected = $(this).find("option:selected");
+   var valueSelected  = optionSelected.val();
+   loadJsonString(valueSelected);
+   var textSelected   = optionSelected.text();
+});
