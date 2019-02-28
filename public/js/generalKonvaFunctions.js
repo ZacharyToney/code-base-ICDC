@@ -163,6 +163,11 @@ stage.on('click tap', function (e) {
 		return;
 	}
 	stage.find('Transformer').destroy();
+
+	var tr = new Konva.Transformer();
+	layer.add(tr);
+	tr.attachTo(e.target);
+	layer.draw();
 });
 
 function convertCanvasToJson(){

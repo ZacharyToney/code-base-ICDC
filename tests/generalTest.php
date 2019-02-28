@@ -23,14 +23,4 @@ final class generalTests extends PHPUnit_Framework_TestCase
         $this->assertTrue(count($numberArray) == 3);
     }
 
-    /** @test */
-    public function filesExist()
-    {
-        $drawFile = file_exists('public/js/generalKonvaFunctions.js');
-        $this->assertTrue($drawFile);
-        
-        $file = file_exists('public/assets/classroomLayouts/EmptyTC412.png');
-        $this->assertTrue($file);
-    }
-
 }
