@@ -45,7 +45,7 @@ else
 		<div class="container">
 			<br>
 			<div class="row">
-				<div class="col-lg-4">
+				<div class="text-center col-md-6">
 					<!--BEGIN This is the canvas-->
 					<div id="stage-parent">
 	        	<div id="container"></div>
