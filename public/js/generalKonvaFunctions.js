@@ -163,7 +163,23 @@ stage.on('click tap', function (e) {
 		return;
 	}
 	stage.find('Transformer').destroy();
+
+	var tr = new Konva.Transformer();
+	layer.add(tr);
+	tr.attachTo(e.target);
+	layer.draw();
 });
+
+var today = new Date();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+var time = today.getHours() + ":" + today.getMinutes();
+var dateTime = date + ' , ' + time;
+
+function setText() {
+	var text = document.getElementById("textareabox").value = (dateTime);
+	layer.add(dateTime);
+	stage.add(layer);
+}
 
 function convertCanvasToJson(){
 

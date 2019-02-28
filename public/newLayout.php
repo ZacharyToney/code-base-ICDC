@@ -81,6 +81,10 @@ else
 							?>
 								</select>
 							</div>
+                            <div>
+                                <textarea id="textareabox" name="textarea1" placeholder="Start here..."></textarea>
+                                <input type="button" value="Set Date" onclick="setText()" />
+                            </div>
 							<?php
 						
 					$conn->close();
