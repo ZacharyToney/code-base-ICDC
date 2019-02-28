@@ -56,10 +56,11 @@ else
 				<br>
 
 				<div class="col-lg-8" id="addObjectArea">
-					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
-					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
-					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
-
+				<div class="row">
+				<div class="col-2"><button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button></div>
+				<div class="col-2"><button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button></div>
+				<div class="col-3"><button type="button" class="btn btn-primary" onclick="addPerson()">Person</button></div>
+				</div>
 					<?php
 					require('php/connectToDatabase.php');
 					$username = $_SESSION['username'];
