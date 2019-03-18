@@ -59,6 +59,7 @@ else
 					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
 					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
+					<button type="button" class="btn btn-primary" onclick="addTextArea()">Comment</button>
 
 					<?php
 					require('php/connectToDatabase.php');
