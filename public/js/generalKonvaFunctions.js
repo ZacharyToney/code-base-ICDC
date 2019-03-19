@@ -54,7 +54,8 @@ classRoomLayout.onload = function() {
   layer.add(layout);
 
   // add the layer to the stage
-  stage.add(layer);
+	stage.add(layer);
+	saveStateToHistory(state);
 };
 
 classRoomLayout.src = '../assets/classroomLayouts/EmptyTC412.png';
@@ -89,7 +90,9 @@ function addNodeChair(){
 	};
 
 	nodeChair.src = '../assets/classroomObjects/chair.png';
-
+	saveStateToHistory(state);
+	// update canvas from state
+	update(state);
 }
 
 function addTableWith4Chairs(){
@@ -121,7 +124,9 @@ function addTableWith4Chairs(){
 	};
 
 	tableWith4Chairs.src = '../assets/classroomObjects/table.png';
-
+	saveStateToHistory(state);
+	// update canvas from state
+	update(state);
 }
 
 function addPerson(){
@@ -153,7 +158,9 @@ function addPerson(){
 	};
 
 	person.src = '../assets/classroomObjects/person.png';
-
+	saveStateToHistory(state);
+	// update canvas from state
+	update(state);
 }
 stage.on('click tap', function (e) {
 	// if click on empty area - remove all transformers
@@ -261,3 +268,76 @@ textNode.on('dblclick', () => {
 	});
 });
 }
+
+function createObject(attrs) {
+	return Object.assign({}, attrs, {
+		// define position
+		x: 0,
+		y: 0,
+		newNodeChair: newNodeChair
+		
+	});
+}
+
+// initial state
+var state = [stage];
+
+// our history
+var appHistory = [state];
+var appHistoryStep = 0;
+
+
+
+// create function will destroy previous drawing
+// then it will created required nodes and attach all events
+function create() {
+	layer.destroyChildren();
+	state.forEach((item, index) => {
+		var node = new Konva.Image({
+			draggable: true,
+			name: 'item-' + index,
+		});
+		layer.add(node);
+		saveStateToHistory(state);
+	});
+	update(state);
+}
+
+function update() {
+	state.forEach(function(item, index) {
+		var node = stage.findOne('.item-' + index);
+
+		if (!node.image()) {
+			return;
+		}
+	});
+	layer.batchDraw();
+}
+
+
+function saveStateToHistory(state) {
+	appHistory = appHistory.slice(0, appHistoryStep + 1);
+	appHistory = appHistory.concat([state]);
+	appHistoryStep += 1;
+}
+create(state);
+
+document.querySelector('#undo').addEventListener('click', function() {
+	if (appHistoryStep === 0) {
+		return;
+	}
+	appHistoryStep -= 1;
+	state = appHistory[appHistoryStep];
+	// create everything from scratch
+	create(state);
+});
+
+document.querySelector('#redo').addEventListener('click', function() {
+	if (appHistoryStep === appHistory.length - 1) {
+		return;
+	}
+	appHistoryStep += 1;
+	state = appHistory[appHistoryStep];
+	// create everything from scratch
+	create(state);
+});
