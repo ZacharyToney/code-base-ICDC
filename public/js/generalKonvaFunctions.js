@@ -55,7 +55,7 @@ classRoomLayout.onload = function() {
 
   // add the layer to the stage
 	stage.add(layer);
-	saveStateToHistory(state);
+	
 };
 
 classRoomLayout.src = '../assets/classroomLayouts/EmptyTC412.png';
@@ -90,9 +90,8 @@ function addNodeChair(){
 	};
 
 	nodeChair.src = '../assets/classroomObjects/chair.png';
-	saveStateToHistory(state);
+	
 	// update canvas from state
-	update(state);
 }
 
 function addTableWith4Chairs(){
@@ -124,9 +123,9 @@ function addTableWith4Chairs(){
 	};
 
 	tableWith4Chairs.src = '../assets/classroomObjects/table.png';
-	saveStateToHistory(state);
+	
 	// update canvas from state
-	update(state);
+	
 }
 
 function addPerson(){
@@ -158,9 +157,9 @@ function addPerson(){
 	};
 
 	person.src = '../assets/classroomObjects/person.png';
-	saveStateToHistory(state);
+	
 	// update canvas from state
-	update(state);
+	
 }
 stage.on('click tap', function (e) {
 	// if click on empty area - remove all transformers
@@ -176,7 +175,7 @@ function convertCanvasToJson(){
 
 	  var json = stage.toJSON();
 
-    console.log(json);
+    //console.log(json);
 
     return json;
 } 
@@ -200,7 +199,7 @@ function loadJsonString(jsonParam){
 		});
 
 		var json = stage.toJSON();
-		console.log(json);
+		//console.log(json);
 }
 
 $('#jsonClassRoomStringsFromDatabase').change(function () {
@@ -232,7 +231,7 @@ var textNode = new Konva.Text({
 	text: 'Some text here',
 	x: 20,
 	y: 10,
-	fontSize: 100
+	fontSize: 200
 });
 
 layer.add(textNode);
@@ -268,76 +267,164 @@ textNode.on('dblclick', () => {
 	});
 });
 }
-
 function createObject(attrs) {
 	return Object.assign({}, attrs, {
 		// define position
-		x: 0,
-		y: 0,
-		newNodeChair: newNodeChair
-		
+		x:50,
+		y:50,
+		width: 1913,
+    height: 3073,
+    draggable:false,
+		// here should be url to image
+		src: '../assets/classroomLayouts/EmptyTC412.png'
+	});
+}
+function createPerson(attrs) {
+	return Object.assign(createObject(attrs), {
+		src: '../assets/classroomObjects/person.png'
+	});
+}
+function createChair(attrs) {
+	return Object.assign(createObject(attrs), {
+		src: '../assets/classroomObjects/chair.png'
+	});
+}
+function createTable(attrs) {
+	return Object.assign(createObject(attrs), {
+		src: '../assets/classroomObjects/table.png'
 	});
 }
 
-// initial state
-var state = [stage];
+var state = [createObject()];
 
-// our history
 var appHistory = [state];
-var appHistoryStep = 0;
+      var appHistoryStep = 0;
 
+    
+      function create() {
+        layer.destroyChildren();
+        state.forEach((item, index) => {
+          var node = new Konva.Image({
+            draggable: true,
+            name: 'item-' + index,
+            scaleX: 0.5,
+            scaleY: 0.5
+          });
+          layer.add(node);
+          node.on('dragend', () => {
+            state = state.slice();
+            state[index] = Object.assign({}, state[index], {
+              x: node.x(),
+              y: node.y()
+            });
+            saveStateToHistory(state);
 
+          });
 
-// create function will destroy previous drawing
-// then it will created required nodes and attach all events
-function create() {
-	layer.destroyChildren();
-	state.forEach((item, index) => {
-		var node = new Konva.Image({
-			draggable: true,
-			name: 'item-' + index,
-		});
-		layer.add(node);
-		saveStateToHistory(state);
-	});
-	update(state);
-}
+          node.on('click', () => {
 
-function update() {
-	state.forEach(function(item, index) {
-		var node = stage.findOne('.item-' + index);
+            state = state.slice();
+            state[index] = Object.assign({}, state[index], {
+              
+            });
 
-		if (!node.image()) {
-			return;
-		}
-	});
-	layer.batchDraw();
-}
+            saveStateToHistory(state);
 
+            update(state);
+          });
 
-function saveStateToHistory(state) {
-	appHistory = appHistory.slice(0, appHistoryStep + 1);
-	appHistory = appHistory.concat([state]);
-	appHistoryStep += 1;
-}
-create(state);
+          var img = new window.Image();
+          img.onload = function() {
+            node.image(img);
+            update(state);
+            layer.batchDraw();
+          };
+          img.src = item.src;
+        });
+        update(state);
+      }
 
-document.querySelector('#undo').addEventListener('click', function() {
-	if (appHistoryStep === 0) {
-		return;
-	}
-	appHistoryStep -= 1;
-	state = appHistory[appHistoryStep];
-	// create everything from scratch
-	create(state);
-});
+      function update() {
+        state.forEach(function(item, index) {
+          var node = stage.findOne('.item-' + index);
+          node.setAttrs({
+            x: item.x,
+            y: item.y
+          });
 
-document.querySelector('#redo').addEventListener('click', function() {
-	if (appHistoryStep === appHistory.length - 1) {
-		return;
-	}
-	appHistoryStep += 1;
-	state = appHistory[appHistoryStep];
-	// create everything from scratch
-	create(state);
-});
+          if (node.image()) {
+            return;
+          }
+        });
+        layer.batchDraw();
+      }
+
+      //
+      function saveStateToHistory(state) {
+        appHistory = appHistory.slice(0, appHistoryStep + 1);
+        appHistory = appHistory.concat([state]);
+        appHistoryStep += 1;
+      }
+			create(state);
+			
+			document
+			.querySelector('#create-person')
+			.addEventListener('click', function() {
+				// create new object
+				state.push(
+					createPerson({
+						x: 50,
+						y: 50
+					})
+				);
+				// recreate canvas
+				create(state);
+			});
+
+		document
+			.querySelector('#create-chair')
+			.addEventListener('click', function() {
+				// create new object
+				state.push(
+					createChair({
+						x: 50,
+						y: 50
+					})
+				);
+				// recreate canvas
+				create(state);
+			});
+
+			document
+			.querySelector('#create-table')
+			.addEventListener('click', function() {
+				// create new object
+				state.push(
+					createTable({
+						x: 50,
+						y: 50
+					})
+				);
+				// recreate canvas
+				create(state);
+			});
+
+      document.querySelector('#undo').addEventListener('click', function() {
+        if (appHistoryStep === 0) {
+          return;
+        }
+        appHistoryStep -= 1;
+        state = appHistory[appHistoryStep];
+
+        create(state);
+      });
+
+      document.querySelector('#redo').addEventListener('click', function() {
+        if (appHistoryStep === appHistory.length - 1) {
+          return;
+        }
+        appHistoryStep += 1;
+        state = appHistory[appHistoryStep];
+
+        create(state);
+      });

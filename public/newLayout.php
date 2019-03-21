@@ -56,9 +56,9 @@ else
 				<br>
 
 				<div class="col-lg-8" id="addObjectArea">
-					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
-					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
-					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
+					<button type="button" class="btn btn-primary" id ="create-chair">Chair</button>
+					<button type="button" class="btn btn-primary" id ="create-table">Table</button>
+					<button type="button" class="btn btn-primary" id ="create-person">Person</button>
 					<button type="button" class="btn btn-primary" onclick="addTextArea()">Comment</button>
 					<button type="button" class="btn btn-primary" id="undo">Undo</button>
 					<button type="button" class="btn btn-primary" id="redo">Redo</button>
