@@ -92,13 +92,18 @@ else
 				
 				<div class="row">
 					<div class="col-lg-12" id="adminControls">
-
+						<hr>
 						<form method="post" action="../php/uploadLayoutToDatabase.php">
+							<input type="text" name="className" placeholder="Class name and section" required>
+							<input type="date" name="dateOfSnapShot" required>
+							<input type="time" name="timeOfSnapShot" required>
 							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
 							<input type="hidden" name="jsonForDatabase" value="" id="jsonForDatabase">
 							<button type="submit" class="btn btn-primary">Save Current Layout To Database</button>
 						</form>
+						<hr>
 						<button id="save" type="button" class="btn btn-primary">Download Stage</button>
+						<hr>
 					</div>				
 				</div>
 

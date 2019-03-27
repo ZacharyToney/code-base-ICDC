@@ -74,6 +74,7 @@ function addNodeChair(){
 	    draggable:true
 	  });
 	  newNodeChair.setAttr('src',"../assets/classroomObjects/chair.png");
+	  newNodeChair.setAttr('classRoomObjectType',"chair");
 
 	  // add the shape to the layer
 	  layer.add(newNodeChair);
@@ -107,6 +108,7 @@ function addTableWith4Chairs(){
 	    draggable:true
 	  });
 	  newtableWith4Chairs.setAttr('src',"../assets/classroomObjects/table.png");
+	  newtableWith4Chairs.setAttr('classRoomObjectType',"table");
 	  // add the shape to the layer
 	  layer.add(newtableWith4Chairs);
 
@@ -139,6 +141,7 @@ function addPerson(){
 	    draggable:true
 	  });
 	  newPerson.setAttr('src',"../assets/classroomObjects/person.png");
+	  newPerson.setAttr('classRoomObjectType',"person");
 	  // add the shape to the layer
 	  layer.add(newPerson);
 
