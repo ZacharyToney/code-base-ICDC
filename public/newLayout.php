@@ -76,7 +76,7 @@ else
 								//print_r($result);
 								$numResults = count($result) - 1;
 								for($x = 0;$x<=$numResults;$x++){
-									echo"<option value='". $result[$x][0] ."'>".$result[$x][1]."</option>";
+									echo"<option value='". $result[$x][0] ."'>".$result[$x][1]." | ".$result[$x][3]." | ".$result[$x][4]."</option>";
 								}
 							?>
 								</select>
