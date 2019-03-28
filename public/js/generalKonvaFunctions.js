@@ -158,6 +158,73 @@ function addPerson(){
 	person.src = '../assets/classroomObjects/person.png';
 
 }
+
+function addBlueArrow() {
+
+	var blueArrow = new Image();
+	blueArrow.onload = function () {
+
+		var newBlueArrow = new Konva.Image({
+			x: 50,
+			y: 50,
+			image: blueArrow,
+			width: 145,
+			height: 142,
+			draggable: true
+		});
+		newBlueArrow.setAttr('src', "../assets/classroomObjects/chair.png");
+		newBlueArrow.setAttr('classRoomObjectType', "chair");
+
+		// add the shape to the layer
+		layer.add(newBlueArrow);
+
+		// add the layer to the stage
+		stage.add(layer);
+
+		// add transform box around newBlueArrow and able to rotate
+		var tr = new Konva.Transformer();
+		layer.add(tr);
+		tr.attachTo(newBlueArrow);
+		layer.draw();
+	};
+
+	blueArrow.src = "assets/classroomObjects/blueArrow.png";
+
+}
+
+function addRedArrow() {
+
+	var redArrow = new Image();
+	redArrow.onload = function () {
+
+		var newRedArrow = new Konva.Image({
+			x: 50,
+			y: 50,
+			image: redArrow,
+			width: 145,
+			height: 142,
+			draggable: true
+		});
+		newRedArrow.setAttr('src', "../assets/classroomObjects/chair.png");
+		newRedArrow.setAttr('classRoomObjectType', "chair");
+
+		// add the shape to the layer
+		layer.add(newRedArrow);
+
+		// add the layer to the stage
+		stage.add(layer);
+
+		// add transform box around newRedChair and able to rotate
+		var tr = new Konva.Transformer();
+		layer.add(tr);
+		tr.attachTo(newRedArrow);
+		layer.draw();
+	};
+
+	redArrow.src = "assets/classroomObjects/redArrow.png";
+
+}
+
 stage.on('click tap', function (e) {
 	// if click on empty area - remove all transformers
 	if (e.target === stage) {

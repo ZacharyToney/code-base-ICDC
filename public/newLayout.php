@@ -60,6 +60,10 @@ else
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
 					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
 					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-primary" onclick="addRedArrow()">Student Movement</button>
+                    <button type="button" class="btn btn-primary" onclick="addBlueArrow()">Faculty Movement</button>
 
 					<?php
 					require('php/connectToDatabase.php');
