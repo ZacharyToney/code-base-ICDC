@@ -59,7 +59,7 @@ else
 					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
 					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
-					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button>
+<!-- 					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button> -->
 
 					<?php
 					require('php/connectToDatabase.php');
@@ -105,17 +105,9 @@ else
 						<hr>
 						<button id="save" type="button" class="btn btn-primary">Download Stage</button>
 						<hr>
-					</div>				
-				</div>
-
-
-				<div class="row">
-					<div class="col-lg-12" id="adminControls">
-						<hr>
 						<form method="post" action="../php/exportToCSV.php">
 							<button type="submit" class="btn btn-primary">Export to CSV</button>
 						</form>
-						<hr>
 						<hr>
 					</div>				
 				</div>
