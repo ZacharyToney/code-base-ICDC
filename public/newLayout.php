@@ -107,6 +107,18 @@ else
 					</div>				
 				</div>
 
+
+				<div class="row">
+					<div class="col-lg-12" id="adminControls">
+						<hr>
+						<form method="post" action="../php/exportToCSV.php">
+							<button type="submit" class="btn btn-primary">Export to CSV</button>
+						</form>
+						<hr>
+						<hr>
+					</div>				
+				</div>
+
 			</div>
 		</div>
 		<?php
