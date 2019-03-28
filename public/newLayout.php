@@ -106,7 +106,7 @@ else
 						<button id="save" type="button" class="btn btn-primary">Download Stage</button>
 						<hr>
 						<form method="post" action="../php/exportToCSV.php">
-							<button type="submit" class="btn btn-primary">Export to CSV</button>
+							<button type="submit" class="btn btn-primary">Export Database to CSV</button>
 						</form>
 						<hr>
 					</div>				
