@@ -370,11 +370,11 @@ textNode.on('dblclick', () => {
 });
 }
 
-stage.on('dblclick dbltap', function (e) {
-	if (e.target === stage) {
-		stage.find('Layer').show();
-		layer.draw();
-		return;
-	}
-	stage.find('Image').destroy();
-});
+// stage.on('dblclick dbltap', function (e) {
+// 	if (e.target === stage) {
+// 		stage.find('Layer').show();
+// 		layer.draw();
+// 		return;
+// 	}
+// 	stage.find('Image').destroy();
+// });
