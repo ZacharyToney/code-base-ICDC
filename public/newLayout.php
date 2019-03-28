@@ -62,6 +62,14 @@ else
 					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button>
                     <br>
                     <br>
+                    <div id="controls">
+                        Red:
+                        <input id="red" type="range" min="0" max="256" step="1" value="150"> Green:
+                        <input id="green" type="range" min="0" max="256" step="1" value="150"> Blue:
+                        <input id="blue" type="range" min="0" max="256" step="1" value="150">
+                    </div>
+                    <br>
+                    <br>
                     <button type="button" class="btn btn-primary" onclick="addRedArrow()">Student Movement</button>
                     <button type="button" class="btn btn-primary" onclick="addBlueArrow()">Faculty Movement</button>
 

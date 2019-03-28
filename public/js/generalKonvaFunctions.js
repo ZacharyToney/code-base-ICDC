@@ -76,6 +76,9 @@ function addNodeChair(){
 	  newNodeChair.setAttr('src',"../assets/classroomObjects/chair.png");
 	  newNodeChair.setAttr('classRoomObjectType',"chair");
 
+		newNodeChair.cache();
+		newNodeChair.filters([Konva.Filters.RGB]);
+
 	  // add the shape to the layer
 	  layer.add(newNodeChair);
 
@@ -87,6 +90,20 @@ function addNodeChair(){
       layer.add(tr);
       tr.attachTo(newNodeChair);
 	  layer.draw();
+
+		// Sliders not changing the color of the chair.
+		/*var sliders = ['red', 'green', 'blue'];
+		sliders.forEach(function (attr) {
+			var slider = document.getElementById(attr);
+
+			function update() {
+				newNodeChair[attr](parseFloat(slider.value));
+				layer.batchDraw();
+			}
+			slider.oninput = update;
+			update();
+		});*/
+
 	};
 
 	nodeChair.src = '../assets/classroomObjects/chair.png';
