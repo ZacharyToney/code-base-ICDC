@@ -58,7 +58,17 @@ else
 				<div class="col-lg-8" id="addObjectArea">
 					<button type="button" class="btn btn-primary" onclick="addNodeChair()">Chair</button>
 					<button type="button" class="btn btn-primary" onclick="addTableWith4Chairs()">Table</button>
-					<button type="button" class="btn btn-primary" onclick="addPerson()">Person</button>
+					<!-- <button type="button" class="btn btn-primary" onclick="addPerson()">Person</button> -->
+					<div class="btn btn-primary">
+  						<a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					Persons
+  						</a>
+
+  						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    					<a class="dropdown-item" onclick="addPerson()">Male</a>
+    					<a class="dropdown-item" onclick="addPersonFemale()">Female</a>
+  					</div>
+				</div>
 					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button>
 
 					<?php

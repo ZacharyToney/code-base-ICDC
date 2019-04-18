@@ -158,6 +158,39 @@ function addPerson(){
 	person.src = '../assets/classroomObjects/person.png';
 
 }
+
+function addPersonFemale(){
+
+	var personfemale = new Image();
+	personfemale.onload = function() {
+
+	  var newPersonFemale = new Konva.Image({
+	    x: 50,
+	    y: 50,
+	    image: personfemale,
+	    //table with 4 chairs image size
+	    width: 150,
+	    height: 150,
+	    draggable:true
+	  });
+	  newPersonFemale.setAttr('src',"../assets/classroomObjects/personfemale.png");
+	  newPersonFemale.setAttr('classRoomObjectType',"personfemale");
+	  // add the shape to the layer
+	  layer.add(newPersonFemale);
+
+	  // add the layer to the stage
+	  stage.add(layer);
+
+      // add transform box around newNodeChair and able to rotate
+	  var tr = new Konva.Transformer();
+	  layer.add(tr);
+	  tr.attachTo(newPersonFemale);
+	  layer.draw();
+	};
+
+	personfemale.src = '../assets/classroomObjects/personfemale.png';
+
+}
 stage.on('click tap', function (e) {
 	// if click on empty area - remove all transformers
 	if (e.target === stage) {
