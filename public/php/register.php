@@ -19,7 +19,8 @@ if (isset($_POST['email']) && isset($_POST['username']) && isset($_POST['passwor
 	VALUES ('".$username."', '".$email."', '".$password."')";
 
 	if ($conn->query($sql) === TRUE) {
-	    echo "New record created successfully";
+		echo "New record created successfully";
+		header('location: ../login.php');
 	} else {
 
 	    $errorMessage = "We could not create an account for you. This could be due to the fact that another user has the same username or the email address is already registered.";
