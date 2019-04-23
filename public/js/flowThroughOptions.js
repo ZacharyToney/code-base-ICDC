@@ -7,6 +7,7 @@
 
 function flowThroughOptions(){
 	var countOfOptions = $('#jsonClassRoomStringsFromDatabase option').length; 
+
 	if (countOfOptions == 0) {
 
 	}
@@ -29,7 +30,7 @@ function flowThroughOptions(){
 					var optionSelected = $('#jsonClassRoomStringsFromDatabase').find("option:selected");
 					var valueSelected  = optionSelected.val();
 					loadJsonString(valueSelected);
-			    }, i * 2000);
+			    }, i * 1500);
 			    
 			  }(i));
 
