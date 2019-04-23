@@ -162,10 +162,10 @@ else
 
 					      <script>
 					          $(document).ready( function() {
-					              var now = new Date();
-					              //now2 prevents the milliseconds from showing up in the input
-					              var now2 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours()-4, now.getMinutes(), now.getSeconds());
-					              $('#theTime')[0].valueAsDate = now2;
+						              // var now = new Date();
+						              // //now2 prevents the milliseconds from showing up in the input
+						              // var now2 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours()-4, now.getMinutes(), now.getSeconds());
+						              // $('#theTime')[0].valueAsDate = now2;
 
 					              var now = new Date();
 
