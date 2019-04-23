@@ -67,6 +67,7 @@ else
 	  					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 	    					<a class="dropdown-item" onclick="addPerson()">Male</a>
 	    					<a class="dropdown-item" onclick="addPersonFemale()">Female</a>
+	    					<a class="dropdown-item" onclick="addPerson()">Not Identified</a>
 	  					</div>
 					</div>
 
