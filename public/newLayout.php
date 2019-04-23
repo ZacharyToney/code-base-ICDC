@@ -143,9 +143,9 @@ else
 						<form method="post" action="../php/uploadLayoutToDatabase.php">
 							<input type="text" class="form-control" name="className" placeholder="Class name and section" required>
 							<br>
-							<input type="date" class="form-control" name="dateOfSnapShot" required>
+							<input type="date" class="form-control" name="dateOfSnapShot" id="datePicker" required>
 							<br>
-							<input type="time" class="form-control" name="timeOfSnapShot" required>
+							<input type="time" class="form-control" name="timeOfSnapShot" id="theTime" required>
 							<br>
 							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
 							<input type="hidden" name="jsonForDatabase" value="" id="jsonForDatabase">
@@ -158,7 +158,26 @@ else
 							<button type="submit" class="btn btn-primary">Export Database to CSV</button>
 						</form>
 						<hr>
-					</div>				
+					</div>	
+
+					      <script>
+					          $(document).ready( function() {
+					              var now = new Date();
+					              //now2 prevents the milliseconds from showing up in the input
+					              var now2 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds());
+					              $('#theTime')[0].valueAsDate = now2;
+
+					              var now = new Date();
+
+								  var day = ("0" + now.getDate()).slice(-2);
+								  var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+								  var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+								  $('#datePicker').val(today);
+					          });
+					      </script>
+
 				</div>
 
 			</div>
