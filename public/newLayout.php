@@ -64,26 +64,34 @@ else
     					Persons
   						</a>
 
-  						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    					<a class="dropdown-item" onclick="addPerson()">Male</a>
-    					<a class="dropdown-item" onclick="addPersonFemale()">Female</a>
-  					</div>
-				</div>
+	  					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	    					<a class="dropdown-item" onclick="addPerson()">Male</a>
+	    					<a class="dropdown-item" onclick="addPersonFemale()">Female</a>
+	  					</div>
+					</div>
+
 					<button type="button" class="btn btn-primary" onclick="addTextField()">Comment</button>
 
 					<?php
 					require('php/connectToDatabase.php');
 					$username = $_SESSION['username'];
 					$sql = "SELECT * FROM classmaps WHERE username = '".$username."'";
-					$result = mysqli_fetch_all($conn->query($sql));
 					//got selection
 							?>
 							<div class="form-group">
 					  		<label for="jsonClassRoomStringsFromDatabase">Select layout:</label>
 					  		<select class="form-control" id="jsonClassRoomStringsFromDatabase">
 							<?php
-
-								$result = mysqli_fetch_all($conn->query($sql)); 
+								
+								if (isset($_SESSION['dateSearch'])) {
+									//On page 2
+									$result = $_SESSION['dateSearch'];
+									$_SESSION['dateSearch'] = null;
+								}
+								else{
+									$result = mysqli_fetch_all($conn->query($sql));
+								}
+								 
 								//print_r($result);
 								$numResults = count($result) - 1;
 								for($x = 0;$x<=$numResults;$x++){
@@ -96,6 +104,14 @@ else
 						
 					$conn->close();
 					?>
+					<form method="post" action="../php/searchByDate.php">
+
+						<input type="date" class="form-control" name="dateSearch" required>
+						<br>
+						<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+						<button type="submit" class="btn btn-primary">Search By Date</button>
+						
+					</form>
 				</div>
 
 
