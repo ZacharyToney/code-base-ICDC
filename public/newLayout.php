@@ -104,14 +104,17 @@ else
 						
 					$conn->close();
 					?>
-					<form method="post" action="../php/searchByDate.php">
+					<div class="form-group">
+						<form method="post" action="../php/searchByDate.php">
 
-						<input type="date" class="form-control" name="dateSearch" required>
-						<br>
-						<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
-						<button type="submit" class="btn btn-primary">Search By Date</button>
-						
-					</form>
+							<input type="date" class="form-control" name="dateSearch" required>
+							<br>
+							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+							<button type="submit" class="btn btn-primary">Search By Date</button>
+							
+						</form>
+					</div>
+					<button class="btn btn-primary" onclick="flowThroughOptions()">Flow Through Options(Animation)</button>
 				</div>
 
 
@@ -150,5 +153,6 @@ else
 	<!-- Load general Konva Funtionality-->
 	<script src="js/generalKonvaFunctions.js"></script>
 	<script src="js/layoutFormValues.js"></script>
+	<script src="js/flowThroughOptions.js"></script>
 
 </html>
