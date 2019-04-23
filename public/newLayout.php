@@ -152,7 +152,7 @@ else
 							<button type="submit" class="btn btn-primary">Save Current Layout To Database</button>
 						</form>
 						<hr>
-						<button id="save" type="button" class="btn btn-primary">Download Stage</button>
+						<button id="save" type="button" class="btn btn-primary">Download Image of Layout</button>
 						<hr>
 						<form method="post" action="../php/exportToCSV.php">
 							<button type="submit" class="btn btn-primary">Export Database to CSV</button>
