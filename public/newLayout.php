@@ -89,6 +89,10 @@ else
 									$result = $_SESSION['dateSearch'];
 									$_SESSION['dateSearch'] = null;
 								}
+								else if(isset($_SESSION['classSearch'])){
+									$result = $_SESSION['classSearch'];
+									$_SESSION['classSearch'] = null;
+								}
 								else{
 									$result = mysqli_fetch_all($conn->query($sql));
 								}
@@ -115,6 +119,18 @@ else
 							
 						</form>
 					</div>
+
+					<div class="form-group">
+						<form method="post" action="../php/searchByClass.php">
+
+							<input type="text" class="form-control" name="classSearch" placeholder="Search by class" required>
+							<br>
+							<input type="hidden" name="username" value="<?php echo $_SESSION['username']; ?>">
+							<button type="submit" class="btn btn-primary">Search By Class</button>
+							
+						</form>
+					</div>
+
 					<button class="btn btn-primary" onclick="flowThroughOptions()">Flow Through Options(Animation)</button>
 				</div>
 

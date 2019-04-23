@@ -19,6 +19,7 @@ if (isset($_POST['jsonForDatabase']) && isset($_POST['username'])) {
 
 	if ($conn->query($sql) === TRUE) {
 	    echo "New record created successfully";
+	    header('location: ../newLayout.php');
 	} else {
 
 	    $errorMessage = "We could not upload the new map to the database there has been an error.";
