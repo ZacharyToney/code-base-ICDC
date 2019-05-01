@@ -53,6 +53,8 @@ classRoomLayout.onload = function () {
 		height: 3073,
 		draggable: false
 	});
+
+
 	layout.setAttr('src', "../assets/classroomLayouts/EmptyTC412.png");
 
 	// add the shape to the layer
@@ -62,7 +64,14 @@ classRoomLayout.onload = function () {
 	stage.add(layer);
 };
 
+/**
+ * File path to Empty classrooom of TC 412
+ */
 classRoomLayout.src = '../assets/classroomLayouts/EmptyTC412.png';
+
+/**
+ * addNodeChair function adds object to canvas
+ */
 
 function addNodeChair() {
 
@@ -73,7 +82,9 @@ function addNodeChair() {
 			x: 50,
 			y: 50,
 			image: nodeChair,
-			//node chair image size
+			/**
+			 * addNodeChair size is set below
+			 */
 			width: 145,
 			height: 142,
 			draggable: true
@@ -81,22 +92,34 @@ function addNodeChair() {
 		newNodeChair.setAttr('src', "../assets/classroomObjects/chair.png");
 		newNodeChair.setAttr('classRoomObjectType', "chair");
 
-		// add the shape to the layer
+		/**
+		 * Adds the object to the layer
+		 */
 		layer.add(newNodeChair);
 
-		// add the layer to the stage
+		/**
+		 * Adds the layer to the stage
+		 */
 		stage.add(layer);
 
-		// add transform box around newNodeChair and able to rotate
+		/**
+		 * Adds transform box around addNewChair so the object is able to be resized and rotated.
+		 */
 		var tr = new Konva.Transformer();
 		layer.add(tr);
 		tr.attachTo(newNodeChair);
 		layer.draw();
 	};
-
+	/**
+	 * File path to nodeChair
+	 */
 	nodeChair.src = '../assets/classroomObjects/chair.png';
 
 }
+
+/**
+ * addTableWith4Chairs adds table object to canvas.
+ */
 
 function addTableWith4Chairs() {
 
@@ -107,26 +130,36 @@ function addTableWith4Chairs() {
 			x: 50,
 			y: 50,
 			image: tableWith4Chairs,
-			//table with 4 chairs image size
+			/**
+			 * Image size is set below
+			 */
 			width: 337,
 			height: 296,
 			draggable: true
 		});
 		newtableWith4Chairs.setAttr('src', "../assets/classroomObjects/table.png");
 		newtableWith4Chairs.setAttr('classRoomObjectType', "table");
-		// add the shape to the layer
+		/**
+		 * Adds the object to the layer
+		 */
 		layer.add(newtableWith4Chairs);
 
-		// add the layer to the stage
+		/**
+		 * Adds the layer to the stage
+		 */
 		stage.add(layer);
 
-		// add transform box around newNodeChair and able to rotate
+		/**
+		 * Adds transform box around addTableWith4Chairs so the object is able to be resized and rotated.
+		 */
 		var tr = new Konva.Transformer();
 		layer.add(tr);
 		tr.attachTo(newtableWith4Chairs);
 		layer.draw();
 	};
-
+	/**
+	 * File path to tableWith4Chairs
+	 */
 	tableWith4Chairs.src = '../assets/classroomObjects/table.png';
 
 }
@@ -142,26 +175,36 @@ function addPerson() {
 			x: 50,
 			y: 50,
 			image: person,
-			//newPerson(male) image size
+			/**
+			 * addPerson size is set below
+			 */
 			width: 150,
 			height: 150,
 			draggable: true
 		});
 		newPerson.setAttr('src', "../assets/classroomObjects/person.png");
 		newPerson.setAttr('classRoomObjectType', "person");
-		// add the shape to the layer
+		/**
+		 * Adds the object to the layer
+		 */
 		layer.add(newPerson);
 
-		// add the layer to the stage
+		/**
+		 * Adds the layer to the stage
+		 */
 		stage.add(layer);
 
-		// add transform box around newPerson(male) and able to rotate
+		/**
+		 * Adds transform box around addPerson so the object is able to be resized and rotated.
+		 */
 		var tr = new Konva.Transformer();
 		layer.add(tr);
 		tr.attachTo(newPerson);
 		layer.draw();
 	};
-
+	/**
+	 * File path to person
+	 */
 	person.src = '../assets/classroomObjects/person.png';
 
 }
@@ -177,26 +220,36 @@ function addPersonFemale() {
 			x: 50,
 			y: 50,
 			image: personfemale,
-			//PersonFemale image size
+			/**
+			 * addpersonFelmale is set below
+			 */
 			width: 150,
 			height: 150,
 			draggable: true
 		});
 		newPersonFemale.setAttr('src', "../assets/classroomObjects/personfemale.png");
 		newPersonFemale.setAttr('classRoomObjectType', "personfemale");
-		// add the shape to the layer
+		/**
+		 * Adds the object to the layer
+		 */
 		layer.add(newPersonFemale);
 
-		// add the layer to the stage
+		/**
+		 * Adds the layer to the stage
+		 */
 		stage.add(layer);
 
-		// add transform box around newPersonFemale and able to rotate
+		/**
+		 * Adds transform box around addPersonFemale so the object is able to be resized and rotated.
+		 */
 		var tr = new Konva.Transformer();
 		layer.add(tr);
 		tr.attachTo(newPersonFemale);
 		layer.draw();
 	};
-
+	/**
+	 * File path to personFemale
+	 */
 	personfemale.src = '../assets/classroomObjects/personfemale.png';
 
 }
@@ -222,7 +275,9 @@ function convertCanvasToJson() {
 function loadJsonString(jsonParam) {
 	var json = jsonParam;
 
-	// create node using json string
+	/**
+	 * Create node usin json string
+	 */
 	stage = Konva.Node.create(json, 'container');
 
 
@@ -282,7 +337,9 @@ function addTextField() {
 	var tr = new Konva.Transformer({
 		node: textNode,
 		enabledAnchors: ['middle-left', 'middle-right'],
-		// set minimum width of text
+		/**
+		 * Set min width of text
+		 */
 		boundBoxFunc: function (oldBox, newBox) {
 			newBox.width = Math.max(30, newBox.width);
 			return newBox;
@@ -290,7 +347,9 @@ function addTextField() {
 	});
 
 	textNode.on('transform', function () {
-		// reset scale, so only with is changing by transformer
+		/**
+		 * Reset scale so only width is changing by transformer
+		 */
 		textNode.setAttrs({
 			width: textNode.width() * textNode.scaleX(),
 			scaleX: 1
@@ -302,34 +361,46 @@ function addTextField() {
 	layer.draw();
 
 	textNode.on('dblclick', () => {
-		// hide text node and transformer:
+		/**
+		 * Hide text node and transformer:
+		 */
 		textNode.show();
 		tr.hide();
 		layer.draw();
 
-		// create textarea over canvas with absolute position
-		// first we need to find position for textarea
-		// how to find it?
 
-		// at first lets find position of text node relative to the stage:
-		//var textPosition = textNode.absolutePosition(textNode);
 
-		// then lets find position of stage container on the page:
+		/**
+		 * create textarea over canvas with absolute position
+		 * first we need to find position for textarea
+		 * how to find it?
+		 * 
+		 * at first lets find position of text node relative to the stage:
+		 * var textPosition = textNode.absolutePosition(textNode);
+		 * then lets find position of stage container on the page:
+		 */
 		var stageBox = stage.container().getBoundingClientRect();
 
-		// so position of textarea will be the sum of positions above:
-		// var areaPosition = {
-		// 	x: stageBox.left + textPosition.x,
-		// 	y: stageBox.top + textPosition.y
-		// };
+		/**
+		 * so position of textarea will be the sum of positions above:
+		 * var areaPosition = {
+		 * x: stageBox.left + textPosition.x
+		 * y: stageBox.top + textPosition.y
+		 * };
+		 */
 
-		// create textarea and style it
+		/**
+		 * Create textarea 
+		 * Adds style
+		 */
 		var textarea = document.createElement('textarea');
 		document.body.appendChild(textarea);
 
-		// apply many styles to match text on canvas as close as possible
-		// remember that text rendering on canvas and on the textarea can be different
-		// and sometimes it is hard to make it 100% the same. But we will try...
+		/**
+		 * apply many styles to match text on canvas as close as possible
+		 * remember that text rendering on canvas and on the textarea can be different
+		 * and sometimes it is hard to make it 100% the same. But we will try...
+		 */
 		textarea.value = textNode.text();
 		textarea.style.position = 'absolute';
 		//textarea.style.top = areaPosition.y + 'px';
@@ -384,8 +455,10 @@ function addTextField() {
 			layer.draw();
 		}
 		textarea.addEventListener('keydown', function (e) {
-			// hide on enter
-			// but don't hide on shift + enter
+			/**
+			 * Hides on enter
+			 * but doesn't hide on (shift+ENTER)
+			 */
 			if (e.keyCode === 13 && !e.shiftKey) {
 				textNode.text(textarea.value);
 				removeTextarea();
