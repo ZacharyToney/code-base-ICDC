@@ -15,7 +15,9 @@ $sql = "SELECT * FROM users WHERE username = '".$username."'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // output data of each row
+    /**
+	 * Outputs data to each row
+	 */
 	  while($row = $result->fetch_assoc()) {
 	  	
 			if (password_verify($password,$row['password'])) {

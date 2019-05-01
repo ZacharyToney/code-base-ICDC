@@ -12,6 +12,7 @@ if (isset($_POST['classSearch'])) {
 	$classSearch = $_POST['classSearch'];
 	$username = $_POST['username'];
 
+	//Query to search everything by class
 	// $sql = "SELECT * FROM classMaps WHERE username = '" . $username ."' AND className LIKE = \'%" . $classSearch . "%\'";
 	$sql = "SELECT * FROM `classMaps` WHERE username = '" . $username ."' AND `className` LIKE '%{$classSearch}%'";
 	$result = mysqli_fetch_all($conn->query($sql));

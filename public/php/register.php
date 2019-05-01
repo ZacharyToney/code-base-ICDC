@@ -1,3 +1,7 @@
+<!--
+Register page for the database. Will tell user if the registry was successful or not
+-->
+
 <?php
 
 if(!isset($_SESSION)) 

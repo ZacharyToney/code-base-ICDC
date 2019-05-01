@@ -11,7 +11,7 @@
  */
 
 // runtime check for already included Konva
-(function() {
+(function () {
   'use strict';
   /**
    * @namespace Konva
@@ -32,14 +32,13 @@
     listenClickTap: false,
     inDblClickWindow: false,
 
-    isBrowser:
-      typeof window !== 'undefined' &&
+    isBrowser: typeof window !== 'undefined' &&
       // browser case
       ({}.toString.call(window) === '[object Window]' ||
         // electron case
         {}.toString.call(window) === '[object global]'),
 
-    isUnminified: /comment/.test(function() {
+    isUnminified: /comment/.test(function () {
       /* comment */
     }),
 
@@ -99,7 +98,7 @@
      * @method
      * @memberof Konva
      */
-    isDragging: function() {
+    isDragging: function () {
       var dd = Konva.DD;
 
       // if DD is not included with the build, then
@@ -115,7 +114,7 @@
      * @method
      * @memberof Konva
      */
-    isDragReady: function() {
+    isDragReady: function () {
       var dd = Konva.DD;
 
       // if DD is not included with the build, then
@@ -125,7 +124,7 @@
       }
       return false;
     },
-    _addId: function(node, id) {
+    _addId: function (node, id) {
       if (!id) {
         return;
       }
@@ -139,12 +138,12 @@
       // }
       this.ids[id] = node;
     },
-    _removeId: function(id) {
+    _removeId: function (id) {
       if (id !== undefined) {
         delete this.ids[id];
       }
     },
-    _addName: function(node, name) {
+    _addName: function (node, name) {
       if (name) {
         if (!this.names[name]) {
           this.names[name] = [];
@@ -152,7 +151,7 @@
         this.names[name].push(node);
       }
     },
-    _removeName: function(name, _id) {
+    _removeName: function (name, _id) {
       if (!name) {
         return;
       }
@@ -170,10 +169,10 @@
         delete this.names[name];
       }
     },
-    getAngle: function(angle) {
+    getAngle: function (angle) {
       return this.angleDeg ? angle * PI_OVER_180 : angle;
     },
-    _detectIE: function(ua) {
+    _detectIE: function (ua) {
       var msie = ua.indexOf('msie ');
       if (msie > 0) {
         // IE 10 or older => return version number
@@ -196,17 +195,16 @@
       // other browser
       return false;
     },
-    _parseUA: function(userAgent) {
+    _parseUA: function (userAgent) {
       var ua = userAgent.toLowerCase(),
         // jQuery UA regex
         match =
-          /(chrome)[ /]([\w.]+)/.exec(ua) ||
-          /(webkit)[ /]([\w.]+)/.exec(ua) ||
-          /(opera)(?:.*version|)[ /]([\w.]+)/.exec(ua) ||
-          /(msie) ([\w.]+)/.exec(ua) ||
-          (ua.indexOf('compatible') < 0 &&
-            /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) ||
-          [],
+        /(chrome)[ /]([\w.]+)/.exec(ua) ||
+        /(webkit)[ /]([\w.]+)/.exec(ua) ||
+        /(opera)(?:.*version|)[ /]([\w.]+)/.exec(ua) ||
+        /(msie) ([\w.]+)/.exec(ua) ||
+        (ua.indexOf('compatible') < 0 &&
+          /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [],
         // adding mobile flag as well
         mobile = !!userAgent.match(
           /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i
@@ -227,20 +225,20 @@
   };
 
   var glob =
-    typeof global !== 'undefined'
-      ? global
-      : typeof window !== 'undefined'
-        ? window
-        : typeof WorkerGlobalScope !== 'undefined'
-          ? self
-          : {};
+    typeof global !== 'undefined' ?
+    global :
+    typeof window !== 'undefined' ?
+    window :
+    typeof WorkerGlobalScope !== 'undefined' ?
+    self :
+    {};
 
   Konva.UA = Konva._parseUA((glob.navigator && glob.navigator.userAgent) || '');
 
   if (glob.Konva) {
     console.error(
       'Konva instance is already exist in current eviroment. ' +
-        'Please use only one instance.'
+      'Please use only one instance.'
     );
   }
   glob.Konva = Konva;
@@ -252,14 +250,14 @@
     module.exports = Konva;
   } else if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(function() {
+    define(function () {
       return Konva;
     });
   }
 })();
 
 /*eslint-disable  eqeqeq, no-cond-assign, no-empty*/
-(function() {
+(function () {
   'use strict';
   /**
    * Collection constructor.  Collection extends
@@ -267,7 +265,7 @@
    * @constructor
    * @memberof Konva
    */
-  Konva.Collection = function() {
+  Konva.Collection = function () {
     var args = [].slice.call(arguments),
       length = args.length,
       i = 0;
@@ -291,7 +289,7 @@
    *   shape.setX(10);
    * });
    */
-  Konva.Collection.prototype.each = function(func) {
+  Konva.Collection.prototype.each = function (func) {
     for (var n = 0; n < this.length; n++) {
       func(this[n], n);
     }
@@ -301,7 +299,7 @@
    * @method
    * @memberof Konva.Collection.prototype
    */
-  Konva.Collection.prototype.toArray = function() {
+  Konva.Collection.prototype.toArray = function () {
     var arr = [],
       len = this.length,
       n;
@@ -317,7 +315,7 @@
    * @memberof Konva.Collection
    * @param {Array} arr
    */
-  Konva.Collection.toCollection = function(arr) {
+  Konva.Collection.toCollection = function (arr) {
     var collection = new Konva.Collection(),
       len = arr.length,
       n;
@@ -329,8 +327,8 @@
   };
 
   // map one method by it's name
-  Konva.Collection._mapMethod = function(methodName) {
-    Konva.Collection.prototype[methodName] = function() {
+  Konva.Collection._mapMethod = function (methodName) {
+    Konva.Collection.prototype[methodName] = function () {
       var len = this.length,
         i;
 
@@ -343,7 +341,7 @@
     };
   };
 
-  Konva.Collection.mapMethods = function(constructor) {
+  Konva.Collection.mapMethods = function (constructor) {
     var prot = constructor.prototype;
     for (var methodName in prot) {
       Konva.Collection._mapMethod(methodName);
@@ -351,20 +349,20 @@
   };
 
   /*
-    * Last updated November 2011
-    * By Simon Sarris
-    * www.simonsarris.com
-    * sarris@acm.org
-    *
-    * Free to use and distribute at will
-    * So long as you are nice to people, etc
-    */
+   * Last updated November 2011
+   * By Simon Sarris
+   * www.simonsarris.com
+   * sarris@acm.org
+   *
+   * Free to use and distribute at will
+   * So long as you are nice to people, etc
+   */
 
   /*
-    * The usage of this class was inspired by some of the work done by a forked
-    * project, KineticJS-Ext by Wappworks, which is based on Simon's Transform
-    * class.  Modified by Eric Rowell
-    */
+   * The usage of this class was inspired by some of the work done by a forked
+   * project, KineticJS-Ext by Wappworks, which is based on Simon's Transform
+   * class.  Modified by Eric Rowell
+   */
 
   /**
    * Transform constructor. Transform object is a private class of Konva framework.
@@ -375,7 +373,7 @@
    * @param {Array} [m] Optional six-element matrix
    * @memberof Konva
    */
-  Konva.Transform = function(m) {
+  Konva.Transform = function (m) {
     this.m = (m && m.slice()) || [1, 0, 0, 1, 0, 0];
   };
 
@@ -386,7 +384,7 @@
      * @memberof Konva.Transform.prototype
      * @returns {Konva.Transform}
      */
-    copy: function() {
+    copy: function () {
       return new Konva.Transform(this.m);
     },
     /**
@@ -396,7 +394,7 @@
      * @param {Object} point 2D point(x, y)
      * @returns {Object} 2D point(x, y)
      */
-    point: function(point) {
+    point: function (point) {
       var m = this.m;
       return {
         x: m[0] * point.x + m[2] * point.y + m[4],
@@ -411,7 +409,7 @@
      * @param {Number} y
      * @returns {Konva.Transform}
      */
-    translate: function(x, y) {
+    translate: function (x, y) {
       this.m[4] += this.m[0] * x + this.m[2] * y;
       this.m[5] += this.m[1] * x + this.m[3] * y;
       return this;
@@ -424,7 +422,7 @@
      * @param {Number} sy
      * @returns {Konva.Transform}
      */
-    scale: function(sx, sy) {
+    scale: function (sx, sy) {
       this.m[0] *= sx;
       this.m[1] *= sx;
       this.m[2] *= sy;
@@ -438,7 +436,7 @@
      * @param {Number} rad  Angle in radians
      * @returns {Konva.Transform}
      */
-    rotate: function(rad) {
+    rotate: function (rad) {
       var c = Math.cos(rad);
       var s = Math.sin(rad);
       var m11 = this.m[0] * c + this.m[2] * s;
@@ -457,7 +455,7 @@
      * @memberof Konva.Transform.prototype
      * @returns {Object} 2D point(x, y)
      */
-    getTranslation: function() {
+    getTranslation: function () {
       return {
         x: this.m[4],
         y: this.m[5]
@@ -471,7 +469,7 @@
      * @param {Number} sy
      * @returns {Konva.Transform}
      */
-    skew: function(sx, sy) {
+    skew: function (sx, sy) {
       var m11 = this.m[0] + this.m[2] * sy;
       var m12 = this.m[1] + this.m[3] * sy;
       var m21 = this.m[2] + this.m[0] * sx;
@@ -489,7 +487,7 @@
      * @param {Konva.Transform} matrix
      * @returns {Konva.Transform}
      */
-    multiply: function(matrix) {
+    multiply: function (matrix) {
       var m11 = this.m[0] * matrix.m[0] + this.m[2] * matrix.m[1];
       var m12 = this.m[1] * matrix.m[0] + this.m[3] * matrix.m[1];
 
@@ -513,7 +511,7 @@
      * @memberof Konva.Transform.prototype
      * @returns {Konva.Transform}
      */
-    invert: function() {
+    invert: function () {
       var d = 1 / (this.m[0] * this.m[3] - this.m[1] * this.m[2]);
       var m0 = this.m[3] * d;
       var m1 = -this.m[1] * d;
@@ -534,7 +532,7 @@
      * @method
      * @memberof Konva.Transform.prototype
      */
-    getMatrix: function() {
+    getMatrix: function () {
       return this.m;
     },
     /**
@@ -544,7 +542,7 @@
      * @returns {Konva.Transform}
      * @author ericdrowell
      */
-    setAbsolutePosition: function(x, y) {
+    setAbsolutePosition: function (x, y) {
       var m0 = this.m[0],
         m1 = this.m[1],
         m2 = this.m[2],
@@ -731,38 +729,38 @@
    */
   Konva.Util = {
     /*
-    * cherry-picked utilities from underscore.js
-    */
-    _isElement: function(obj) {
+     * cherry-picked utilities from underscore.js
+     */
+    _isElement: function (obj) {
       return !!(obj && obj.nodeType == 1);
     },
-    _isFunction: function(obj) {
+    _isFunction: function (obj) {
       return !!(obj && obj.constructor && obj.call && obj.apply);
     },
-    _isObject: function(obj) {
+    _isObject: function (obj) {
       return !!obj && obj.constructor === Object;
     },
-    _isArray: function(obj) {
+    _isArray: function (obj) {
       return Object.prototype.toString.call(obj) === OBJECT_ARRAY;
     },
-    _isNumber: function(obj) {
+    _isNumber: function (obj) {
       return (
         Object.prototype.toString.call(obj) === OBJECT_NUMBER &&
         !isNaN(obj) &&
         isFinite(obj)
       );
     },
-    _isString: function(obj) {
+    _isString: function (obj) {
       return Object.prototype.toString.call(obj) === OBJECT_STRING;
     },
-    _isBoolean: function(obj) {
+    _isBoolean: function (obj) {
       return Object.prototype.toString.call(obj) === OBJECT_BOOLEAN;
     },
     // arrays are objects too
-    isObject: function(val) {
+    isObject: function (val) {
       return val instanceof Object;
     },
-    isValidSelector: function(selector) {
+    isValidSelector: function (selector) {
       if (typeof selector !== 'string') {
         return false;
       }
@@ -773,7 +771,7 @@
         firstChar === firstChar.toUpperCase()
       );
     },
-    _sign: function(number) {
+    _sign: function (number) {
       if (number === 0) {
         return 0;
       }
@@ -783,17 +781,17 @@
         return -1;
       }
     },
-    createCanvasElement: function() {
-      var canvas = Konva.isBrowser
-        ? Konva.document.createElement('canvas')
-        : new Konva._nodeCanvas();
+    createCanvasElement: function () {
+      var canvas = Konva.isBrowser ?
+        Konva.document.createElement('canvas') :
+        new Konva._nodeCanvas();
       // on some environments canvas.style is readonly
       try {
         canvas.style = canvas.style || {};
       } catch (e) {}
       return canvas;
     },
-    _isInDocument: function(el) {
+    _isInDocument: function (el) {
       while ((el = el.parentNode)) {
         if (el == Konva.document) {
           return true;
@@ -801,7 +799,7 @@
       }
       return false;
     },
-    _simplifyArray: function(arr) {
+    _simplifyArray: function (arr) {
       var retArr = [],
         len = arr.length,
         util = Konva.Util,
@@ -822,9 +820,9 @@
       return retArr;
     },
     /*
-    * arg can be an image object or image data
-    */
-    _getImage: function(arg, callback) {
+     * arg can be an image object or image data
+     */
+    _getImage: function (arg, callback) {
       var imageObj, canvas;
 
       // if arg is null or undefined
@@ -836,7 +834,7 @@
       } else if (this._isString(arg)) {
         // if arg is a string, then it's a data url
         imageObj = new Konva.window.Image();
-        imageObj.onload = function() {
+        imageObj.onload = function () {
           callback(imageObj);
         };
         imageObj.src = arg;
@@ -852,7 +850,7 @@
         callback(null);
       }
     },
-    _getRGBAString: function(obj) {
+    _getRGBAString: function (obj) {
       var red = obj.red || 0,
         green = obj.green || 0,
         blue = obj.blue || 0,
@@ -862,10 +860,10 @@
         EMPTY_STRING
       );
     },
-    _rgbToHex: function(r, g, b) {
+    _rgbToHex: function (r, g, b) {
       return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     },
-    _hexToRgb: function(hex) {
+    _hexToRgb: function (hex) {
       hex = hex.replace(HASH, EMPTY_STRING);
       var bigint = parseInt(hex, 16);
       return {
@@ -879,7 +877,7 @@
      * @method
      * @memberof Konva.Util.prototype
      */
-    getRandomColor: function() {
+    getRandomColor: function () {
       var randColor = ((Math.random() * 0xffffff) << 0).toString(16);
       while (randColor.length < 6) {
         randColor = ZERO + randColor;
@@ -891,7 +889,7 @@
      * @method
      * @memberof Konva.Util.prototype
      */
-    get: function(val, def) {
+    get: function (val, def) {
       if (val === undefined) {
         return def;
       } else {
@@ -909,7 +907,7 @@
      * var rgb = Konva.Util.getRGB('#0000ff');
      * var rgb = Konva.Util.getRGB('rgb(0,0,255)');
      */
-    getRGB: function(color) {
+    getRGB: function (color) {
       var rgb;
       // color string
       if (color in COLORS) {
@@ -941,7 +939,7 @@
     },
     // convert any color string to RGBA object
     // from https://github.com/component/color-parser
-    colorToRGBA: function(str) {
+    colorToRGBA: function (str) {
       str = str || 'black';
       return (
         Konva.Util._namedColorToRBA(str) ||
@@ -952,7 +950,7 @@
       );
     },
     // Parse named css color. Like "green"
-    _namedColorToRBA: function(str) {
+    _namedColorToRBA: function (str) {
       var c = COLORS[str.toLowerCase()];
       if (!c) {
         return null;
@@ -965,7 +963,7 @@
       };
     },
     // Parse rgb(n, n, n)
-    _rgbColorToRGBA: function(str) {
+    _rgbColorToRGBA: function (str) {
       if (str.indexOf('rgb(') === 0) {
         str = str.match(/rgb\(([^)]+)\)/)[1];
         var parts = str.split(/ *, */).map(Number);
@@ -978,7 +976,7 @@
       }
     },
     // Parse rgba(n, n, n, n)
-    _rgbaColorToRGBA: function(str) {
+    _rgbaColorToRGBA: function (str) {
       if (str.indexOf('rgba(') === 0) {
         str = str.match(/rgba\(([^)]+)\)/)[1];
         var parts = str.split(/ *, */).map(Number);
@@ -991,7 +989,7 @@
       }
     },
     // Parse #nnnnnn
-    _hex6ColorToRGBA: function(str) {
+    _hex6ColorToRGBA: function (str) {
       if (str[0] === '#' && str.length === 7) {
         return {
           r: parseInt(str.slice(1, 3), 16),
@@ -1002,7 +1000,7 @@
       }
     },
     // Parse #nnn
-    _hex3ColorToRGBA: function(str) {
+    _hex3ColorToRGBA: function (str) {
       if (str[0] === '#' && str.length === 4) {
         return {
           r: parseInt(str[1] + str[1], 16),
@@ -1013,7 +1011,7 @@
       }
     },
     // o1 takes precedence over o2
-    _merge: function(o1, o2) {
+    _merge: function (o1, o2) {
       var retObj = this._clone(o2);
       for (var key in o1) {
         if (this._isObject(o1[key])) {
@@ -1029,7 +1027,7 @@
      * @method
      * @memberof Konva.Util.prototype
      */
-    haveIntersection: function(r1, r2) {
+    haveIntersection: function (r1, r2) {
       return !(
         r2.x > r1.x + r1.width ||
         r2.x + r2.width < r1.x ||
@@ -1037,7 +1035,7 @@
         r2.y + r2.height < r1.y
       );
     },
-    cloneObject: function(obj) {
+    cloneObject: function (obj) {
       var retObj = {};
       for (var key in obj) {
         if (this._isObject(obj[key])) {
@@ -1050,34 +1048,34 @@
       }
       return retObj;
     },
-    cloneArray: function(arr) {
+    cloneArray: function (arr) {
       return arr.slice(0);
     },
-    _degToRad: function(deg) {
+    _degToRad: function (deg) {
       return deg * PI_OVER_DEG180;
     },
-    _radToDeg: function(rad) {
+    _radToDeg: function (rad) {
       return rad * DEG180_OVER_PI;
     },
-    _capitalize: function(str) {
+    _capitalize: function (str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     },
-    throw: function(str) {
+    throw: function (str) {
       throw new Error(KONVA_ERROR + str);
     },
-    error: function(str) {
+    error: function (str) {
       console.error(KONVA_ERROR + str);
     },
-    warn: function(str) {
+    warn: function (str) {
       /*
-             * IE9 on Windows7 64bit will throw a JS error
-             * if we don't use window.console in the conditional
-             */
+       * IE9 on Windows7 64bit will throw a JS error
+       * if we don't use window.console in the conditional
+       */
       if (Konva.global.console && console.warn && Konva.showWarnings) {
         console.warn(KONVA_WARNING + str);
       }
     },
-    extend: function(child, parent) {
+    extend: function (child, parent) {
       function Ctor() {
         this.constructor = child;
       }
@@ -1100,14 +1098,14 @@
      * @param {Function} constructor
      * @param {Object} methods
      */
-    addMethods: function(constructor, methods) {
+    addMethods: function (constructor, methods) {
       var key;
 
       for (key in methods) {
         constructor.prototype[key] = methods[key];
       }
     },
-    _getControlPoints: function(x0, y0, x1, y1, x2, y2, t) {
+    _getControlPoints: function (x0, y0, x1, y1, x2, y2, t) {
       var d01 = Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2)),
         d12 = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)),
         fa = t * d01 / (d01 + d12),
@@ -1119,7 +1117,7 @@
 
       return [p1x, p1y, p2x, p2y];
     },
-    _expandPoints: function(p, tension) {
+    _expandPoints: function (p, tension) {
       var len = p.length,
         allPoints = [],
         n,
@@ -1145,18 +1143,18 @@
 
       return allPoints;
     },
-    _removeLastLetter: function(str) {
+    _removeLastLetter: function (str) {
       return str.substring(0, str.length - 1);
     },
-    each: function(obj, func) {
+    each: function (obj, func) {
       for (var key in obj) {
         func(key, obj[key]);
       }
     },
-    _inRange: function(val, left, right) {
+    _inRange: function (val, left, right) {
       return left <= val && val < right;
     },
-    _getProjectionToSegment: function(x1, y1, x2, y2, x3, y3) {
+    _getProjectionToSegment: function (x1, y1, x2, y2, x3, y3) {
       var x, y, dist;
 
       var pd2 = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
@@ -1184,10 +1182,10 @@
     },
     // line as array of points.
     // line might be closed
-    _getProjectionToLine: function(pt, line, isClosed) {
+    _getProjectionToLine: function (pt, line, isClosed) {
       var pc = Konva.Util.cloneObject(pt);
       var dist = Number.MAX_VALUE;
-      line.forEach(function(p1, i) {
+      line.forEach(function (p1, i) {
         if (!isClosed && i === line.length - 1) {
           return;
         }
@@ -1211,7 +1209,7 @@
       });
       return pc;
     },
-    _prepareArrayForTween: function(startArray, endArray, isClosed) {
+    _prepareArrayForTween: function (startArray, endArray, isClosed) {
       var n,
         start = [],
         end = [];
@@ -1234,14 +1232,14 @@
       }
 
       var newStart = [];
-      end.forEach(function(point) {
+      end.forEach(function (point) {
         var pr = Konva.Util._getProjectionToLine(point, start, isClosed);
         newStart.push(pr.x);
         newStart.push(pr.y);
       });
       return newStart;
     },
-    _prepareToStringify: function(obj) {
+    _prepareToStringify: function (obj) {
       var desc;
 
       obj.visitedByCircularReferenceRemoval = true;
@@ -1278,26 +1276,27 @@
   };
 })();
 
-(function() {
+(function () {
   'use strict';
   // calculate pixel ratio
 
   var _pixelRatio;
+
   function getDevicePixelRatio() {
     if (_pixelRatio) {
       return _pixelRatio;
     }
     var canvas = Konva.Util.createCanvasElement();
     var context = canvas.getContext('2d');
-    _pixelRatio = (function() {
+    _pixelRatio = (function () {
       var devicePixelRatio = Konva.window.devicePixelRatio || 1,
         backingStoreRatio =
-          context.webkitBackingStorePixelRatio ||
-          context.mozBackingStorePixelRatio ||
-          context.msBackingStorePixelRatio ||
-          context.oBackingStorePixelRatio ||
-          context.backingStorePixelRatio ||
-          1;
+        context.webkitBackingStorePixelRatio ||
+        context.mozBackingStorePixelRatio ||
+        context.msBackingStorePixelRatio ||
+        context.oBackingStorePixelRatio ||
+        context.backingStorePixelRatio ||
+        1;
       return devicePixelRatio / backingStoreRatio;
     })();
     return _pixelRatio;
@@ -1319,12 +1318,12 @@
    *  specified, the pixel ratio will be defaulted to the actual device pixel ratio.  You can override the device pixel
    *  ratio for special situations, or, if you don't want the pixel ratio to be taken into account, you can set it to 1.
    */
-  Konva.Canvas = function(config) {
+  Konva.Canvas = function (config) {
     this.init(config);
   };
 
   Konva.Canvas.prototype = {
-    init: function(config) {
+    init: function (config) {
       var conf = config || {};
 
       var pixelRatio =
@@ -1348,7 +1347,7 @@
      * @memberof Konva.Canvas.prototype
      * @returns {CanvasContext} context
      */
-    getContext: function() {
+    getContext: function () {
       return this.context;
     },
     /**
@@ -1357,7 +1356,7 @@
      * @memberof Konva.Canvas.prototype
      * @returns {Number} pixel ratio
      */
-    getPixelRatio: function() {
+    getPixelRatio: function () {
       return this.pixelRatio;
     },
     /**
@@ -1372,7 +1371,7 @@
      *  specificed, the pixel ratio will be defaulted to the actual device pixel ratio.  You can override the device pixel
      *  ratio for special situations, or, if you don't want the pixel ratio to be taken into account, you can set it to 1.
      */
-    setPixelRatio: function(pixelRatio) {
+    setPixelRatio: function (pixelRatio) {
       var previousRatio = this.pixelRatio;
       this.pixelRatio = pixelRatio;
       this.setSize(
@@ -1386,7 +1385,7 @@
      * @memberof Konva.Canvas.prototype
      * @param {Number} width
      */
-    setWidth: function(width) {
+    setWidth: function (width) {
       // take into account pixel ratio
       this.width = this._canvas.width = width * this.pixelRatio;
       this._canvas.style.width = width + 'px';
@@ -1401,7 +1400,7 @@
      * @memberof Konva.Canvas.prototype
      * @param {Number} height
      */
-    setHeight: function(height) {
+    setHeight: function (height) {
       // take into account pixel ratio
       this.height = this._canvas.height = height * this.pixelRatio;
       this._canvas.style.height = height + 'px';
@@ -1415,7 +1414,7 @@
      * @memberof Konva.Canvas.prototype
      * @returns {Number} width
      */
-    getWidth: function() {
+    getWidth: function () {
       return this.width;
     },
     /**
@@ -1424,7 +1423,7 @@
      * @memberof Konva.Canvas.prototype
      * @returns {Number} height
      */
-    getHeight: function() {
+    getHeight: function () {
       return this.height;
     },
     /**
@@ -1434,7 +1433,7 @@
      * @param {Number} width
      * @param {Number} height
      */
-    setSize: function(width, height) {
+    setSize: function (width, height) {
       this.setWidth(width);
       this.setHeight(height);
     },
@@ -1446,7 +1445,7 @@
      * @param {Number} quality between 0 and 1 for jpg mime types
      * @returns {String} data url string
      */
-    toDataURL: function(mimeType, quality) {
+    toDataURL: function (mimeType, quality) {
       try {
         // If this call fails (due to browser bug, like in Firefox 3.6),
         // then revert to previous no-parameter image/png behavior
@@ -1462,7 +1461,7 @@
     }
   };
 
-  Konva.SceneCanvas = function(config) {
+  Konva.SceneCanvas = function (config) {
     var conf = config || {};
     var width = conf.width || 0,
       height = conf.height || 0;
@@ -1474,7 +1473,7 @@
 
   Konva.Util.extend(Konva.SceneCanvas, Konva.Canvas);
 
-  Konva.HitCanvas = function(config) {
+  Konva.HitCanvas = function (config) {
     var conf = config || {};
     var width = conf.width || 0,
       height = conf.height || 0;
@@ -1487,7 +1486,7 @@
   Konva.Util.extend(Konva.HitCanvas, Konva.Canvas);
 })();
 
-(function() {
+(function () {
   'use strict';
   var COMMA = ',',
     OPEN_PAREN = '(',
@@ -1557,12 +1556,12 @@
    * @abstract
    * @memberof Konva
    */
-  Konva.Context = function(canvas) {
+  Konva.Context = function (canvas) {
     this.init(canvas);
   };
 
   Konva.Context.prototype = {
-    init: function(canvas) {
+    init: function (canvas) {
       this.canvas = canvas;
       this._context = canvas._canvas.getContext('2d');
 
@@ -1577,7 +1576,7 @@
      * @memberof Konva.Context.prototype
      * @param {Konva.Shape} shape
      */
-    fillShape: function(shape) {
+    fillShape: function (shape) {
       if (shape.getFillEnabled()) {
         this._fill(shape);
       }
@@ -1588,7 +1587,7 @@
      * @memberof Konva.Context.prototype
      * @param {Konva.Shape} shape
      */
-    strokeShape: function(shape) {
+    strokeShape: function (shape) {
       if (shape.getStrokeEnabled()) {
         this._stroke(shape);
       }
@@ -1599,7 +1598,7 @@
      * @memberof Konva.Context.prototype
      * @param {Konva.Shape} shape
      */
-    fillStrokeShape: function(shape) {
+    fillStrokeShape: function (shape) {
       var fillEnabled = shape.getFillEnabled();
       if (fillEnabled) {
         this._fill(shape);
@@ -1617,7 +1616,7 @@
      *  properites.
      * @returns {String}
      */
-    getTrace: function(relaxed) {
+    getTrace: function (relaxed) {
       var traceArr = this.traceArr,
         len = traceArr.length,
         str = '',
@@ -1662,10 +1661,10 @@
      * @method
      * @memberof Konva.Context.prototype
      */
-    clearTrace: function() {
+    clearTrace: function () {
       this.traceArr = [];
     },
-    _trace: function(str) {
+    _trace: function (str) {
       var traceArr = this.traceArr,
         len;
 
@@ -1681,7 +1680,7 @@
      * @method
      * @memberof Konva.Context.prototype
      */
-    reset: function() {
+    reset: function () {
       var pixelRatio = this.getCanvas().getPixelRatio();
       this.setTransform(1 * pixelRatio, 0, 0, 1 * pixelRatio, 0, 0);
     },
@@ -1691,7 +1690,7 @@
      * @memberof Konva.Context.prototype
      * @returns {Konva.Canvas}
      */
-    getCanvas: function() {
+    getCanvas: function () {
       return this.canvas;
     },
     /**
@@ -1704,7 +1703,7 @@
      * @param {Number} [bounds.width]
      * @param {Number} [bounds.height]
      */
-    clear: function(bounds) {
+    clear: function (bounds) {
       var canvas = this.getCanvas();
 
       if (bounds) {
@@ -1723,51 +1722,51 @@
         );
       }
     },
-    _applyLineCap: function(shape) {
+    _applyLineCap: function (shape) {
       var lineCap = shape.getLineCap();
       if (lineCap) {
         this.setAttr('lineCap', lineCap);
       }
     },
-    _applyOpacity: function(shape) {
+    _applyOpacity: function (shape) {
       var absOpacity = shape.getAbsoluteOpacity();
       if (absOpacity !== 1) {
         this.setAttr('globalAlpha', absOpacity);
       }
     },
-    _applyLineJoin: function(shape) {
+    _applyLineJoin: function (shape) {
       var lineJoin = shape.getLineJoin();
       if (lineJoin) {
         this.setAttr('lineJoin', lineJoin);
       }
     },
-    setAttr: function(attr, val) {
+    setAttr: function (attr, val) {
       this._context[attr] = val;
     },
 
     // context pass through methods
-    arc: function() {
+    arc: function () {
       var a = arguments;
       this._context.arc(a[0], a[1], a[2], a[3], a[4], a[5]);
     },
-    beginPath: function() {
+    beginPath: function () {
       this._context.beginPath();
     },
-    bezierCurveTo: function() {
+    bezierCurveTo: function () {
       var a = arguments;
       this._context.bezierCurveTo(a[0], a[1], a[2], a[3], a[4], a[5]);
     },
-    clearRect: function() {
+    clearRect: function () {
       var a = arguments;
       this._context.clearRect(a[0], a[1], a[2], a[3]);
     },
-    clip: function() {
+    clip: function () {
       this._context.clip();
     },
-    closePath: function() {
+    closePath: function () {
       this._context.closePath();
     },
-    createImageData: function() {
+    createImageData: function () {
       var a = arguments;
       if (a.length === 2) {
         return this._context.createImageData(a[0], a[1]);
@@ -1775,15 +1774,15 @@
         return this._context.createImageData(a[0]);
       }
     },
-    createLinearGradient: function() {
+    createLinearGradient: function () {
       var a = arguments;
       return this._context.createLinearGradient(a[0], a[1], a[2], a[3]);
     },
-    createPattern: function() {
+    createPattern: function () {
       var a = arguments;
       return this._context.createPattern(a[0], a[1]);
     },
-    createRadialGradient: function() {
+    createRadialGradient: function () {
       var a = arguments;
       return this._context.createRadialGradient(
         a[0],
@@ -1794,7 +1793,7 @@
         a[5]
       );
     },
-    drawImage: function() {
+    drawImage: function () {
       var a = arguments,
         _context = this._context;
 
@@ -1816,64 +1815,64 @@
         );
       }
     },
-    isPointInPath: function(x, y) {
+    isPointInPath: function (x, y) {
       return this._context.isPointInPath(x, y);
     },
-    fill: function() {
+    fill: function () {
       this._context.fill();
     },
-    fillRect: function(x, y, width, height) {
+    fillRect: function (x, y, width, height) {
       this._context.fillRect(x, y, width, height);
     },
-    strokeRect: function(x, y, width, height) {
+    strokeRect: function (x, y, width, height) {
       this._context.strokeRect(x, y, width, height);
     },
-    fillText: function() {
+    fillText: function () {
       var a = arguments;
       this._context.fillText(a[0], a[1], a[2]);
     },
-    measureText: function(text) {
+    measureText: function (text) {
       return this._context.measureText(text);
     },
-    getImageData: function() {
+    getImageData: function () {
       var a = arguments;
       return this._context.getImageData(a[0], a[1], a[2], a[3]);
     },
-    lineTo: function() {
+    lineTo: function () {
       var a = arguments;
       this._context.lineTo(a[0], a[1]);
     },
-    moveTo: function() {
+    moveTo: function () {
       var a = arguments;
       this._context.moveTo(a[0], a[1]);
     },
-    rect: function() {
+    rect: function () {
       var a = arguments;
       this._context.rect(a[0], a[1], a[2], a[3]);
     },
-    putImageData: function() {
+    putImageData: function () {
       var a = arguments;
       this._context.putImageData(a[0], a[1], a[2]);
     },
-    quadraticCurveTo: function() {
+    quadraticCurveTo: function () {
       var a = arguments;
       this._context.quadraticCurveTo(a[0], a[1], a[2], a[3]);
     },
-    restore: function() {
+    restore: function () {
       this._context.restore();
     },
-    rotate: function() {
+    rotate: function () {
       var a = arguments;
       this._context.rotate(a[0]);
     },
-    save: function() {
+    save: function () {
       this._context.save();
     },
-    scale: function() {
+    scale: function () {
       var a = arguments;
       this._context.scale(a[0], a[1]);
     },
-    setLineDash: function() {
+    setLineDash: function () {
       var a = arguments,
         _context = this._context;
 
@@ -1890,29 +1889,29 @@
 
       // no support for IE9 and IE10
     },
-    getLineDash: function() {
+    getLineDash: function () {
       return this._context.getLineDash();
     },
-    setTransform: function() {
+    setTransform: function () {
       var a = arguments;
       this._context.setTransform(a[0], a[1], a[2], a[3], a[4], a[5]);
     },
-    stroke: function() {
+    stroke: function () {
       this._context.stroke();
     },
-    strokeText: function() {
+    strokeText: function () {
       var a = arguments;
       this._context.strokeText(a[0], a[1], a[2]);
     },
-    transform: function() {
+    transform: function () {
       var a = arguments;
       this._context.transform(a[0], a[1], a[2], a[3], a[4], a[5]);
     },
-    translate: function() {
+    translate: function () {
       var a = arguments;
       this._context.translate(a[0], a[1]);
     },
-    _enableTrace: function() {
+    _enableTrace: function () {
       var that = this,
         len = CONTEXT_METHODS.length,
         _simplifyArray = Konva.Util._simplifyArray,
@@ -1921,11 +1920,11 @@
         args;
 
       // to prevent creating scope function at each loop
-      var func = function(methodName) {
+      var func = function (methodName) {
         var origMethod = that[methodName],
           ret;
 
-        that[methodName] = function() {
+        that[methodName] = function () {
           args = _simplifyArray(Array.prototype.slice.call(arguments, 0));
           ret = origMethod.apply(that, arguments);
 
@@ -1943,7 +1942,7 @@
       }
 
       // attrs
-      that.setAttr = function() {
+      that.setAttr = function () {
         origSetter.apply(that, arguments);
         var prop = arguments[0];
         var val = arguments[1];
@@ -1962,29 +1961,29 @@
     }
   };
 
-  CONTEXT_PROPERTIES.forEach(function(prop) {
+  CONTEXT_PROPERTIES.forEach(function (prop) {
     Object.defineProperty(Konva.Context.prototype, prop, {
-      get: function() {
+      get: function () {
         return this._context[prop];
       },
-      set: function(val) {
+      set: function (val) {
         this._context[prop] = val;
       }
     });
   });
 
-  Konva.SceneContext = function(canvas) {
+  Konva.SceneContext = function (canvas) {
     Konva.Context.call(this, canvas);
   };
 
   Konva.SceneContext.prototype = {
-    _fillColor: function(shape) {
+    _fillColor: function (shape) {
       var fill = shape.fill();
 
       this.setAttr('fillStyle', fill);
       shape._fillFunc(this);
     },
-    _fillPattern: function(shape) {
+    _fillPattern: function (shape) {
       var fillPatternX = shape.getFillPatternX(),
         fillPatternY = shape.getFillPatternY(),
         fillPatternScale = shape.getFillPatternScale(),
@@ -2013,7 +2012,7 @@
       );
       this.fill();
     },
-    _fillLinearGradient: function(shape) {
+    _fillLinearGradient: function (shape) {
       var start = shape.getFillLinearGradientStartPoint(),
         end = shape.getFillLinearGradientEndPoint(),
         colorStops = shape.getFillLinearGradientColorStops(),
@@ -2028,7 +2027,7 @@
         shape._fillFunc(this);
       }
     },
-    _fillRadialGradient: function(shape) {
+    _fillRadialGradient: function (shape) {
       var start = shape.getFillRadialGradientStartPoint(),
         end = shape.getFillRadialGradientEndPoint(),
         startRadius = shape.getFillRadialGradientStartRadius(),
@@ -2050,7 +2049,7 @@
       this.setAttr('fillStyle', grd);
       this.fill();
     },
-    _fill: function(shape) {
+    _fill: function (shape) {
       var hasColor = shape.fill(),
         fillPriority = shape.getFillPriority();
 
@@ -2089,7 +2088,7 @@
         this._fillRadialGradient(shape);
       }
     },
-    _strokeLinearGradient: function(shape) {
+    _strokeLinearGradient: function (shape) {
       var start = shape.getStrokeLinearGradientStartPoint(),
         end = shape.getStrokeLinearGradientEndPoint(),
         colorStops = shape.getStrokeLinearGradientColorStops(),
@@ -2103,11 +2102,11 @@
         this.setAttr('strokeStyle', grd);
       }
     },
-    _stroke: function(shape) {
+    _stroke: function (shape) {
       var dash = shape.dash(),
         // ignore strokeScaleEnabled for Text
         strokeScaleEnabled =
-          shape.getStrokeScaleEnabled() || shape instanceof Konva.Text;
+        shape.getStrokeScaleEnabled() || shape instanceof Konva.Text;
 
       if (shape.hasStroke()) {
         if (!strokeScaleEnabled) {
@@ -2143,7 +2142,7 @@
         }
       }
     },
-    _applyShadow: function(shape) {
+    _applyShadow: function (shape) {
       var util = Konva.Util,
         color = util.get(shape.getShadowRGBA(), 'black'),
         blur = util.get(shape.getShadowBlur(), 5),
@@ -2164,7 +2163,7 @@
       this.setAttr('shadowOffsetX', offset.x * scaleX);
       this.setAttr('shadowOffsetY', offset.y * scaleY);
     },
-    _applyGlobalCompositeOperation: function(shape) {
+    _applyGlobalCompositeOperation: function (shape) {
       var globalCompositeOperation = shape.getGlobalCompositeOperation();
       if (globalCompositeOperation !== 'source-over') {
         this.setAttr('globalCompositeOperation', globalCompositeOperation);
@@ -2173,18 +2172,18 @@
   };
   Konva.Util.extend(Konva.SceneContext, Konva.Context);
 
-  Konva.HitContext = function(canvas) {
+  Konva.HitContext = function (canvas) {
     Konva.Context.call(this, canvas);
   };
 
   Konva.HitContext.prototype = {
-    _fill: function(shape) {
+    _fill: function (shape) {
       this.save();
       this.setAttr('fillStyle', shape.colorKey);
       shape._fillFuncHit(this);
       this.restore();
     },
-    _stroke: function(shape) {
+    _stroke: function (shape) {
       if (shape.hasStroke() && shape.strokeHitEnabled()) {
         // ignore strokeScaleEnabled for Text
         var strokeScaleEnabled =
@@ -2206,33 +2205,33 @@
   Konva.Util.extend(Konva.HitContext, Konva.Context);
 })();
 
-(function() {
+(function () {
   'use strict';
   // CONSTANTS
   var GET = 'get',
     SET = 'set';
 
   Konva.Factory = {
-    addGetterSetter: function(constructor, attr, def, validator, after) {
+    addGetterSetter: function (constructor, attr, def, validator, after) {
       this.addGetter(constructor, attr, def);
       this.addSetter(constructor, attr, validator, after);
       this.addOverloadedGetterSetter(constructor, attr);
     },
-    addGetter: function(constructor, attr, def) {
+    addGetter: function (constructor, attr, def) {
       var method = GET + Konva.Util._capitalize(attr);
 
-      constructor.prototype[method] = function() {
+      constructor.prototype[method] = function () {
         var val = this.attrs[attr];
         return val === undefined ? def : val;
       };
     },
-    addSetter: function(constructor, attr, validator, after) {
+    addSetter: function (constructor, attr, validator, after) {
       // if (!validator && validator !== null) {
       //   console.error(constructor, attr, 'has no validator.');
       // }
       var method = SET + Konva.Util._capitalize(attr);
 
-      constructor.prototype[method] = function(val) {
+      constructor.prototype[method] = function (val) {
         if (validator && val !== undefined && val !== null) {
           val = validator.call(this, val, attr);
         }
@@ -2246,7 +2245,7 @@
         return this;
       };
     },
-    addComponentsGetterSetter: function(
+    addComponentsGetterSetter: function (
       constructor,
       attr,
       components,
@@ -2261,7 +2260,7 @@
         component;
 
       // getter
-      constructor.prototype[getter] = function() {
+      constructor.prototype[getter] = function () {
         var ret = {};
 
         for (n = 0; n < len; n++) {
@@ -2273,7 +2272,7 @@
       };
 
       // setter
-      constructor.prototype[setter] = function(val) {
+      constructor.prototype[setter] = function (val) {
         var oldVal = this.attrs[attr],
           key;
 
@@ -2299,12 +2298,12 @@
 
       this.addOverloadedGetterSetter(constructor, attr);
     },
-    addOverloadedGetterSetter: function(constructor, attr) {
+    addOverloadedGetterSetter: function (constructor, attr) {
       var capitalizedAttr = Konva.Util._capitalize(attr),
         setter = SET + capitalizedAttr,
         getter = GET + capitalizedAttr;
 
-      constructor.prototype[attr] = function() {
+      constructor.prototype[attr] = function () {
         // setting
         if (arguments.length) {
           this[setter](arguments[0]);
@@ -2314,7 +2313,7 @@
         return this[getter]();
       };
     },
-    addDeprecatedGetterSetter: function(constructor, attr, def, validator) {
+    addDeprecatedGetterSetter: function (constructor, attr, def, validator) {
       Konva.Util.error('Adding deprecated ' + attr);
 
       var method = GET + Konva.Util._capitalize(attr);
@@ -2322,18 +2321,18 @@
       var message =
         attr +
         ' property is deprecated and will be removed soon. Look at Konva change log for more information.';
-      constructor.prototype[method] = function() {
+      constructor.prototype[method] = function () {
         Konva.Util.error(message);
         var val = this.attrs[attr];
         return val === undefined ? def : val;
       };
-      this.addSetter(constructor, attr, validator, function() {
+      this.addSetter(constructor, attr, validator, function () {
         Konva.Util.error(message);
       });
       this.addOverloadedGetterSetter(constructor, attr);
     },
-    backCompat: function(constructor, methods) {
-      Konva.Util.each(methods, function(oldMethodName, newMethodName) {
+    backCompat: function (constructor, methods) {
+      Konva.Util.each(methods, function (oldMethodName, newMethodName) {
         var method = constructor.prototype[newMethodName];
         var oldGetter = GET + Konva.Util._capitalize(oldMethodName);
         var oldSetter = SET + Konva.Util._capitalize(oldMethodName);
@@ -2342,10 +2341,10 @@
           method.apply(this, arguments);
           Konva.Util.error(
             '"' +
-              oldMethodName +
-              '" method is deprecated and will be removed soon. Use ""' +
-              newMethodName +
-              '" instead.'
+            oldMethodName +
+            '" method is deprecated and will be removed soon. Use ""' +
+            newMethodName +
+            '" instead.'
           );
         }
 
@@ -2354,7 +2353,7 @@
         constructor.prototype[oldSetter] = deprecated;
       });
     },
-    afterSetFilter: function() {
+    afterSetFilter: function () {
       this._filterUpToDate = false;
     }
   };
@@ -2363,7 +2362,7 @@
     /**
      * @return {number}
      */
-    RGBComponent: function(val) {
+    RGBComponent: function (val) {
       if (val > 255) {
         return 255;
       } else if (val < 0) {
@@ -2371,7 +2370,7 @@
       }
       return Math.round(val);
     },
-    alphaComponent: function(val) {
+    alphaComponent: function (val) {
       if (val > 1) {
         return 1;
       } else if (val < 0.0001) {
@@ -2381,7 +2380,7 @@
 
       return val;
     },
-    _formatValue: function(val) {
+    _formatValue: function (val) {
       if (Konva.Util._isString(val)) {
         return '"' + val + '"';
       }
@@ -2393,88 +2392,88 @@
       }
       return Object.prototype.toString.call(val);
     },
-    getNumberValidator: function() {
+    getNumberValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           if (!Konva.Util._isNumber(val)) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a number.'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a number.'
             );
           }
           return val;
         };
       }
     },
-    getNumberOrAutoValidator: function() {
+    getNumberOrAutoValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           var isNumber = Konva.Util._isNumber(val);
           var isAuto = val === 'auto';
 
           if (!(isNumber || isAuto)) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a number or "auto".'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a number or "auto".'
             );
           }
           return val;
         };
       }
     },
-    getStringValidator: function() {
+    getStringValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           if (!Konva.Util._isString(val)) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a string.'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a string.'
             );
           }
           return val;
         };
       }
     },
-    getFunctionValidator: function() {
+    getFunctionValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           if (!Konva.Util._isFunction(val)) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a function.'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a function.'
             );
           }
           return val;
         };
       }
     },
-    getNumberArrayValidator: function() {
+    getNumberArrayValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           if (!Konva.Util._isArray(val)) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a array of numbers.'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a array of numbers.'
             );
           } else {
-            val.forEach(function(item) {
+            val.forEach(function (item) {
               if (!Konva.Util._isNumber(item)) {
                 Konva.Util.warn(
                   '"' +
-                    attr +
-                    '" attribute has non numeric element ' +
-                    item +
-                    '. Make sure that all elements are numbers.'
+                  attr +
+                  '" attribute has non numeric element ' +
+                  item +
+                  '. Make sure that all elements are numbers.'
                 );
               }
             });
@@ -2483,16 +2482,16 @@
         };
       }
     },
-    getBooleanValidator: function() {
+    getBooleanValidator: function () {
       if (Konva.isUnminified) {
-        return function(val, attr) {
+        return function (val, attr) {
           var isBool = val === true || val === false;
           if (!isBool) {
             Konva.Util.warn(
               Konva.Validators._formatValue(val) +
-                ' is a not valid value for "' +
-                attr +
-                '" attribute. The value should be a boolean.'
+              ' is a not valid value for "' +
+              attr +
+              '" attribute. The value should be a boolean.'
             );
           }
           return val;
@@ -2502,7 +2501,7 @@
   };
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   // CONSTANTS
   var ABSOLUTE_OPACITY = 'absoluteOpacity',
@@ -2549,32 +2548,32 @@
    * @abstract
    * @param {Object} config
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    */
-  Konva.Node = function(config) {
+  Konva.Node = function (config) {
     this._init(config);
   };
 
   Konva.Util.addMethods(Konva.Node, {
-    _init: function(config) {
+    _init: function (config) {
       this._id = Konva.idCounter++;
       this.eventListeners = {};
       this.attrs = {};
@@ -2584,33 +2583,33 @@
       this.setAttrs(config);
 
       // event bindings for cache handling
-      this.on(TRANSFORM_CHANGE_STR, function() {
+      this.on(TRANSFORM_CHANGE_STR, function () {
         this._clearCache(TRANSFORM);
         this._clearSelfAndDescendantCache(ABSOLUTE_TRANSFORM);
       });
 
-      this.on(SCALE_CHANGE_STR, function() {
+      this.on(SCALE_CHANGE_STR, function () {
         this._clearSelfAndDescendantCache(ABSOLUTE_SCALE);
       });
 
-      this.on('visibleChange.konva', function() {
+      this.on('visibleChange.konva', function () {
         this._clearSelfAndDescendantCache(VISIBLE);
       });
-      this.on('listeningChange.konva', function() {
+      this.on('listeningChange.konva', function () {
         this._clearSelfAndDescendantCache(LISTENING);
       });
-      this.on('opacityChange.konva', function() {
+      this.on('opacityChange.konva', function () {
         this._clearSelfAndDescendantCache(ABSOLUTE_OPACITY);
       });
     },
-    _clearCache: function(attr) {
+    _clearCache: function (attr) {
       if (attr) {
         delete this._cache[attr];
       } else {
         this._cache = {};
       }
     },
-    _getCache: function(attr, privateGetter) {
+    _getCache: function (attr, privateGetter) {
       var cache = this._cache[attr];
 
       // if not cached, we need to set it using the private getter method.
@@ -2621,14 +2620,14 @@
       return this._cache[attr];
     },
     /*
-         * when the logic for a cached result depends on ancestor propagation, use this
-         * method to clear self and children cache
-         */
-    _clearSelfAndDescendantCache: function(attr) {
+     * when the logic for a cached result depends on ancestor propagation, use this
+     * method to clear self and children cache
+     */
+    _clearSelfAndDescendantCache: function (attr) {
       this._clearCache(attr);
 
       if (this.children) {
-        this.getChildren().each(function(node) {
+        this.getChildren().each(function (node) {
           node._clearSelfAndDescendantCache(attr);
         });
       }
@@ -2641,7 +2640,7 @@
      * @example
      * node.clearCache();
      */
-    clearCache: function() {
+    clearCache: function () {
       delete this._cache.canvas;
       this._filterUpToDate = false;
       return this;
@@ -2688,7 +2687,7 @@
      *   drawBorder: true
      * });
      */
-    cache: function(config) {
+    cache: function (config) {
       var conf = config || {},
         rect = this.getClientRect({
           skipTransform: true,
@@ -2812,21 +2811,32 @@
      * rect.getClientRect();
      * // returns Object {x: -2, y: 46, width: 104, height: 208}
      */
-    getClientRect: function() {
+    getClientRect: function () {
       // abstract method
       // redefine in Container and Shape
       throw new Error('abstract "getClientRect" method call');
     },
-    _transformedRect: function(rect, top) {
-      var points = [
-        { x: rect.x, y: rect.y },
-        { x: rect.x + rect.width, y: rect.y },
-        { x: rect.x + rect.width, y: rect.y + rect.height },
-        { x: rect.x, y: rect.y + rect.height }
+    _transformedRect: function (rect, top) {
+      var points = [{
+          x: rect.x,
+          y: rect.y
+        },
+        {
+          x: rect.x + rect.width,
+          y: rect.y
+        },
+        {
+          x: rect.x + rect.width,
+          y: rect.y + rect.height
+        },
+        {
+          x: rect.x,
+          y: rect.y + rect.height
+        }
       ];
       var minX, minY, maxX, maxY;
       var trans = this.getAbsoluteTransform(top);
-      points.forEach(function(point) {
+      points.forEach(function (point) {
         var transformed = trans.point(point);
         if (minX === undefined) {
           minX = maxX = transformed.x;
@@ -2844,7 +2854,7 @@
         height: maxY - minY
       };
     },
-    _drawCachedSceneCanvas: function(context) {
+    _drawCachedSceneCanvas: function (context) {
       context.save();
       context._applyOpacity(this);
       context._applyGlobalCompositeOperation(this);
@@ -2862,7 +2872,7 @@
       );
       context.restore();
     },
-    _drawCachedHitCanvas: function(context) {
+    _drawCachedHitCanvas: function (context) {
       var cachedCanvas = this._cache.canvas,
         hitCanvas = cachedCanvas.hit;
       context.save();
@@ -2870,7 +2880,7 @@
       context.drawImage(hitCanvas._canvas, 0, 0);
       context.restore();
     },
-    _getCachedSceneCanvas: function() {
+    _getCachedSceneCanvas: function () {
       var filters = this.filters(),
         cachedCanvas = this._cache.canvas,
         sceneCanvas = cachedCanvas.scene,
@@ -2910,8 +2920,8 @@
               if (typeof filter !== 'function') {
                 Konva.Util.error(
                   'Filter should be type of function, but got ' +
-                    typeof filter +
-                    ' insted. Please check correct filters'
+                  typeof filter +
+                  ' insted. Please check correct filters'
                 );
                 continue;
               }
@@ -2992,7 +3002,7 @@
      *   var group = evtn.currentTarger;
      * });
      */
-    on: function(evtStr, handler) {
+    on: function (evtStr, handler) {
       if (arguments.length === 3) {
         return this._delegate.apply(this, arguments);
       }
@@ -3005,10 +3015,10 @@
         name;
 
       /*
-             * loop through types and attach event listeners to
-             * each one.  eg. 'click mouseover.namespace mouseout'
-             * will create three event bindings
-             */
+       * loop through types and attach event listeners to
+       * each one.  eg. 'click mouseover.namespace mouseout'
+       * will create three event bindings
+       */
       for (n = 0; n < len; n++) {
         event = events[n];
         parts = event.split(DOT);
@@ -3049,7 +3059,7 @@
      * // remove listener by name
      * node.off('click.foo');
      */
-    off: function(evtStr, callback) {
+    off: function (evtStr, callback) {
       var events = (evtStr || '').split(SPACE),
         len = events.length,
         n,
@@ -3084,7 +3094,7 @@
       return this;
     },
     // some event aliases for third party integration like HammerJS
-    dispatchEvent: function(evt) {
+    dispatchEvent: function (evt) {
       var e = {
         target: this,
         type: evt.type,
@@ -3093,21 +3103,21 @@
       this.fire(evt.type, e);
       return this;
     },
-    addEventListener: function(type, handler) {
+    addEventListener: function (type, handler) {
       // we have to pass native event to handler
-      this.on(type, function(evt) {
+      this.on(type, function (evt) {
         handler.call(this, evt.evt);
       });
       return this;
     },
-    removeEventListener: function(type) {
+    removeEventListener: function (type) {
       this.off(type);
       return this;
     },
     // like node.on
-    _delegate: function(event, selector, handler) {
+    _delegate: function (event, selector, handler) {
       var stopNode = this;
-      this.on(event, function(evt) {
+      this.on(event, function (evt) {
         var targets = evt.target.findAncestors(selector, true, stopNode);
         for (var i = 0; i < targets.length; i++) {
           evt = Konva.Util.cloneObject(evt);
@@ -3124,7 +3134,7 @@
      * @example
      * node.remove();
      */
-    remove: function() {
+    remove: function () {
       var parent = this.getParent();
 
       if (parent && parent.children) {
@@ -3150,7 +3160,7 @@
      * @example
      * node.destroy();
      */
-    destroy: function() {
+    destroy: function () {
       // remove from ids and names hashes
       Konva._removeId(this.getId());
 
@@ -3173,7 +3183,7 @@
      * @example
      * var x = node.getAttr('x');
      */
-    getAttr: function(attr) {
+    getAttr: function (attr) {
       var method = GET + Konva.Util._capitalize(attr);
       if (Konva.Util._isFunction(this[method])) {
         return this[method]();
@@ -3191,7 +3201,7 @@
      *   console.log(node.getId());
      * })
      */
-    getAncestors: function() {
+    getAncestors: function () {
       var parent = this.getParent(),
         ancestors = new Konva.Collection();
 
@@ -3208,7 +3218,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Object}
      */
-    getAttrs: function() {
+    getAttrs: function () {
       return this.attrs || {};
     },
     /**
@@ -3223,7 +3233,7 @@
      *   fill: 'red'
      * });
      */
-    setAttrs: function(config) {
+    setAttrs: function (config) {
       var key, method;
 
       if (!config) {
@@ -3263,10 +3273,10 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean}
      */
-    isListening: function() {
+    isListening: function () {
       return this._getCache(LISTENING, this._isListening);
     },
-    _isListening: function() {
+    _isListening: function () {
       var listening = this.getListening(),
         parent = this.getParent();
 
@@ -3301,10 +3311,10 @@
       * @memberof Konva.Node.prototype
       * @returns {Boolean}
       */
-    isVisible: function() {
+    isVisible: function () {
       return this._getCache(VISIBLE, this._isVisible);
     },
-    _isVisible: function(relativeTo) {
+    _isVisible: function (relativeTo) {
       var visible = this.getVisible(),
         parent = this.getParent();
 
@@ -3332,7 +3342,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean}
      */
-    shouldDrawHit: function() {
+    shouldDrawHit: function () {
       var layer = this.getLayer();
 
       return (
@@ -3349,7 +3359,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Node}
      */
-    show: function() {
+    show: function () {
       this.setVisible(true);
       return this;
     },
@@ -3359,7 +3369,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Node}
      */
-    hide: function() {
+    hide: function () {
       this.setVisible(false);
       return this;
     },
@@ -3369,7 +3379,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Integer}
      */
-    getZIndex: function() {
+    getZIndex: function () {
       return this.index || 0;
     },
     /**
@@ -3379,7 +3389,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Integer}
      */
-    getAbsoluteZIndex: function() {
+    getAbsoluteZIndex: function () {
       var depth = this.getDepth(),
         that = this,
         index = 0,
@@ -3422,7 +3432,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Integer}
      */
-    getDepth: function() {
+    getDepth: function () {
       var depth = 0,
         parent = this.parent;
 
@@ -3432,12 +3442,12 @@
       }
       return depth;
     },
-    setPosition: function(pos) {
+    setPosition: function (pos) {
       this.setX(pos.x);
       this.setY(pos.y);
       return this;
     },
-    getPosition: function() {
+    getPosition: function () {
       return {
         x: this.getX(),
         y: this.getY()
@@ -3451,7 +3461,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Object}
      */
-    getAbsolutePosition: function(top) {
+    getAbsolutePosition: function (top) {
       var absoluteMatrix = this.getAbsoluteTransform(top).getMatrix(),
         absoluteTransform = new Konva.Transform(),
         offset = this.offset();
@@ -3471,7 +3481,7 @@
      * @param {Number} pos.y
      * @returns {Konva.Node}
      */
-    setAbsolutePosition: function(pos) {
+    setAbsolutePosition: function (pos) {
       var origTrans = this._clearTransform(),
         it;
 
@@ -3491,12 +3501,15 @@
         y: this.attrs.y + it.getTranslation().y
       };
 
-      this.setPosition({ x: pos.x, y: pos.y });
+      this.setPosition({
+        x: pos.x,
+        y: pos.y
+      });
       this._setTransform(origTrans);
 
       return this;
     },
-    _setTransform: function(trans) {
+    _setTransform: function (trans) {
       var key;
 
       for (key in trans) {
@@ -3506,7 +3519,7 @@
       this._clearCache(TRANSFORM);
       this._clearSelfAndDescendantCache(ABSOLUTE_TRANSFORM);
     },
-    _clearTransform: function() {
+    _clearTransform: function () {
       var trans = {
         x: this.getX(),
         y: this.getY(),
@@ -3550,7 +3563,7 @@
      *   y: 2)
      * });
      */
-    move: function(change) {
+    move: function (change) {
       var changeX = change.x,
         changeY = change.y,
         x = this.getX(),
@@ -3564,10 +3577,13 @@
         y += changeY;
       }
 
-      this.setPosition({ x: x, y: y });
+      this.setPosition({
+        x: x,
+        y: y
+      });
       return this;
     },
-    _eachAncestorReverse: function(func, top) {
+    _eachAncestorReverse: function (func, top) {
       var family = [],
         parent = this.getParent(),
         len,
@@ -3600,7 +3616,7 @@
      * @param {Number} theta
      * @returns {Konva.Node}
      */
-    rotate: function(theta) {
+    rotate: function (theta) {
       this.setRotation(this.getRotation() + theta);
       return this;
     },
@@ -3610,7 +3626,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean}
      */
-    moveToTop: function() {
+    moveToTop: function () {
       if (!this.parent) {
         Konva.Util.warn('Node has no parent. moveToTop function is ignored.');
         return false;
@@ -3627,7 +3643,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean} flag is moved or not
      */
-    moveUp: function() {
+    moveUp: function () {
       if (!this.parent) {
         Konva.Util.warn('Node has no parent. moveUp function is ignored.');
         return false;
@@ -3648,7 +3664,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean}
      */
-    moveDown: function() {
+    moveDown: function () {
       if (!this.parent) {
         Konva.Util.warn('Node has no parent. moveDown function is ignored.');
         return false;
@@ -3668,7 +3684,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Boolean}
      */
-    moveToBottom: function() {
+    moveToBottom: function () {
       if (!this.parent) {
         Konva.Util.warn(
           'Node has no parent. moveToBottom function is ignored.'
@@ -3691,7 +3707,7 @@
      * @param {Integer} zIndex
      * @returns {Konva.Node}
      */
-    setZIndex: function(zIndex) {
+    setZIndex: function (zIndex) {
       if (!this.parent) {
         Konva.Util.warn('Node has no parent. zIndex parameter is ignored.');
         return false;
@@ -3708,10 +3724,10 @@
      * @memberof Konva.Node.prototype
      * @returns {Number}
      */
-    getAbsoluteOpacity: function() {
+    getAbsoluteOpacity: function () {
       return this._getCache(ABSOLUTE_OPACITY, this._getAbsoluteOpacity);
     },
-    _getAbsoluteOpacity: function() {
+    _getAbsoluteOpacity: function () {
       var absOpacity = this.getOpacity();
       var parent = this.getParent();
       if (parent && !parent._isUnderCache) {
@@ -3729,7 +3745,7 @@
      * // move node from current layer into layer2
      * node.moveTo(layer2);
      */
-    moveTo: function(newContainer) {
+    moveTo: function (newContainer) {
       // do nothing if new container is already parent
       if (this.getParent() !== newContainer) {
         // this.remove my be overrided by drag and drop
@@ -3745,7 +3761,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Object}
      */
-    toObject: function() {
+    toObject: function () {
       var obj = {},
         attrs = this.getAttrs(),
         key,
@@ -3777,7 +3793,7 @@
      * @memberof Konva.Node.prototype
      * @returns {String}}
      */
-    toJSON: function() {
+    toJSON: function () {
       return JSON.stringify(this.toObject());
     },
     /**
@@ -3786,7 +3802,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Node}
      */
-    getParent: function() {
+    getParent: function () {
       return this.parent;
     },
     /**
@@ -3801,7 +3817,7 @@
      * // get one of the parent group
      * var parentGroups = node.findAncestors('Group');
      */
-    findAncestors: function(selector, includeSelf, stopNode) {
+    findAncestors: function (selector, includeSelf, stopNode) {
       var res = [];
 
       if (includeSelf && this._isMatch(selector)) {
@@ -3831,11 +3847,11 @@
      * // get one of the parent group
      * var group = node.findAncestors('.mygroup');
      */
-    findAncestor: function(selector, includeSelf, stopNode) {
+    findAncestor: function (selector, includeSelf, stopNode) {
       return this.findAncestors(selector, includeSelf, stopNode)[0];
     },
     // is current node match passed selector?
-    _isMatch: function(selector) {
+    _isMatch: function (selector) {
       if (!selector) {
         return false;
       }
@@ -3849,8 +3865,8 @@
         if (!Konva.Util.isValidSelector(sel)) {
           Konva.Util.warn(
             'Selector "' +
-              sel +
-              '" is invalid. Allowed selectors examples are "#foo", ".bar" or "Group".'
+            sel +
+            '" is invalid. Allowed selectors examples are "#foo", ".bar" or "Group".'
           );
           Konva.Util.warn(
             'If you have a custom shape with such className, please change it to start with upper letter like "Triangle".'
@@ -3879,7 +3895,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Layer}
      */
-    getLayer: function() {
+    getLayer: function () {
       var parent = this.getParent();
       return parent ? parent.getLayer() : null;
     },
@@ -3889,10 +3905,10 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Stage}
      */
-    getStage: function() {
+    getStage: function () {
       return this._getCache(STAGE, this._getStage);
     },
-    _getStage: function() {
+    _getStage: function () {
       var parent = this.getParent();
       if (parent) {
         return parent.getStage();
@@ -3924,7 +3940,7 @@
      * // fire click event that bubbles
      * node.fire('click', null, true);
      */
-    fire: function(eventType, evt, bubble) {
+    fire: function (eventType, evt, bubble) {
       evt = evt || {};
       evt.target = evt.target || this;
       // bubble
@@ -3943,7 +3959,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Transform}
      */
-    getAbsoluteTransform: function(top) {
+    getAbsoluteTransform: function (top) {
       // if using an argument, we can't cache the result.
       if (top) {
         return this._getAbsoluteTransform(top);
@@ -3952,11 +3968,11 @@
         return this._getCache(ABSOLUTE_TRANSFORM, this._getAbsoluteTransform);
       }
     },
-    _getAbsoluteTransform: function(top) {
+    _getAbsoluteTransform: function (top) {
       var at = new Konva.Transform();
 
       // start with stage and traverse downwards to self
-      this._eachAncestorReverse(function(node) {
+      this._eachAncestorReverse(function (node) {
         var transformsEnabled = node.transformsEnabled();
 
         if (transformsEnabled === 'all') {
@@ -3977,7 +3993,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Transform}
      */
-    getAbsoluteScale: function(top) {
+    getAbsoluteScale: function (top) {
       // if using an argument, we can't cache the result.
       if (top) {
         return this._getAbsoluteScale(top);
@@ -3986,7 +4002,7 @@
         return this._getCache(ABSOLUTE_SCALE, this._getAbsoluteScale);
       }
     },
-    _getAbsoluteScale: function(top) {
+    _getAbsoluteScale: function (top) {
       // this is special logic for caching with some shapes with shadow
       var parent = this;
       while (parent) {
@@ -4000,7 +4016,7 @@
         scaleY = 1;
 
       // start with stage and traverse downwards to self
-      this._eachAncestorReverse(function(node) {
+      this._eachAncestorReverse(function (node) {
         scaleX *= node.scaleX();
         scaleY *= node.scaleY();
       }, top);
@@ -4015,10 +4031,10 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Transform}
      */
-    getTransform: function() {
+    getTransform: function () {
       return this._getCache(TRANSFORM, this._getTransform);
     },
-    _getTransform: function() {
+    _getTransform: function () {
       var m = new Konva.Transform(),
         x = this.getX(),
         y = this.getY(),
@@ -4065,7 +4081,7 @@
      *   x: 5
      * });
      */
-    clone: function(obj) {
+    clone: function (obj) {
       // instantiate new node
       var attrs = Konva.Util.cloneObject(this.attrs),
         key,
@@ -4091,9 +4107,9 @@
         for (n = 0; n < len; n++) {
           listener = allListeners[n];
           /*
-                     * don't include konva namespaced listeners because
-                     *  these are generated by the constructors
-                     */
+           * don't include konva namespaced listeners because
+           *  these are generated by the constructors
+           */
           if (listener.name.indexOf(KONVA) < 0) {
             // if listeners array doesn't exist, then create it
             if (!node.eventListeners[key]) {
@@ -4105,7 +4121,7 @@
       }
       return node;
     },
-    _toKonvaCanvas: function(config) {
+    _toKonvaCanvas: function (config) {
       config = config || {};
 
       var box = this.getClientRect();
@@ -4116,8 +4132,7 @@
         pixelRatio = config.pixelRatio || 1,
         canvas = new Konva.SceneCanvas({
           width: config.width || box.width || (stage ? stage.getWidth() : 0),
-          height:
-            config.height || box.height || (stage ? stage.getHeight() : 0),
+          height: config.height || box.height || (stage ? stage.getHeight() : 0),
           pixelRatio: pixelRatio
         }),
         context = canvas.getContext();
@@ -4147,7 +4162,7 @@
      * @example
      * var canvas = node.toCanvas();
      */
-    toCanvas: function(config) {
+    toCanvas: function (config) {
       return this._toKonvaCanvas(config)._canvas;
     },
     /**
@@ -4169,7 +4184,7 @@
      * @param {Number} [config.pixelRatio] pixelRatio of output image url. Default is 1
      * @returns {String}
      */
-    toDataURL: function(config) {
+    toDataURL: function (config) {
       config = config || {};
       var mimeType = config.mimeType || null,
         quality = config.quality || null;
@@ -4204,31 +4219,31 @@
      *   }
      * });
      */
-    toImage: function(config) {
+    toImage: function (config) {
       if (!config || !config.callback) {
         throw 'callback required for toImage method config argument';
       }
       var callback = config.callback;
       delete config.callback;
-      Konva.Util._getImage(this.toDataURL(config), function(img) {
+      Konva.Util._getImage(this.toDataURL(config), function (img) {
         callback(img);
       });
     },
-    setSize: function(size) {
+    setSize: function (size) {
       this.setWidth(size.width);
       this.setHeight(size.height);
       return this;
     },
-    getSize: function() {
+    getSize: function () {
       return {
         width: this.getWidth(),
         height: this.getHeight()
       };
     },
-    getWidth: function() {
+    getWidth: function () {
       return this.attrs.width || 0;
     },
-    getHeight: function() {
+    getHeight: function () {
       return this.attrs.height || 0;
     },
     /**
@@ -4237,7 +4252,7 @@
      * @memberof Konva.Node.prototype
      * @returns {String}
      */
-    getClassName: function() {
+    getClassName: function () {
       return this.className || this.nodeType;
     },
     /**
@@ -4246,10 +4261,10 @@
      * @memberof Konva.Node.prototype
      * @returns {String}
      */
-    getType: function() {
+    getType: function () {
       return this.nodeType;
     },
-    getDragDistance: function() {
+    getDragDistance: function () {
       // compare with undefined because we need to track 0 value
       if (this.attrs.dragDistance !== undefined) {
         return this.attrs.dragDistance;
@@ -4259,12 +4274,12 @@
         return Konva.dragDistance;
       }
     },
-    _get: function(selector) {
-      return this.className === selector || this.nodeType === selector
-        ? [this]
-        : [];
+    _get: function (selector) {
+      return this.className === selector || this.nodeType === selector ?
+        [this] :
+        [];
     },
-    _off: function(type, name, callback) {
+    _off: function (type, name, callback) {
       var evtListeners = this.eventListeners[type],
         i,
         evtName,
@@ -4292,13 +4307,13 @@
         }
       }
     },
-    _fireChangeEvent: function(attr, oldVal, newVal) {
+    _fireChangeEvent: function (attr, oldVal, newVal) {
       this._fire(attr + CHANGE, {
         oldVal: oldVal,
         newVal: newVal
       });
     },
-    setId: function(id) {
+    setId: function (id) {
       var oldId = this.getId();
 
       Konva._removeId(oldId);
@@ -4306,7 +4321,7 @@
       this._setAttr(ID, id);
       return this;
     },
-    setName: function(name) {
+    setName: function (name) {
       var oldNames = (this.getName() || '').split(/\s/g);
       var newNames = (name || '').split(/\s/g);
       var subname, i;
@@ -4341,7 +4356,7 @@
      * node.addName('selected');
      * node.name(); // return 'red selected'
      */
-    addName: function(name) {
+    addName: function (name) {
       if (!this.hasName(name)) {
         var oldName = this.name();
         var newName = oldName ? oldName + ' ' + name : name;
@@ -4360,7 +4375,7 @@
      * node.hasName('red');   // return true
      * node.hasName('selected'); // return false
      */
-    hasName: function(name) {
+    hasName: function (name) {
       var names = (this.name() || '').split(/\s/g);
       return names.indexOf(name) !== -1;
     },
@@ -4376,7 +4391,7 @@
      * node.hasName('selected'); // return false
      * node.name(); // return 'red'
      */
-    removeName: function(name) {
+    removeName: function (name) {
       var names = (this.name() || '').split(/\s/g);
       var index = names.indexOf(name);
       if (index !== -1) {
@@ -4395,7 +4410,7 @@
      * @example
      * node.setAttr('x', 5);
      */
-    setAttr: function(attr, val) {
+    setAttr: function (attr, val) {
       var method = SET + Konva.Util._capitalize(attr),
         func = this[method];
 
@@ -4407,7 +4422,7 @@
       }
       return this;
     },
-    _setAttr: function(key, val) {
+    _setAttr: function (key, val) {
       var oldVal;
       oldVal = this.attrs[key];
       var same = oldVal === val;
@@ -4421,7 +4436,7 @@
       }
       this._fireChangeEvent(key, oldVal, val);
     },
-    _setComponentAttr: function(key, component, val) {
+    _setComponentAttr: function (key, component, val) {
       var oldVal;
       if (val !== undefined) {
         oldVal = this.attrs[key];
@@ -4435,7 +4450,7 @@
         this._fireChangeEvent(key, oldVal, val);
       }
     },
-    _fireAndBubble: function(eventType, evt, compareShape) {
+    _fireAndBubble: function (eventType, evt, compareShape) {
       var okayToRun = true;
 
       if (evt && this.nodeType === SHAPE) {
@@ -4486,7 +4501,7 @@
         }
       }
     },
-    _fire: function(eventType, evt) {
+    _fire: function (eventType, evt) {
       var events = this.eventListeners[eventType],
         i;
 
@@ -4506,7 +4521,7 @@
      * @memberof Konva.Node.prototype
      * @returns {Konva.Node}
      */
-    draw: function() {
+    draw: function () {
       this.drawScene();
       this.drawHit();
       return this;
@@ -4526,13 +4541,13 @@
    * @param {Element} [container] optional container dom element used only if you're
    *  creating a stage node
    */
-  Konva.Node.create = function(data, container) {
+  Konva.Node.create = function (data, container) {
     if (Konva.Util._isString(data)) {
       data = JSON.parse(data);
     }
     return this._createNode(data, container);
   };
-  Konva.Node._createNode = function(obj, container) {
+  Konva.Node._createNode = function (obj, container) {
     var className = Konva.Node.prototype.getClassName.call(obj),
       children = obj.children,
       no,
@@ -4992,14 +5007,14 @@
    * node.height(100);
    */
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'listening', 'inherit', function(
+  Konva.Factory.addGetterSetter(Konva.Node, 'listening', 'inherit', function (
     val
   ) {
     var isValid = val === true || val === false || val === 'inherit';
     if (!isValid) {
       Konva.Util.warn(
         val +
-          ' is a not valid value for "listening" attribute. The value may be true, false or "inherit".'
+        ' is a not valid value for "listening" attribute. The value may be true, false or "inherit".'
       );
     }
     return val;
@@ -5053,7 +5068,7 @@
     Konva.Validators.getBooleanValidator()
   );
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'filters', null, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'filters', null, function (val) {
     this._filterUpToDate = false;
     return val;
   });
@@ -5081,14 +5096,14 @@
    * ]);
    */
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'visible', 'inherit', function(
+  Konva.Factory.addGetterSetter(Konva.Node, 'visible', 'inherit', function (
     val
   ) {
     var isValid = val === true || val === false || val === 'inherit';
     if (!isValid) {
       Konva.Util.warn(
         val +
-          ' is a not valid value for "visible" attribute. The value may be true, false or "inherit".'
+        ' is a not valid value for "visible" attribute. The value may be true, false or "inherit".'
       );
     }
     return val;
@@ -5171,7 +5186,7 @@
   Konva.Collection.mapMethods(Konva.Node);
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   /**
    * Grayscale Filter
@@ -5182,7 +5197,7 @@
    * node.cache();
    * node.filters([Konva.Filters.Grayscale]);
    */
-  Konva.Filters.Grayscale = function(imageData) {
+  Konva.Filters.Grayscale = function (imageData) {
     var data = imageData.data,
       len = data.length,
       i,
@@ -5200,7 +5215,7 @@
   };
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /**
    * Brighten Filter.
@@ -5212,7 +5227,7 @@
    * node.filters([Konva.Filters.Brighten]);
    * node.brightness(0.8);
    */
-  Konva.Filters.Brighten = function(imageData) {
+  Konva.Filters.Brighten = function (imageData) {
     var brightness = this.brightness() * 255,
       data = imageData.data,
       len = data.length,
@@ -5246,7 +5261,7 @@
    */
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   /**
    * Invert Filter
@@ -5257,7 +5272,7 @@
    * node.cache();
    * node.filters([Konva.Filters.Invert]);
    */
-  Konva.Filters.Invert = function(imageData) {
+  Konva.Filters.Invert = function (imageData) {
     var data = imageData.data,
       len = data.length,
       i;
@@ -5277,7 +5292,7 @@
  the Gauss filter
  master repo: https://github.com/pavelpower/kineticjsGaussFilter
 */
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /*
 
@@ -6064,7 +6079,7 @@
         p =
           (x +
             ((p = y + radiusPlus1) < heightMinus1 ? p : heightMinus1) *
-              width) <<
+            width) <<
           2;
 
         r_sum += r_in_sum += stackIn.r = pixels[p];
@@ -6129,8 +6144,9 @@
 })(Konva);
 
 /*eslint-disable  max-depth */
-(function() {
+(function () {
   'use strict';
+
   function pixelAt(idata, x, y) {
     var idx = (y * idata.width + x) * 4;
     var d = [];
@@ -6146,8 +6162,8 @@
   function rgbDistance(p1, p2) {
     return Math.sqrt(
       Math.pow(p1[0] - p2[0], 2) +
-        Math.pow(p1[1] - p2[1], 2) +
-        Math.pow(p1[2] - p2[2], 2)
+      Math.pow(p1[1] - p2[1], 2) +
+      Math.pow(p1[2] - p2[2], 2)
     );
   }
 
@@ -6318,7 +6334,7 @@
    * node.filters([Konva.Filters.Mask]);
    * node.threshold(200);
    */
-  Konva.Filters.Mask = function(imageData) {
+  Konva.Filters.Mask = function (imageData) {
     // Detect pixels close to the background color
     var threshold = this.threshold(),
       mask = backgroundMask(imageData, threshold);
@@ -6350,7 +6366,7 @@
   );
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * RGB Filter
@@ -6365,7 +6381,7 @@
    * node.blue(120);
    * node.green(200);
    */
-  Konva.Filters.RGB = function(imageData) {
+  Konva.Filters.RGB = function (imageData) {
     var data = imageData.data,
       nPixels = data.length,
       red = this.red(),
@@ -6384,7 +6400,7 @@
     }
   };
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'red', 0, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'red', 0, function (val) {
     this._filterUpToDate = false;
     if (val > 255) {
       return 255;
@@ -6403,7 +6419,7 @@
    * @returns {Integer}
    */
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'green', 0, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'green', 0, function (val) {
     this._filterUpToDate = false;
     if (val > 255) {
       return 255;
@@ -6439,7 +6455,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * RGBA Filter
@@ -6455,7 +6471,7 @@
    * node.green(200);
    * node.alpha(0.3);
    */
-  Konva.Filters.RGBA = function(imageData) {
+  Konva.Filters.RGBA = function (imageData) {
     var data = imageData.data,
       nPixels = data.length,
       red = this.red(),
@@ -6474,7 +6490,7 @@
     }
   };
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'red', 0, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'red', 0, function (val) {
     this._filterUpToDate = false;
     if (val > 255) {
       return 255;
@@ -6493,7 +6509,7 @@
    * @returns {Integer}
    */
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'green', 0, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'green', 0, function (val) {
     this._filterUpToDate = false;
     if (val > 255) {
       return 255;
@@ -6528,7 +6544,7 @@
    * @returns {Integer}
    */
 
-  Konva.Factory.addGetterSetter(Konva.Node, 'alpha', 1, function(val) {
+  Konva.Factory.addGetterSetter(Konva.Node, 'alpha', 1, function (val) {
     this._filterUpToDate = false;
     if (val > 1) {
       return 1;
@@ -6548,7 +6564,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * HSV Filter. Adjusts the hue, saturation and value
@@ -6562,7 +6578,7 @@
    * image.value(200);
    */
 
-  Konva.Filters.HSV = function(imageData) {
+  Konva.Filters.HSV = function (imageData) {
     var data = imageData.data,
       nPixels = data.length,
       v = Math.pow(2, this.value()),
@@ -6659,7 +6675,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   Konva.Factory.addGetterSetter(
     Konva.Node,
@@ -6720,7 +6736,7 @@
    * image.luminance(200);
    */
 
-  Konva.Filters.HSL = function(imageData) {
+  Konva.Filters.HSL = function (imageData) {
     var data = imageData.data,
       nPixels = data.length,
       v = 1,
@@ -6770,7 +6786,7 @@
   };
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Emboss Filter.
@@ -6788,7 +6804,7 @@
    * node.embossDirection('right');
    * node.embossBlend(true);
    */
-  Konva.Filters.Emboss = function(imageData) {
+  Konva.Filters.Emboss = function (imageData) {
     // pixastic strength is between 0 and 10.  I want it between 0 and 1
     // pixastic greyLevel is between 0 and 255.  I want it between 0 and 1.  Also,
     // a max value of greyLevel yields a white emboss, and the min value yields a black
@@ -6976,8 +6992,9 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
+
   function remap(fromValue, fromMin, fromMax, toMin, toMax) {
     // Compute the range of the data
     var fromRange = fromMax - fromMin,
@@ -7013,7 +7030,7 @@
    * node.filters([Konva.Filters.Enhance]);
    * node.enhance(0.4);
    */
-  Konva.Filters.Enhance = function(imageData) {
+  Konva.Filters.Enhance = function (imageData) {
     var data = imageData.data,
       nSubPixels = data.length,
       rMin = data[0],
@@ -7129,7 +7146,7 @@
   );
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Posterize Filter. Adjusts the channels so that there are no more
@@ -7146,7 +7163,7 @@
    * node.levels(0.8); // between 0 and 1
    */
 
-  Konva.Filters.Posterize = function(imageData) {
+  Konva.Filters.Posterize = function (imageData) {
     // level must be between 1 and 255
     var levels = Math.round(this.levels() * 254) + 1,
       data = imageData.data,
@@ -7177,7 +7194,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Noise Filter. Randomly adds or substracts to the color channels
@@ -7191,7 +7208,7 @@
    * node.filters([Konva.Filters.Noise]);
    * node.noise(0.8);
    */
-  Konva.Filters.Noise = function(imageData) {
+  Konva.Filters.Noise = function (imageData) {
     var amount = this.noise() * 255,
       data = imageData.data,
       nPixels = data.length,
@@ -7223,7 +7240,7 @@
 })();
 
 /*eslint-disable max-depth */
-(function() {
+(function () {
   'use strict';
   /**
    * Pixelate Filter. Averages groups of pixels and redraws
@@ -7239,7 +7256,7 @@
    * node.pixelSize(10);
    */
 
-  Konva.Filters.Pixelate = function(imageData) {
+  Konva.Filters.Pixelate = function (imageData) {
     var pixelSize = Math.ceil(this.pixelSize()),
       width = imageData.width,
       height = imageData.height,
@@ -7343,7 +7360,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Threshold Filter. Pushes any value above the mid point to
@@ -7360,7 +7377,7 @@
    * node.threshold(0.1);
    */
 
-  Konva.Filters.Threshold = function(imageData) {
+  Konva.Filters.Threshold = function (imageData) {
     var level = this.threshold() * 255,
       data = imageData.data,
       len = data.length,
@@ -7388,7 +7405,7 @@
    */
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Sepia Filter
@@ -7404,7 +7421,7 @@
    * node.cache();
    * node.filters([Konva.Filters.Sepia]);
    */
-  Konva.Filters.Sepia = function(imageData) {
+  Konva.Filters.Sepia = function (imageData) {
     var data = imageData.data,
       w = imageData.width,
       y = imageData.height,
@@ -7442,7 +7459,7 @@
   };
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Solarize Filter
@@ -7457,7 +7474,7 @@
    * node.cache();
    * node.filters([Konva.Filters.Solarize]);
    */
-  Konva.Filters.Solarize = function(imageData) {
+  Konva.Filters.Solarize = function (imageData) {
     var data = imageData.data,
       w = imageData.width,
       h = imageData.height,
@@ -7491,7 +7508,7 @@
   };
 })();
 
-(function() {
+(function () {
   'use strict';
   /*
    * ToPolar Filter. Converts image data to polar coordinates. Performs
@@ -7509,7 +7526,7 @@
    *  default is in the middle
    */
 
-  var ToPolar = function(src, dst, opt) {
+  var ToPolar = function (src, dst, opt) {
     var srcPixels = src.data,
       dstPixels = dst.data,
       xSize = src.width,
@@ -7570,23 +7587,23 @@
   };
 
   /*
-     * FromPolar Filter. Converts image data from polar coordinates back to rectangular.
-     *  Performs w*h*4 pixel reads and w*h pixel writes.
-     * @function
-     * @author ippo615
-     * @memberof Konva.Filters
-     * @param {ImageData} src, the source image data (what will be transformed)
-     * @param {ImageData} dst, the destination image data (where it will be saved)
-     * @param {Object} opt
-     * @param {Number} [opt.polarCenterX] horizontal location for the center of the circle,
-     *  default is in the middle
-     * @param {Number} [opt.polarCenterY] vertical location for the center of the circle,
-     *  default is in the middle
-     * @param {Number} [opt.polarRotation] amount to rotate the image counterclockwis,
-     *  0 is no rotation, 360 degrees is a full rotation
-     */
+   * FromPolar Filter. Converts image data from polar coordinates back to rectangular.
+   *  Performs w*h*4 pixel reads and w*h pixel writes.
+   * @function
+   * @author ippo615
+   * @memberof Konva.Filters
+   * @param {ImageData} src, the source image data (what will be transformed)
+   * @param {ImageData} dst, the destination image data (where it will be saved)
+   * @param {Object} opt
+   * @param {Number} [opt.polarCenterX] horizontal location for the center of the circle,
+   *  default is in the middle
+   * @param {Number} [opt.polarCenterY] vertical location for the center of the circle,
+   *  default is in the middle
+   * @param {Number} [opt.polarRotation] amount to rotate the image counterclockwis,
+   *  0 is no rotation, 360 degrees is a full rotation
+   */
 
-  var FromPolar = function(src, dst, opt) {
+  var FromPolar = function (src, dst, opt) {
     var srcPixels = src.data,
       dstPixels = dst.data,
       xSize = src.width,
@@ -7656,18 +7673,18 @@
   // create a temporary canvas for working - shared between multiple calls
 
   /*
-     * Kaleidoscope Filter.
-     * @function
-     * @name Kaleidoscope
-     * @author ippo615
-     * @memberof Konva.Filters
-     * @example
-     * node.cache();
-     * node.filters([Konva.Filters.Kaleidoscope]);
-     * node.kaleidoscopePower(3);
-     * node.kaleidoscopeAngle(45);
-     */
-  Konva.Filters.Kaleidoscope = function(imageData) {
+   * Kaleidoscope Filter.
+   * @function
+   * @name Kaleidoscope
+   * @author ippo615
+   * @memberof Konva.Filters
+   * @example
+   * node.cache();
+   * node.filters([Konva.Filters.Kaleidoscope]);
+   * node.kaleidoscopePower(3);
+   * node.kaleidoscopeAngle(45);
+   */
+  Konva.Filters.Kaleidoscope = function (imageData) {
     var xSize = imageData.width,
       ySize = imageData.height;
 
@@ -7752,7 +7769,9 @@
     }
 
     // Convert back from polar coordinates
-    FromPolar(scratchData, imageData, { polarRotation: 0 });
+    FromPolar(scratchData, imageData, {
+      polarRotation: 0
+    });
   };
 
   /**
@@ -7788,7 +7807,7 @@
   );
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /**
    * Contrast Filter.
@@ -7801,7 +7820,7 @@
    * node.contrast(10);
    */
 
-  Konva.Filters.Contrast = function(imageData) {
+  Konva.Filters.Contrast = function (imageData) {
     var adjust = Math.pow((parseInt(this.contrast()) + 100) / 100, 2);
 
     var data = imageData.data,
@@ -7865,7 +7884,7 @@
   );
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   /**
    * Container constructor.&nbsp; Containers are used to contain nodes or other containers
@@ -7902,12 +7921,12 @@
      * @param {Function} [config.clipFunc] set clip func
 
    */
-  Konva.Container = function(config) {
+  Konva.Container = function (config) {
     this.__init(config);
   };
 
   Konva.Util.addMethods(Konva.Container, {
-    __init: function(config) {
+    __init: function (config) {
       this.children = new Konva.Collection();
       Konva.Node.call(this, config);
     },
@@ -7926,13 +7945,13 @@
      *    return node.getClassName() === 'Circle';
      * });
      */
-    getChildren: function(filterFunc) {
+    getChildren: function (filterFunc) {
       if (!filterFunc) {
         return this.children;
       }
 
       var results = new Konva.Collection();
-      this.children.each(function(child) {
+      this.children.each(function (child) {
         if (filterFunc(child)) {
           results.push(child);
         }
@@ -7945,7 +7964,7 @@
      * @memberof Konva.Container.prototype
      * @returns {Boolean}
      */
-    hasChildren: function() {
+    hasChildren: function () {
       return this.getChildren().length > 0;
     },
     /**
@@ -7953,7 +7972,7 @@
      * @method
      * @memberof Konva.Container.prototype
      */
-    removeChildren: function() {
+    removeChildren: function () {
       var children = Konva.Collection.toCollection(this.children);
       var child;
       for (var i = 0; i < children.length; i++) {
@@ -7972,7 +7991,7 @@
      * @method
      * @memberof Konva.Container.prototype
      */
-    destroyChildren: function() {
+    destroyChildren: function () {
       var children = Konva.Collection.toCollection(this.children);
       var child;
       for (var i = 0; i < children.length; i++) {
@@ -7995,7 +8014,7 @@
      * @example
      * layer.add(shape1, shape2, shape3);
      */
-    add: function(child) {
+    add: function (child) {
       if (arguments.length > 1) {
         for (var i = 0; i < arguments.length; i++) {
           this.add(arguments[i]);
@@ -8023,7 +8042,7 @@
       // chainable
       return this;
     },
-    destroy: function() {
+    destroy: function () {
       // destroy children
       if (this.hasChildren()) {
         this.destroyChildren();
@@ -8072,7 +8091,7 @@
      *  return node.getType() === 'Node' && node.getAbsoluteOpacity() < 1;
      * });
      */
-    find: function(selector) {
+    find: function (selector) {
       // protecting _generalFind to prevent user from accidentally adding
       // second argument and getting unexpected `findOne` result
       return this._generalFind(selector, false);
@@ -8095,11 +8114,11 @@
      *  return node.getType() === 'Shape'
      * })
      */
-    findOne: function(selector) {
+    findOne: function (selector) {
       var result = this._generalFind(selector, true);
       return result.length > 0 ? result[0] : undefined;
     },
-    _generalFind: function(selector, findOne) {
+    _generalFind: function (selector, findOne) {
       var retArr = [];
 
       if (typeof selector === 'string') {
@@ -8110,7 +8129,7 @@
 
       return Konva.Collection.toCollection(retArr);
     },
-    _findByString: function(selector) {
+    _findByString: function (selector) {
       var retArr = [],
         selectorArr = selector.replace(/ /g, '').split(','),
         len = selectorArr.length,
@@ -8156,10 +8175,10 @@
       return retArr;
     },
     // (fn: ((Node) => boolean, findOne?: boolean)
-    _findByFunction: function(fn, findOne) {
+    _findByFunction: function (fn, findOne) {
       var retArr = [];
 
-      var addItems = function(el) {
+      var addItems = function (el) {
         // escape function if we've already found one.
         if (findOne && retArr.length > 0) {
           return;
@@ -8181,7 +8200,7 @@
 
       return retArr;
     },
-    _getNodeById: function(key) {
+    _getNodeById: function (key) {
       var node = Konva.ids[key];
 
       if (node !== undefined && this.isAncestorOf(node)) {
@@ -8189,11 +8208,11 @@
       }
       return null;
     },
-    _getNodesByName: function(key) {
+    _getNodesByName: function (key) {
       var arr = Konva.names[key] || [];
       return this._getDescendants(arr);
     },
-    _get: function(selector) {
+    _get: function (selector) {
       var retArr = Konva.Node.prototype._get.call(this, selector);
       var children = this.getChildren();
       var len = children.length;
@@ -8203,7 +8222,7 @@
       return retArr;
     },
     // extenders
-    toObject: function() {
+    toObject: function () {
       var obj = Konva.Node.prototype.toObject.call(this);
 
       obj.children = [];
@@ -8217,7 +8236,7 @@
 
       return obj;
     },
-    _getDescendants: function(arr) {
+    _getDescendants: function (arr) {
       var retArr = [];
       var len = arr.length;
       for (var n = 0; n < len; n++) {
@@ -8236,7 +8255,7 @@
      * @memberof Konva.Container.prototype
      * @param {Konva.Node} node
      */
-    isAncestorOf: function(node) {
+    isAncestorOf: function (node) {
       var parent = node.getParent();
       while (parent) {
         if (parent._id === this._id) {
@@ -8247,11 +8266,11 @@
 
       return false;
     },
-    clone: function(obj) {
+    clone: function (obj) {
       // call super method
       var node = Konva.Node.prototype.clone.call(this, obj);
 
-      this.getChildren().each(function(no) {
+      this.getChildren().each(function (no) {
         node.add(no.clone());
       });
       return node;
@@ -8268,10 +8287,10 @@
      * @param {Number} pos.y
      * @returns {Array} array of shapes
      */
-    getAllIntersections: function(pos) {
+    getAllIntersections: function (pos) {
       var arr = [];
 
-      this.find('Shape').each(function(shape) {
+      this.find('Shape').each(function (shape) {
         if (shape.isVisible() && shape.intersects(pos)) {
           arr.push(shape);
         }
@@ -8279,12 +8298,12 @@
 
       return arr;
     },
-    _setChildrenIndices: function() {
-      this.children.each(function(child, n) {
+    _setChildrenIndices: function () {
+      this.children.each(function (child, n) {
         child.index = n;
       });
     },
-    drawScene: function(can, top, caching) {
+    drawScene: function (can, top, caching) {
       var layer = this.getLayer(),
         canvas = can || (layer && layer.getCanvas()),
         context = canvas && canvas.getContext(),
@@ -8303,7 +8322,7 @@
       }
       return this;
     },
-    drawHit: function(can, top, caching) {
+    drawHit: function (can, top, caching) {
       var layer = this.getLayer(),
         canvas = can || (layer && layer.hitCanvas),
         context = canvas && canvas.getContext(),
@@ -8325,7 +8344,7 @@
       }
       return this;
     },
-    _drawChildren: function(canvas, drawMethod, top, caching, skipBuffer) {
+    _drawChildren: function (canvas, drawMethod, top, caching, skipBuffer) {
       var layer = this.getLayer(),
         context = canvas && canvas.getContext(),
         clipWidth = this.getClipWidth(),
@@ -8356,7 +8375,7 @@
         context.transform(m[0], m[1], m[2], m[3], m[4], m[5]);
       }
 
-      this.children.each(function(child) {
+      this.children.each(function (child) {
         child[drawMethod](canvas, top, caching, skipBuffer);
       });
 
@@ -8364,7 +8383,7 @@
         context.restore();
       }
     },
-    shouldDrawHit: function(canvas) {
+    shouldDrawHit: function (canvas) {
       var layer = this.getLayer();
       var dd = Konva.DD;
       var layerUnderDrag =
@@ -8379,7 +8398,7 @@
           !layerUnderDrag)
       );
     },
-    getClientRect: function(attrs) {
+    getClientRect: function (attrs) {
       attrs = attrs || {};
       var skipTransform = attrs.skipTransform;
       var relativeTo = attrs.relativeTo;
@@ -8392,13 +8411,15 @@
         height: 0
       };
       var that = this;
-      this.children.each(function(child) {
+      this.children.each(function (child) {
         // skip invisible children
         if (!child.getVisible()) {
           return;
         }
 
-        var rect = child.getClientRect({ relativeTo: that });
+        var rect = child.getClientRect({
+          relativeTo: that
+        });
 
         // skip invisible children (like empty groups)
         if (rect.width === 0 && rect.height === 0) {
@@ -8593,7 +8614,7 @@
   Konva.Collection.mapMethods(Konva.Container);
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   var HAS_SHADOW = 'hasShadow';
   var SHADOW_RGBA = 'shadowRGBA';
@@ -8601,12 +8622,15 @@
   function _fillFunc(context) {
     context.fill();
   }
+
   function _strokeFunc(context) {
     context.stroke();
   }
+
   function _fillFuncHit(context) {
     context.fill();
   }
+
   function _strokeFuncHit(context) {
     context.stroke();
   }
@@ -8627,76 +8651,76 @@
    * @augments Konva.Node
    * @param {Object} config
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var customShape = new Konva.Shape({
    *   x: 5,
@@ -8714,12 +8738,12 @@
    *   }
    *});
    */
-  Konva.Shape = function(config) {
+  Konva.Shape = function (config) {
     this.__init(config);
   };
 
   Konva.Util.addMethods(Konva.Shape, {
-    __init: function(config) {
+    __init: function (config) {
       this.nodeType = 'Shape';
       this._fillFunc = _fillFunc;
       this._strokeFunc = _strokeFunc;
@@ -8753,10 +8777,10 @@
         _clearGetShadowRGBACache
       );
     },
-    hasChildren: function() {
+    hasChildren: function () {
       return false;
     },
-    getChildren: function() {
+    getChildren: function () {
       return [];
     },
     /**
@@ -8765,7 +8789,7 @@
      * @memberof Konva.Shape.prototype
      * @returns {Konva.Context}
      */
-    getContext: function() {
+    getContext: function () {
       return this.getLayer().getContext();
     },
     /**
@@ -8774,7 +8798,7 @@
      * @memberof Konva.Shape.prototype
      * @returns {Konva.Canvas}
      */
-    getCanvas: function() {
+    getCanvas: function () {
       return this.getLayer().getCanvas();
     },
     /**
@@ -8783,10 +8807,10 @@
      * @memberof Konva.Shape.prototype
      * @returns {Boolean}
      */
-    hasShadow: function() {
+    hasShadow: function () {
       return this._getCache(HAS_SHADOW, this._hasShadow);
     },
-    _hasShadow: function() {
+    _hasShadow: function () {
       return (
         this.getShadowEnabled() &&
         (this.getShadowOpacity() !== 0 &&
@@ -8798,10 +8822,10 @@
           ))
       );
     },
-    getShadowRGBA: function() {
+    getShadowRGBA: function () {
       return this._getCache(SHADOW_RGBA, this._getShadowRGBA);
     },
-    _getShadowRGBA: function() {
+    _getShadowRGBA: function () {
       if (this.hasShadow()) {
         var rgba = Konva.Util.colorToRGBA(this.shadowColor());
         return (
@@ -8823,7 +8847,7 @@
      * @memberof Konva.Shape.prototype
      * @returns {Boolean}
      */
-    hasFill: function() {
+    hasFill: function () {
       return !!(
         this.getFill() ||
         this.getFillPatternImage() ||
@@ -8837,7 +8861,7 @@
      * @memberof Konva.Shape.prototype
      * @returns {Boolean}
      */
-    hasStroke: function() {
+    hasStroke: function () {
       return (
         this.strokeEnabled() &&
         !!(this.stroke() || this.getStrokeLinearGradientColorStops())
@@ -8857,7 +8881,7 @@
      * @param {Number} point.y
      * @returns {Boolean}
      */
-    intersects: function(point) {
+    intersects: function (point) {
       var stage = this.getStage(),
         bufferHitCanvas = stage.bufferHitCanvas,
         p;
@@ -8873,12 +8897,12 @@
       return p[3] > 0;
     },
     // extends Node.prototype.destroy
-    destroy: function() {
+    destroy: function () {
       Konva.Node.prototype.destroy.call(this);
       delete Konva.shapes[this.colorKey];
       return this;
     },
-    _useBufferCanvas: function(caching) {
+    _useBufferCanvas: function (caching) {
       return (
         (!caching &&
           (this.perfectDrawEnabled() &&
@@ -8906,7 +8930,7 @@
      * circle.getSelfRect();  // return {x: - circle.width() / 2, y: - circle.height() / 2, width:circle.width(), height:circle.height()}
      *
      */
-    getSelfRect: function() {
+    getSelfRect: function () {
       var size = this.getSize();
       return {
         x: this._centroid ? Math.round(-size.width / 2) : 0,
@@ -8915,7 +8939,7 @@
         height: size.height
       };
     },
-    getClientRect: function(attrs) {
+    getClientRect: function (attrs) {
       attrs = attrs || {};
       var skipTransform = attrs.skipTransform;
       var relativeTo = attrs.relativeTo;
@@ -8961,7 +8985,7 @@
       }
       return rect;
     },
-    drawScene: function(can, top, caching, skipBuffer) {
+    drawScene: function (can, top, caching, skipBuffer) {
       var layer = this.getLayer(),
         canvas = can || layer.getCanvas(),
         context = canvas.getContext(),
@@ -9084,7 +9108,7 @@
       context.restore();
       return this;
     },
-    drawHit: function(can, top, caching) {
+    drawHit: function (can, top, caching) {
       var layer = this.getLayer(),
         canvas = can || layer.hitCanvas,
         context = canvas.getContext(),
@@ -9134,7 +9158,7 @@
      * shape.cache();
      * shape.drawHitFromCache();
      */
-    drawHitFromCache: function(alphaThreshold) {
+    drawHitFromCache: function (alphaThreshold) {
       var threshold = alphaThreshold || 0,
         cachedCanvas = this._cache.canvas,
         sceneCanvas = this._getCachedSceneCanvas(),
@@ -10454,7 +10478,7 @@
   Konva.Collection.mapMethods(Konva.Shape);
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   // CONSTANTS
   var STAGE = 'Stage',
@@ -10515,7 +10539,7 @@
   function addEvent(ctx, eventName) {
     ctx.content.addEventListener(
       eventName,
-      function(evt) {
+      function (evt) {
         ctx[UNDERSCORE + eventName](evt);
       },
       false
@@ -10530,25 +10554,25 @@
    * @param {Object} config
    * @param {String|Element} config.container Container selector or DOM element
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var stage = new Konva.Stage({
    *   width: 500,
@@ -10556,12 +10580,12 @@
    *   container: 'containerId' // or "#containerId" or ".containerClass"
    * });
    */
-  Konva.Stage = function(config) {
+  Konva.Stage = function (config) {
     this.___init(config);
   };
 
   Konva.Util.addMethods(Konva.Stage, {
-    ___init: function(config) {
+    ___init: function (config) {
       this.nodeType = STAGE;
       // call super constructor
       Konva.Container.call(this, config);
@@ -10571,7 +10595,7 @@
       this._enableNestedTransforms = false;
       Konva.stages.push(this);
     },
-    _validateAdd: function(child) {
+    _validateAdd: function (child) {
       if (child.getType() !== 'Layer') {
         Konva.Util.throw('You may only add layers to the stage.');
       }
@@ -10582,7 +10606,7 @@
      * @memberof Konva.Stage.prototype
      * @param {DomElement} container can pass in a dom element or id string
      */
-    setContainer: function(container) {
+    setContainer: function (container) {
       if (typeof container === STRING) {
         if (container.charAt(0) === '.') {
           var className = container.slice(1);
@@ -10603,10 +10627,10 @@
       this._setAttr(CONTAINER, container);
       return this;
     },
-    shouldDrawHit: function() {
+    shouldDrawHit: function () {
       return true;
     },
-    draw: function() {
+    draw: function () {
       Konva.Node.prototype.draw.call(this);
       return this;
     },
@@ -10630,7 +10654,7 @@
      * @memberof Konva.Stage.prototype
      * @param {Number} height
      */
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       this._resizeDOM();
       return this;
@@ -10641,7 +10665,7 @@
      * @memberof Konva.Stage.prototype
      * @param {Number} width
      */
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       this._resizeDOM();
       return this;
@@ -10651,7 +10675,7 @@
      * @method
      * @memberof Konva.Stage.prototype
      */
-    clear: function() {
+    clear: function () {
       var layers = this.children,
         len = layers.length,
         n;
@@ -10661,7 +10685,7 @@
       }
       return this;
     },
-    clone: function(obj) {
+    clone: function (obj) {
       if (!obj) {
         obj = {};
       }
@@ -10673,7 +10697,7 @@
      * @method
      * @memberof Konva.Stage.prototype
      */
-    destroy: function() {
+    destroy: function () {
       var content = this.content;
       Konva.Container.prototype.destroy.call(this);
 
@@ -10692,10 +10716,10 @@
      * @memberof Konva.Stage.prototype
      * @returns {Object}
      */
-    getPointerPosition: function() {
+    getPointerPosition: function () {
       return this.pointerPos;
     },
-    getStage: function() {
+    getStage: function () {
       return this;
     },
     /**
@@ -10704,10 +10728,10 @@
      * @method
      * @memberof Konva.Stage.prototype
      */
-    getContent: function() {
+    getContent: function () {
       return this.content;
     },
-    _toKonvaCanvas: function(config) {
+    _toKonvaCanvas: function (config) {
       config = config || {};
 
       var x = config.x || 0,
@@ -10724,7 +10748,7 @@
         _context.translate(-1 * x, -1 * y);
       }
 
-      layers.each(function(layer) {
+      layers.each(function (layer) {
         if (!layer.isVisible()) {
           return;
         }
@@ -10755,11 +10779,11 @@
      *  you can specify the quality from 0 to 1, where 0 is very poor quality and 1
      *  is very high quality
      */
-    toImage: function(config) {
+    toImage: function (config) {
       var cb = config.callback;
 
-      config.callback = function(dataUrl) {
-        Konva.Util._getImage(dataUrl, function(img) {
+      config.callback = function (dataUrl) {
+        Konva.Util._getImage(dataUrl, function (img) {
           cb(img);
         });
       };
@@ -10780,7 +10804,7 @@
      * // or if you interested in shape parent:
      * var group = stage.getIntersection({x: 50, y: 50}, 'Group');
      */
-    getIntersection: function(pos, selector) {
+    getIntersection: function (pos, selector) {
       var layers = this.getChildren(),
         len = layers.length,
         end = len - 1,
@@ -10796,7 +10820,7 @@
 
       return null;
     },
-    _resizeDOM: function() {
+    _resizeDOM: function () {
       if (this.content) {
         var width = this.getWidth(),
           height = this.getHeight(),
@@ -10828,7 +10852,7 @@
      * @example
      * stage.add(layer1, layer2, layer3);
      */
-    add: function(layer) {
+    add: function (layer) {
       if (arguments.length > 1) {
         for (var i = 0; i < arguments.length; i++) {
           this.add(arguments[i]);
@@ -10848,10 +10872,10 @@
       // chainable
       return this;
     },
-    getParent: function() {
+    getParent: function () {
       return null;
     },
-    getLayer: function() {
+    getLayer: function () {
       return null;
     },
     /**
@@ -10859,10 +10883,10 @@
      * @method
      * @memberof Konva.Stage.prototype
      */
-    getLayers: function() {
+    getLayers: function () {
       return this.getChildren();
     },
-    _bindContentEvents: function() {
+    _bindContentEvents: function () {
       if (!Konva.isBrowser) {
         return;
       }
@@ -10870,28 +10894,36 @@
         addEvent(this, EVENTS[n]);
       }
     },
-    _mouseover: function(evt) {
+    _mouseover: function (evt) {
       if (!Konva.UA.mobile) {
         this._setPointerPosition(evt);
-        this._fire(CONTENT_MOUSEOVER, { evt: evt });
+        this._fire(CONTENT_MOUSEOVER, {
+          evt: evt
+        });
       }
     },
-    _mouseout: function(evt) {
+    _mouseout: function (evt) {
       if (!Konva.UA.mobile) {
         this._setPointerPosition(evt);
         var targetShape = this.targetShape;
 
         if (targetShape && !Konva.isDragging()) {
-          targetShape._fireAndBubble(MOUSEOUT, { evt: evt });
-          targetShape._fireAndBubble(MOUSELEAVE, { evt: evt });
+          targetShape._fireAndBubble(MOUSEOUT, {
+            evt: evt
+          });
+          targetShape._fireAndBubble(MOUSELEAVE, {
+            evt: evt
+          });
           this.targetShape = null;
         }
         this.pointerPos = undefined;
 
-        this._fire(CONTENT_MOUSEOUT, { evt: evt });
+        this._fire(CONTENT_MOUSEOUT, {
+          evt: evt
+        });
       }
     },
-    _mousemove: function(evt) {
+    _mousemove: function (evt) {
       // workaround for mobile IE to force touch event when unhandled pointer event elevates into a mouse event
       if (Konva.UA.ieMobile) {
         return this._touchmove(evt);
@@ -10919,23 +10951,37 @@
             (!this.targetShape || this.targetShape._id !== shape._id)
           ) {
             if (this.targetShape) {
-              this.targetShape._fireAndBubble(MOUSEOUT, { evt: evt }, shape);
-              this.targetShape._fireAndBubble(MOUSELEAVE, { evt: evt }, shape);
+              this.targetShape._fireAndBubble(MOUSEOUT, {
+                evt: evt
+              }, shape);
+              this.targetShape._fireAndBubble(MOUSELEAVE, {
+                evt: evt
+              }, shape);
             }
-            shape._fireAndBubble(MOUSEOVER, { evt: evt }, this.targetShape);
-            shape._fireAndBubble(MOUSEENTER, { evt: evt }, this.targetShape);
+            shape._fireAndBubble(MOUSEOVER, {
+              evt: evt
+            }, this.targetShape);
+            shape._fireAndBubble(MOUSEENTER, {
+              evt: evt
+            }, this.targetShape);
             this.targetShape = shape;
           } else {
-            shape._fireAndBubble(MOUSEMOVE, { evt: evt });
+            shape._fireAndBubble(MOUSEMOVE, {
+              evt: evt
+            });
           }
         } else {
           /*
-                 * if no shape was detected, clear target shape and try
-                 * to run mouseout from previous target shape
-                 */
+           * if no shape was detected, clear target shape and try
+           * to run mouseout from previous target shape
+           */
           if (this.targetShape && !Konva.isDragging()) {
-            this.targetShape._fireAndBubble(MOUSEOUT, { evt: evt });
-            this.targetShape._fireAndBubble(MOUSELEAVE, { evt: evt });
+            this.targetShape._fireAndBubble(MOUSEOUT, {
+              evt: evt
+            });
+            this.targetShape._fireAndBubble(MOUSELEAVE, {
+              evt: evt
+            });
             this.targetShape = null;
           }
           this._fire(MOUSEMOVE, {
@@ -10946,7 +10992,9 @@
         }
 
         // content event
-        this._fire(CONTENT_MOUSEMOVE, { evt: evt });
+        this._fire(CONTENT_MOUSEMOVE, {
+          evt: evt
+        });
       }
 
       // always call preventDefault for desktop events because some browsers
@@ -10955,7 +11003,7 @@
         evt.preventDefault();
       }
     },
-    _mousedown: function(evt) {
+    _mousedown: function (evt) {
       // workaround for mobile IE to force touch event when unhandled pointer event elevates into a mouse event
       if (Konva.UA.ieMobile) {
         return this._touchstart(evt);
@@ -10968,7 +11016,9 @@
 
         if (shape && shape.isListening()) {
           this.clickStartShape = shape;
-          shape._fireAndBubble(MOUSEDOWN, { evt: evt });
+          shape._fireAndBubble(MOUSEDOWN, {
+            evt: evt
+          });
         } else {
           this._fire(MOUSEDOWN, {
             evt: evt,
@@ -10978,7 +11028,9 @@
         }
 
         // content event
-        this._fire(CONTENT_MOUSEDOWN, { evt: evt });
+        this._fire(CONTENT_MOUSEDOWN, {
+          evt: evt
+        });
       }
 
       // always call preventDefault for desktop events because some browsers
@@ -10990,7 +11042,7 @@
       // evt.preventDefault();
       // }
     },
-    _mouseup: function(evt) {
+    _mouseup: function (evt) {
       // workaround for mobile IE to force touch event when unhandled pointer event elevates into a mouse event
       if (Konva.UA.ieMobile) {
         return this._touchend(evt);
@@ -11015,13 +11067,15 @@
           dd.justDragged = false;
         }
 
-        this.dblTimeout = setTimeout(function() {
+        this.dblTimeout = setTimeout(function () {
           Konva.inDblClickWindow = false;
         }, Konva.dblClickWindow);
 
         if (shape && shape.isListening()) {
           this.clickEndShape = shape;
-          shape._fireAndBubble(MOUSEUP, { evt: evt });
+          shape._fireAndBubble(MOUSEUP, {
+            evt: evt
+          });
 
           // detect if click or double click occurred
           if (
@@ -11029,20 +11083,32 @@
             clickStartShape &&
             clickStartShape._id === shape._id
           ) {
-            shape._fireAndBubble(CLICK, { evt: evt });
+            shape._fireAndBubble(CLICK, {
+              evt: evt
+            });
 
             if (
               fireDblClick &&
               clickEndShape &&
               clickEndShape._id === shape._id
             ) {
-              shape._fireAndBubble(DBL_CLICK, { evt: evt });
+              shape._fireAndBubble(DBL_CLICK, {
+                evt: evt
+              });
             }
           }
         } else {
-          this._fire(MOUSEUP, { evt: evt, target: this, currentTarget: this });
+          this._fire(MOUSEUP, {
+            evt: evt,
+            target: this,
+            currentTarget: this
+          });
           if (Konva.listenClickTap) {
-            this._fire(CLICK, { evt: evt, target: this, currentTarget: this });
+            this._fire(CLICK, {
+              evt: evt,
+              target: this,
+              currentTarget: this
+            });
           }
 
           if (fireDblClick) {
@@ -11054,11 +11120,17 @@
           }
         }
         // content events
-        this._fire(CONTENT_MOUSEUP, { evt: evt });
+        this._fire(CONTENT_MOUSEUP, {
+          evt: evt
+        });
         if (Konva.listenClickTap) {
-          this._fire(CONTENT_CLICK, { evt: evt });
+          this._fire(CONTENT_CLICK, {
+            evt: evt
+          });
           if (fireDblClick) {
-            this._fire(CONTENT_DBL_CLICK, { evt: evt });
+            this._fire(CONTENT_DBL_CLICK, {
+              evt: evt
+            });
           }
         }
 
@@ -11071,12 +11143,14 @@
         evt.preventDefault();
       }
     },
-    _contextmenu: function(evt) {
+    _contextmenu: function (evt) {
       this._setPointerPosition(evt);
       var shape = this.getIntersection(this.getPointerPosition());
 
       if (shape && shape.isListening()) {
-        shape._fireAndBubble(CONTEXTMENU, { evt: evt });
+        shape._fireAndBubble(CONTEXTMENU, {
+          evt: evt
+        });
       } else {
         this._fire(CONTEXTMENU, {
           evt: evt,
@@ -11084,9 +11158,11 @@
           currentTarget: this
         });
       }
-      this._fire(CONTENT_CONTEXTMENU, { evt: evt });
+      this._fire(CONTENT_CONTEXTMENU, {
+        evt: evt
+      });
     },
-    _touchstart: function(evt) {
+    _touchstart: function (evt) {
       this._setPointerPosition(evt);
       var shape = this.getIntersection(this.getPointerPosition());
 
@@ -11094,7 +11170,9 @@
 
       if (shape && shape.isListening()) {
         this.tapStartShape = shape;
-        shape._fireAndBubble(TOUCHSTART, { evt: evt });
+        shape._fireAndBubble(TOUCHSTART, {
+          evt: evt
+        });
 
         // only call preventDefault if the shape is listening for events
         if (shape.isListening() && shape.preventDefault() && evt.cancelable) {
@@ -11108,9 +11186,11 @@
         });
       }
       // content event
-      this._fire(CONTENT_TOUCHSTART, { evt: evt });
+      this._fire(CONTENT_TOUCHSTART, {
+        evt: evt
+      });
     },
-    _touchend: function(evt) {
+    _touchend: function (evt) {
       this._setPointerPosition(evt);
       var shape = this.getIntersection(this.getPointerPosition()),
         fireDblClick = false;
@@ -11124,12 +11204,14 @@
         clearTimeout(this.dblTimeout);
       }
 
-      this.dblTimeout = setTimeout(function() {
+      this.dblTimeout = setTimeout(function () {
         Konva.inDblClickWindow = false;
       }, Konva.dblClickWindow);
 
       if (shape && shape.isListening()) {
-        shape._fireAndBubble(TOUCHEND, { evt: evt });
+        shape._fireAndBubble(TOUCHEND, {
+          evt: evt
+        });
 
         // detect if tap or double tap occurred
         if (
@@ -11137,10 +11219,14 @@
           this.tapStartShape &&
           shape._id === this.tapStartShape._id
         ) {
-          shape._fireAndBubble(TAP, { evt: evt });
+          shape._fireAndBubble(TAP, {
+            evt: evt
+          });
 
           if (fireDblClick) {
-            shape._fireAndBubble(DBL_TAP, { evt: evt });
+            shape._fireAndBubble(DBL_TAP, {
+              evt: evt
+            });
           }
         }
         // only call preventDefault if the shape is listening for events
@@ -11148,9 +11234,17 @@
           evt.preventDefault();
         }
       } else {
-        this._fire(TOUCHEND, { evt: evt, target: this, currentTarget: this });
+        this._fire(TOUCHEND, {
+          evt: evt,
+          target: this,
+          currentTarget: this
+        });
         if (Konva.listenClickTap) {
-          this._fire(TAP, { evt: evt, target: this, currentTarget: this });
+          this._fire(TAP, {
+            evt: evt,
+            target: this,
+            currentTarget: this
+          });
         }
         if (fireDblClick) {
           this._fire(DBL_TAP, {
@@ -11161,24 +11255,32 @@
         }
       }
       // content events
-      this._fire(CONTENT_TOUCHEND, { evt: evt });
+      this._fire(CONTENT_TOUCHEND, {
+        evt: evt
+      });
       if (Konva.listenClickTap) {
-        this._fire(CONTENT_TAP, { evt: evt });
+        this._fire(CONTENT_TAP, {
+          evt: evt
+        });
         if (fireDblClick) {
-          this._fire(CONTENT_DBL_TAP, { evt: evt });
+          this._fire(CONTENT_DBL_TAP, {
+            evt: evt
+          });
         }
       }
 
       Konva.listenClickTap = false;
     },
-    _touchmove: function(evt) {
+    _touchmove: function (evt) {
       this._setPointerPosition(evt);
       var dd = Konva.DD,
         shape;
       if (!Konva.isDragging()) {
         shape = this.getIntersection(this.getPointerPosition());
         if (shape && shape.isListening()) {
-          shape._fireAndBubble(TOUCHMOVE, { evt: evt });
+          shape._fireAndBubble(TOUCHMOVE, {
+            evt: evt
+          });
           // only call preventDefault if the shape is listening for events
           if (shape.isListening() && shape.preventDefault() && evt.cancelable) {
             evt.preventDefault();
@@ -11190,7 +11292,9 @@
             currentTarget: this
           });
         }
-        this._fire(CONTENT_TOUCHMOVE, { evt: evt });
+        this._fire(CONTENT_TOUCHMOVE, {
+          evt: evt
+        });
       }
       if (dd) {
         if (
@@ -11202,12 +11306,14 @@
         }
       }
     },
-    _wheel: function(evt) {
+    _wheel: function (evt) {
       this._setPointerPosition(evt);
       var shape = this.getIntersection(this.getPointerPosition());
 
       if (shape && shape.isListening()) {
-        shape._fireAndBubble(WHEEL, { evt: evt });
+        shape._fireAndBubble(WHEEL, {
+          evt: evt
+        });
       } else {
         this._fire(WHEEL, {
           evt: evt,
@@ -11215,9 +11321,11 @@
           currentTarget: this
         });
       }
-      this._fire(CONTENT_WHEEL, { evt: evt });
+      this._fire(CONTENT_WHEEL, {
+        evt: evt
+      });
     },
-    _setPointerPosition: function(evt) {
+    _setPointerPosition: function (evt) {
       var contentPosition = this._getContentPosition(),
         x = null,
         y = null;
@@ -11244,21 +11352,26 @@
         };
       }
     },
-    _getContentPosition: function() {
-      var rect = this.content.getBoundingClientRect
-        ? this.content.getBoundingClientRect()
-        : { top: 0, left: 0 };
+    _getContentPosition: function () {
+      var rect = this.content.getBoundingClientRect ?
+        this.content.getBoundingClientRect() :
+        {
+          top: 0,
+          left: 0
+        };
       return {
         top: rect.top,
         left: rect.left
       };
     },
-    _buildDOM: function() {
+    _buildDOM: function () {
       // the buffer canvas pixel ratio must be 1 because it is used as an
       // intermediate canvas before copying the result onto a scene canvas.
       // not setting it to 1 will result in an over compensation
       this.bufferCanvas = new Konva.SceneCanvas();
-      this.bufferHitCanvas = new Konva.HitCanvas({ pixelRatio: 1 });
+      this.bufferHitCanvas = new Konva.HitCanvas({
+        pixelRatio: 1
+      });
 
       if (!Konva.isBrowser) {
         return;
@@ -11282,7 +11395,7 @@
 
       this._resizeDOM();
     },
-    _onContent: function(typesStr, handler) {
+    _onContent: function (typesStr, handler) {
       var types = typesStr.split(SPACE),
         len = types.length,
         n,
@@ -11295,12 +11408,12 @@
     },
     // currently cache function is now working for stage, because stage has no its own canvas element
     // TODO: may be it is better to cache all children layers?
-    cache: function() {
+    cache: function () {
       Konva.Util.warn(
         'Cache function is not allowed for stage. You may use cache only for layers, groups and shapes.'
       );
     },
-    clearCache: function() {}
+    clearCache: function () {}
   });
   Konva.Util.extend(Konva.Stage, Konva.Container);
 
@@ -11324,7 +11437,7 @@
    */
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /**
    * BaseLayer constructor.
@@ -11362,16 +11475,16 @@
      * @param {Function} [config.clipFunc] set clip func
 
    */
-  Konva.BaseLayer = function(config) {
+  Konva.BaseLayer = function (config) {
     this.___init(config);
   };
 
   Konva.Util.addMethods(Konva.BaseLayer, {
-    ___init: function(config) {
+    ___init: function (config) {
       this.nodeType = 'Layer';
       Konva.Container.call(this, config);
     },
-    createPNGStream: function() {
+    createPNGStream: function () {
       return this.canvas._canvas.createPNGStream();
     },
     /**
@@ -11379,7 +11492,7 @@
      * @method
      * @memberof Konva.BaseLayer.prototype
      */
-    getCanvas: function() {
+    getCanvas: function () {
       return this.canvas;
     },
     /**
@@ -11387,7 +11500,7 @@
      * @method
      * @memberof Konva.BaseLayer.prototype
      */
-    getHitCanvas: function() {
+    getHitCanvas: function () {
       return this.hitCanvas;
     },
     /**
@@ -11395,7 +11508,7 @@
      * @method
      * @memberof Konva.BaseLayer.prototype
      */
-    getContext: function() {
+    getContext: function () {
       return this.getCanvas().getContext();
     },
     /**
@@ -11416,15 +11529,15 @@
      *   height : 100
      * });
      */
-    clear: function(bounds) {
+    clear: function (bounds) {
       this.getContext().clear(bounds);
       return this;
     },
-    clearHitCache: function() {
+    clearHitCache: function () {
       this._hitImageData = undefined;
     },
     // extend Node.prototype.setZIndex
-    setZIndex: function(index) {
+    setZIndex: function (index) {
       Konva.Node.prototype.setZIndex.call(this, index);
       var stage = this.getStage();
       if (stage) {
@@ -11442,7 +11555,7 @@
       return this;
     },
     // extend Node.prototype.moveToTop
-    moveToTop: function() {
+    moveToTop: function () {
       Konva.Node.prototype.moveToTop.call(this);
       var stage = this.getStage();
       if (stage) {
@@ -11452,7 +11565,7 @@
       return this;
     },
     // extend Node.prototype.moveUp
-    moveUp: function() {
+    moveUp: function () {
       var moved = Konva.Node.prototype.moveUp.call(this);
       if (!moved) {
         return this;
@@ -11474,7 +11587,7 @@
       return this;
     },
     // extend Node.prototype.moveDown
-    moveDown: function() {
+    moveDown: function () {
       if (Konva.Node.prototype.moveDown.call(this)) {
         var stage = this.getStage();
         if (stage) {
@@ -11489,7 +11602,7 @@
       return this;
     },
     // extend Node.prototype.moveToBottom
-    moveToBottom: function() {
+    moveToBottom: function () {
       if (Konva.Node.prototype.moveToBottom.call(this)) {
         var stage = this.getStage();
         if (stage) {
@@ -11503,10 +11616,10 @@
       }
       return this;
     },
-    getLayer: function() {
+    getLayer: function () {
       return this;
     },
-    remove: function() {
+    remove: function () {
       var _canvas = this.getCanvas()._canvas;
 
       Konva.Node.prototype.remove.call(this);
@@ -11516,14 +11629,14 @@
       }
       return this;
     },
-    getStage: function() {
+    getStage: function () {
       return this.parent;
     },
-    setSize: function(width, height) {
+    setSize: function (width, height) {
       this.canvas.setSize(width, height);
       return this;
     },
-    _toKonvaCanvas: function(config) {
+    _toKonvaCanvas: function (config) {
       config = config || {};
       config.width = config.width || this.getWidth();
       config.height = config.height || this.getHeight();
@@ -11542,12 +11655,12 @@
      * @example
      * var width = layer.width();
      */
-    getWidth: function() {
+    getWidth: function () {
       if (this.parent) {
         return this.parent.getWidth();
       }
     },
-    setWidth: function() {
+    setWidth: function () {
       Konva.Util.warn(
         'Can not change width of layer. Use "stage.width(value)" function instead.'
       );
@@ -11562,12 +11675,12 @@
      * @example
      * var height = layer.height();
      */
-    getHeight: function() {
+    getHeight: function () {
       if (this.parent) {
         return this.parent.getHeight();
       }
     },
-    setHeight: function() {
+    setHeight: function () {
       Konva.Util.warn(
         'Can not change height of layer. Use "stage.height(value)" function instead.'
       );
@@ -11575,7 +11688,7 @@
     // the apply transform method is handled by the Layer and FastLayer class
     // because it is up to the layer to decide if an absolute or relative transform
     // should be used
-    _applyTransform: function(shape, context, top) {
+    _applyTransform: function (shape, context, top) {
       var m = shape.getAbsoluteTransform(top).getMatrix();
       context.transform(m[0], m[1], m[2], m[3], m[4], m[5]);
     }
@@ -11606,25 +11719,39 @@
   Konva.Collection.mapMethods(Konva.BaseLayer);
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   // constants
   var HASH = '#',
     BEFORE_DRAW = 'beforeDraw',
     DRAW = 'draw',
     /*
-         * 2 - 3 - 4
-         * |       |
-         * 1 - 0   5
-         *         |
-         * 8 - 7 - 6
-         */
-    INTERSECTION_OFFSETS = [
-      { x: 0, y: 0 }, // 0
-      { x: -1, y: -1 }, // 2
-      { x: 1, y: -1 }, // 4
-      { x: 1, y: 1 }, // 6
-      { x: -1, y: 1 } // 8
+     * 2 - 3 - 4
+     * |       |
+     * 1 - 0   5
+     *         |
+     * 8 - 7 - 6
+     */
+    INTERSECTION_OFFSETS = [{
+        x: 0,
+        y: 0
+      }, // 0
+      {
+        x: -1,
+        y: -1
+      }, // 2
+      {
+        x: 1,
+        y: -1
+      }, // 4
+      {
+        x: 1,
+        y: 1
+      }, // 6
+      {
+        x: -1,
+        y: 1
+      } // 8
     ],
     INTERSECTION_OFFSETS_LEN = INTERSECTION_OFFSETS.length;
 
@@ -11667,12 +11794,12 @@
    * @example
    * var layer = new Konva.Layer();
    */
-  Konva.Layer = function(config) {
+  Konva.Layer = function (config) {
     this.____init(config);
   };
 
   Konva.Util.addMethods(Konva.Layer, {
-    ____init: function(config) {
+    ____init: function (config) {
       this.nodeType = 'Layer';
       this.canvas = new Konva.SceneCanvas();
       this.hitCanvas = new Konva.HitCanvas({
@@ -11681,11 +11808,11 @@
       // call super constructor
       Konva.BaseLayer.call(this, config);
     },
-    _setCanvasSize: function(width, height) {
+    _setCanvasSize: function (width, height) {
       this.canvas.setSize(width, height);
       this.hitCanvas.setSize(width, height);
     },
-    _validateAdd: function(child) {
+    _validateAdd: function (child) {
       var type = child.getType();
       if (type !== 'Group' && type !== 'Shape') {
         Konva.Util.throw('You may only add groups and shapes to a layer.');
@@ -11707,7 +11834,7 @@
      * // or if you interested in shape parent:
      * var group = layer.getIntersection({x: 50, y: 50}, 'Group');
      */
-    getIntersection: function(pos, selector) {
+    getIntersection: function (pos, selector) {
       var obj, i, intersectionOffset, shape;
 
       if (!this.hitGraphEnabled() || !this.isVisible()) {
@@ -11747,7 +11874,7 @@
         }
       }
     },
-    _getImageData: function(x, y) {
+    _getImageData: function (x, y) {
       var width = this.hitCanvas.width || 1,
         height = this.hitCanvas.height || 1,
         index = Math.round(y) * width + Math.round(x);
@@ -11768,7 +11895,7 @@
         this._hitImageData.data[4 * index + 3] // Alpha
       ];
     },
-    _getIntersection: function(pos) {
+    _getIntersection: function (pos) {
       var ratio = this.hitCanvas.pixelRatio;
       var p = this.hitCanvas.context.getImageData(
           Math.round(pos.x * ratio),
@@ -11800,7 +11927,7 @@
       // empty pixel
       return {};
     },
-    drawScene: function(can, top) {
+    drawScene: function (can, top) {
       var layer = this.getLayer(),
         canvas = can || (layer && layer.getCanvas());
 
@@ -11820,7 +11947,7 @@
 
       return this;
     },
-    drawHit: function(can, top) {
+    drawHit: function (can, top) {
       var layer = this.getLayer(),
         canvas = can || (layer && layer.hitCanvas);
 
@@ -11835,7 +11962,7 @@
       this.imageData = null; // Clear imageData cache
       return this;
     },
-    clear: function(bounds) {
+    clear: function (bounds) {
       Konva.BaseLayer.prototype.clear.call(this, bounds);
       this.getHitCanvas()
         .getContext()
@@ -11844,7 +11971,7 @@
       return this;
     },
     // extend Node.prototype.setVisible
-    setVisible: function(visible) {
+    setVisible: function (visible) {
       Konva.Node.prototype.setVisible.call(this, visible);
       if (visible) {
         this.getCanvas()._canvas.style.display = 'block';
@@ -11862,7 +11989,7 @@
      * @memberof Konva.Layer.prototype
      * @returns {Layer}
      */
-    enableHitGraph: function() {
+    enableHitGraph: function () {
       this.setHitGraphEnabled(true);
       return this;
     },
@@ -11873,11 +12000,11 @@
      * @memberof Konva.Layer.prototype
      * @returns {Layer}
      */
-    disableHitGraph: function() {
+    disableHitGraph: function () {
       this.setHitGraphEnabled(false);
       return this;
     },
-    setSize: function(width, height) {
+    setSize: function (width, height) {
       Konva.BaseLayer.prototype.setSize.call(this, width, height);
       this.hitCanvas.setSize(width, height);
       return this;
@@ -11908,7 +12035,7 @@
   Konva.Collection.mapMethods(Konva.Layer);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * FastLayer constructor. Layers are tied to their own canvas element and are used
@@ -11935,33 +12062,33 @@
    * @example
    * var layer = new Konva.FastLayer();
    */
-  Konva.FastLayer = function(config) {
+  Konva.FastLayer = function (config) {
     this.____init(config);
   };
 
   Konva.Util.addMethods(Konva.FastLayer, {
-    ____init: function(config) {
+    ____init: function (config) {
       this.nodeType = 'Layer';
       this.canvas = new Konva.SceneCanvas();
       // call super constructor
       Konva.BaseLayer.call(this, config);
     },
-    _validateAdd: function(child) {
+    _validateAdd: function (child) {
       var type = child.getType();
       if (type !== 'Shape') {
         Konva.Util.throw('You may only add shapes to a fast layer.');
       }
     },
-    _setCanvasSize: function(width, height) {
+    _setCanvasSize: function (width, height) {
       this.canvas.setSize(width, height);
     },
-    hitGraphEnabled: function() {
+    hitGraphEnabled: function () {
       return false;
     },
-    getIntersection: function() {
+    getIntersection: function () {
       return null;
     },
-    drawScene: function(can) {
+    drawScene: function (can) {
       var layer = this.getLayer(),
         canvas = can || (layer && layer.getCanvas());
 
@@ -11973,12 +12100,12 @@
 
       return this;
     },
-    draw: function() {
+    draw: function () {
       this.drawScene();
       return this;
     },
     // extend Node.prototype.setVisible
-    setVisible: function(visible) {
+    setVisible: function (visible) {
       Konva.Node.prototype.setVisible.call(this, visible);
       if (visible) {
         this.getCanvas()._canvas.style.display = 'block';
@@ -11993,7 +12120,7 @@
   Konva.Collection.mapMethods(Konva.FastLayer);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Group constructor.  Groups are used to contain shapes or other groups.
@@ -12031,17 +12158,17 @@
    * @example
    * var group = new Konva.Group();
    */
-  Konva.Group = function(config) {
+  Konva.Group = function (config) {
     this.___init(config);
   };
 
   Konva.Util.addMethods(Konva.Group, {
-    ___init: function(config) {
+    ___init: function (config) {
       this.nodeType = 'Group';
       // call super constructor
       Konva.Container.call(this, config);
     },
-    _validateAdd: function(child) {
+    _validateAdd: function (child) {
       var type = child.getType();
       if (type !== 'Group' && type !== 'Shape') {
         Konva.Util.throw('You may only add groups and shapes to groups.');
@@ -12053,16 +12180,16 @@
   Konva.Collection.mapMethods(Konva.Group);
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
-  var now = (function() {
+  var now = (function () {
     if (Konva.global.performance && Konva.global.performance.now) {
-      return function() {
+      return function () {
         return Konva.global.performance.now();
       };
     }
 
-    return function() {
+    return function () {
       return new Date().getTime();
     };
   })();
@@ -12071,7 +12198,7 @@
     setTimeout(callback, 1000 / 60);
   }
 
-  var RAF = (function() {
+  var RAF = (function () {
     return (
       Konva.global.requestAnimationFrame ||
       Konva.global.webkitRequestAnimationFrame ||
@@ -12109,7 +12236,7 @@
    *
    * anim.start();
    */
-  Konva.Animation = function(func, layers) {
+  Konva.Animation = function (func, layers) {
     var Anim = Konva.Animation;
     this.func = func;
     this.setLayers(layers);
@@ -12121,8 +12248,8 @@
     };
   };
   /*
-     * Animation methods
-     */
+   * Animation methods
+   */
   Konva.Animation.prototype = {
     /**
      * set layers to be redrawn on each animation frame
@@ -12131,7 +12258,7 @@
      * @param {Konva.Layer|Array} [layers] layer(s) to be redrawn.&nbsp; Can be a layer, an array of layers, or null.  Not specifying a node will result in no redraw.
      * @return {Konva.Animation} this
      */
-    setLayers: function(layers) {
+    setLayers: function (layers) {
       var lays = [];
       // if passing in no layers
       if (!layers) {
@@ -12155,7 +12282,7 @@
      * @memberof Konva.Animation.prototype
      * @return {Array} Array of Konva.Layer
      */
-    getLayers: function() {
+    getLayers: function () {
       return this.layers;
     },
     /**
@@ -12165,7 +12292,7 @@
      * @param {Konva.Layer} layer to add
      * @return {Bool} true if layer is added to animation, otherwise false
      */
-    addLayer: function(layer) {
+    addLayer: function (layer) {
       var layers = this.layers,
         len = layers.length,
         n;
@@ -12186,7 +12313,7 @@
      * @memberof Konva.Animation.prototype
      * @return {Bool} is animation running?
      */
-    isRunning: function() {
+    isRunning: function () {
       var a = Konva.Animation,
         animations = a.animations,
         len = animations.length,
@@ -12205,7 +12332,7 @@
      * @memberof Konva.Animation.prototype
      * @return {Konva.Animation} this
      */
-    start: function() {
+    start: function () {
       var Anim = Konva.Animation;
       this.stop();
       this.frame.timeDiff = 0;
@@ -12219,11 +12346,11 @@
      * @memberof Konva.Animation.prototype
      * @return {Konva.Animation} this
      */
-    stop: function() {
+    stop: function () {
       Konva.Animation._removeAnimation(this);
       return this;
     },
-    _updateFrameObject: function(time) {
+    _updateFrameObject: function (time) {
       this.frame.timeDiff = time - this.frame.lastTime;
       this.frame.lastTime = time;
       this.frame.time += this.frame.timeDiff;
@@ -12234,11 +12361,11 @@
   Konva.Animation.animIdCounter = 0;
   Konva.Animation.animRunning = false;
 
-  Konva.Animation._addAnimation = function(anim) {
+  Konva.Animation._addAnimation = function (anim) {
     this.animations.push(anim);
     this._handleAnimation();
   };
-  Konva.Animation._removeAnimation = function(anim) {
+  Konva.Animation._removeAnimation = function (anim) {
     var id = anim.id,
       animations = this.animations,
       len = animations.length,
@@ -12252,7 +12379,7 @@
     }
   };
 
-  Konva.Animation._runFrames = function() {
+  Konva.Animation._runFrames = function () {
     var layerHash = {},
       animations = this.animations,
       anim,
@@ -12265,16 +12392,16 @@
       key,
       needRedraw;
     /*
-         * loop through all animations and execute animation
-         *  function.  if the animation object has specified node,
-         *  we can add the node to the nodes hash to eliminate
-         *  drawing the same node multiple times.  The node property
-         *  can be the stage itself or a layer
-         */
+     * loop through all animations and execute animation
+     *  function.  if the animation object has specified node,
+     *  we can add the node to the nodes hash to eliminate
+     *  drawing the same node multiple times.  The node property
+     *  can be the stage itself or a layer
+     */
     /*
-         * WARNING: don't cache animations.length because it could change while
-         * the for loop is running, causing a JS error
-         */
+     * WARNING: don't cache animations.length because it could change while
+     * the for loop is running, causing a JS error
+     */
 
     for (n = 0; n < animations.length; n++) {
       anim = animations[n];
@@ -12310,7 +12437,7 @@
       layerHash[key].draw();
     }
   };
-  Konva.Animation._animationLoop = function() {
+  Konva.Animation._animationLoop = function () {
     var Anim = Konva.Animation;
     if (Anim.animations.length) {
       Anim._runFrames();
@@ -12319,7 +12446,7 @@
       Anim.animRunning = false;
     }
   };
-  Konva.Animation._handleAnimation = function() {
+  Konva.Animation._handleAnimation = function () {
     if (!this.animRunning) {
       this.animRunning = true;
       requestAnimFrame(this._animationLoop);
@@ -12333,12 +12460,12 @@
    * @return {Konva.Layer} this
    * @memberof Konva.Base.prototype
    */
-  Konva.BaseLayer.prototype.batchDraw = function() {
+  Konva.BaseLayer.prototype.batchDraw = function () {
     var that = this,
       Anim = Konva.Animation;
 
     if (!this.batchAnim) {
-      this.batchAnim = new Anim(function() {
+      this.batchAnim = new Anim(function () {
         // stop animation after first tick
         that.batchAnim.stop();
       }, this);
@@ -12356,15 +12483,15 @@
    * @return {Konva.Stage} this
    * @memberof Konva.Stage.prototype
    */
-  Konva.Stage.prototype.batchDraw = function() {
-    this.getChildren().each(function(layer) {
+  Konva.Stage.prototype.batchDraw = function () {
+    this.getChildren().each(function (layer) {
       layer.batchDraw();
     });
     return this;
   };
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   var blacklist = {
       node: 1,
@@ -12379,7 +12506,7 @@
     idCounter = 0,
     colorAttrs = ['fill', 'stroke', 'shadowColor'];
 
-  var Tween = function(prop, propFunc, func, begin, finish, duration, yoyo) {
+  var Tween = function (prop, propFunc, func, begin, finish, duration, yoyo) {
     this.prop = prop;
     this.propFunc = propFunc;
     this.begin = begin;
@@ -12397,16 +12524,16 @@
     this.pause();
   };
   /*
-     * Tween methods
-     */
+   * Tween methods
+   */
   Tween.prototype = {
-    fire: function(str) {
+    fire: function (str) {
       var handler = this[str];
       if (handler) {
         handler();
       }
     },
-    setTime: function(t) {
+    setTime: function (t) {
       if (t > this.duration) {
         if (this.yoyo) {
           this._time = this.duration;
@@ -12426,55 +12553,55 @@
         this.update();
       }
     },
-    getTime: function() {
+    getTime: function () {
       return this._time;
     },
-    setPosition: function(p) {
+    setPosition: function (p) {
       this.prevPos = this._pos;
       this.propFunc(p);
       this._pos = p;
     },
-    getPosition: function(t) {
+    getPosition: function (t) {
       if (t === undefined) {
         t = this._time;
       }
       return this.func(t, this.begin, this._change, this.duration);
     },
-    play: function() {
+    play: function () {
       this.state = PLAYING;
       this._startTime = this.getTimer() - this._time;
       this.onEnterFrame();
       this.fire('onPlay');
     },
-    reverse: function() {
+    reverse: function () {
       this.state = REVERSING;
       this._time = this.duration - this._time;
       this._startTime = this.getTimer() - this._time;
       this.onEnterFrame();
       this.fire('onReverse');
     },
-    seek: function(t) {
+    seek: function (t) {
       this.pause();
       this._time = t;
       this.update();
       this.fire('onSeek');
     },
-    reset: function() {
+    reset: function () {
       this.pause();
       this._time = 0;
       this.update();
       this.fire('onReset');
     },
-    finish: function() {
+    finish: function () {
       this.pause();
       this._time = this.duration;
       this.update();
       this.fire('onFinish');
     },
-    update: function() {
+    update: function () {
       this.setPosition(this.getPosition(this._time));
     },
-    onEnterFrame: function() {
+    onEnterFrame: function () {
       var t = this.getTimer() - this._startTime;
       if (this.state === PLAYING) {
         this.setTime(t);
@@ -12482,11 +12609,11 @@
         this.setTime(this.duration - t);
       }
     },
-    pause: function() {
+    pause: function () {
       this.state = PAUSED;
       this.fire('onPause');
     },
-    getTimer: function() {
+    getTimer: function () {
       return new Date().getTime();
     }
   };
@@ -12512,7 +12639,7 @@
    * // pause tween
    * tween.pause();
    */
-  Konva.Tween = function(config) {
+  Konva.Tween = function (config) {
     var that = this,
       node = config.node,
       nodeId = node._id,
@@ -12540,13 +12667,13 @@
         'Tween constructor have `node` that is not in a layer. Please add node into layer first.'
       );
     }
-    this.anim = new Konva.Animation(function() {
+    this.anim = new Konva.Animation(function () {
       that.tween.onEnterFrame();
     }, layers);
 
     this.tween = new Tween(
       key,
-      function(i) {
+      function (i) {
         that._tweenFunc(i);
       },
       easing,
@@ -12589,7 +12716,7 @@
   Konva.Tween.tweens = {};
 
   Konva.Tween.prototype = {
-    _addAttr: function(key, end) {
+    _addAttr: function (key, end) {
       var node = this.node,
         nodeId = node._id,
         start,
@@ -12673,7 +12800,7 @@
       };
       Konva.Tween.tweens[nodeId][key] = this._id;
     },
-    _tweenFunc: function(i) {
+    _tweenFunc: function (i) {
       var node = this.node,
         attrs = Konva.Tween.attrs[node._id][this._id],
         key,
@@ -12701,14 +12828,14 @@
               } else {
                 newVal.push(
                   'rgba(' +
-                    Math.round(start[n].r + diff[n].r * i) +
-                    ',' +
-                    Math.round(start[n].g + diff[n].g * i) +
-                    ',' +
-                    Math.round(start[n].b + diff[n].b * i) +
-                    ',' +
-                    (start[n].a + diff[n].a * i) +
-                    ')'
+                  Math.round(start[n].r + diff[n].r * i) +
+                  ',' +
+                  Math.round(start[n].g + diff[n].g * i) +
+                  ',' +
+                  Math.round(start[n].b + diff[n].b * i) +
+                  ',' +
+                  (start[n].a + diff[n].a * i) +
+                  ')'
                 );
               }
             }
@@ -12735,22 +12862,22 @@
         node.setAttr(key, newVal);
       }
     },
-    _addListeners: function() {
+    _addListeners: function () {
       var that = this;
 
       // start listeners
-      this.tween.onPlay = function() {
+      this.tween.onPlay = function () {
         that.anim.start();
       };
-      this.tween.onReverse = function() {
+      this.tween.onReverse = function () {
         that.anim.start();
       };
 
       // stop listeners
-      this.tween.onPause = function() {
+      this.tween.onPause = function () {
         that.anim.stop();
       };
-      this.tween.onFinish = function() {
+      this.tween.onFinish = function () {
         var node = that.node;
 
         // after tweening  points of line we need to set original end
@@ -12763,7 +12890,7 @@
           that.onFinish.call(that);
         }
       };
-      this.tween.onReset = function() {
+      this.tween.onReset = function () {
         var node = that.node;
         // after tweening  points of line we need to set original start
         var attrs = Konva.Tween.attrs[node._id][that._id];
@@ -12782,7 +12909,7 @@
      * @memberof Konva.Tween.prototype
      * @returns {Tween}
      */
-    play: function() {
+    play: function () {
       this.tween.play();
       return this;
     },
@@ -12792,7 +12919,7 @@
      * @memberof Konva.Tween.prototype
      * @returns {Tween}
      */
-    reverse: function() {
+    reverse: function () {
       this.tween.reverse();
       return this;
     },
@@ -12802,7 +12929,7 @@
      * @memberof Konva.Tween.prototype
      * @returns {Tween}
      */
-    reset: function() {
+    reset: function () {
       this.tween.reset();
       return this;
     },
@@ -12813,7 +12940,7 @@
      * @param {Integer} t time in seconds between 0 and the duration
      * @returns {Tween}
      */
-    seek: function(t) {
+    seek: function (t) {
       this.tween.seek(t * 1000);
       return this;
     },
@@ -12823,7 +12950,7 @@
      * @memberof Konva.Tween.prototype
      * @returns {Tween}
      */
-    pause: function() {
+    pause: function () {
       this.tween.pause();
       return this;
     },
@@ -12833,7 +12960,7 @@
      * @memberof Konva.Tween.prototype
      * @returns {Tween}
      */
-    finish: function() {
+    finish: function () {
       this.tween.finish();
       return this;
     },
@@ -12842,7 +12969,7 @@
      * @method
      * @memberof Konva.Tween.prototype
      */
-    destroy: function() {
+    destroy: function () {
       var nodeId = this.node._id,
         thisId = this._id,
         attrs = Konva.Tween.tweens[nodeId],
@@ -12871,10 +12998,10 @@
    *  duration : 0.5
    * });
    */
-  Konva.Node.prototype.to = function(params) {
+  Konva.Node.prototype.to = function (params) {
     var onFinish = params.onFinish;
     params.node = this;
-    params.onFinish = function() {
+    params.onFinish = function () {
       this.destroy();
       if (onFinish) {
         onFinish();
@@ -12885,9 +13012,9 @@
   };
 
   /*
-    * These eases were ported from an Adobe Flash tweening library to JavaScript
-    * by Xaric
-    */
+   * These eases were ported from an Adobe Flash tweening library to JavaScript
+   * by Xaric
+   */
 
   /**
    * @namespace Easings
@@ -12899,7 +13026,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BackEaseIn: function(t, b, c, d) {
+    BackEaseIn: function (t, b, c, d) {
       var s = 1.70158;
       return c * (t /= d) * t * ((s + 1) * t - s) + b;
     },
@@ -12908,7 +13035,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BackEaseOut: function(t, b, c, d) {
+    BackEaseOut: function (t, b, c, d) {
       var s = 1.70158;
       return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
     },
@@ -12917,7 +13044,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BackEaseInOut: function(t, b, c, d) {
+    BackEaseInOut: function (t, b, c, d) {
       var s = 1.70158;
       if ((t /= d / 2) < 1) {
         return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
@@ -12929,7 +13056,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    ElasticEaseIn: function(t, b, c, d, a, p) {
+    ElasticEaseIn: function (t, b, c, d, a, p) {
       // added s = 0
       var s = 0;
       if (t === 0) {
@@ -12960,7 +13087,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    ElasticEaseOut: function(t, b, c, d, a, p) {
+    ElasticEaseOut: function (t, b, c, d, a, p) {
       // added s = 0
       var s = 0;
       if (t === 0) {
@@ -12989,7 +13116,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    ElasticEaseInOut: function(t, b, c, d, a, p) {
+    ElasticEaseInOut: function (t, b, c, d, a, p) {
       // added s = 0
       var s = 0;
       if (t === 0) {
@@ -13010,17 +13137,17 @@
       if (t < 1) {
         return (
           -0.5 *
-            (a *
-              Math.pow(2, 10 * (t -= 1)) *
-              Math.sin((t * d - s) * (2 * Math.PI) / p)) +
+          (a *
+            Math.pow(2, 10 * (t -= 1)) *
+            Math.sin((t * d - s) * (2 * Math.PI) / p)) +
           b
         );
       }
       return (
         a *
-          Math.pow(2, -10 * (t -= 1)) *
-          Math.sin((t * d - s) * (2 * Math.PI) / p) *
-          0.5 +
+        Math.pow(2, -10 * (t -= 1)) *
+        Math.sin((t * d - s) * (2 * Math.PI) / p) *
+        0.5 +
         c +
         b
       );
@@ -13030,7 +13157,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BounceEaseOut: function(t, b, c, d) {
+    BounceEaseOut: function (t, b, c, d) {
       if ((t /= d) < 1 / 2.75) {
         return c * (7.5625 * t * t) + b;
       } else if (t < 2 / 2.75) {
@@ -13046,7 +13173,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BounceEaseIn: function(t, b, c, d) {
+    BounceEaseIn: function (t, b, c, d) {
       return c - Konva.Easings.BounceEaseOut(d - t, 0, c, d) + b;
     },
     /**
@@ -13054,7 +13181,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    BounceEaseInOut: function(t, b, c, d) {
+    BounceEaseInOut: function (t, b, c, d) {
       if (t < d / 2) {
         return Konva.Easings.BounceEaseIn(t * 2, 0, c, d) * 0.5 + b;
       } else {
@@ -13068,7 +13195,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    EaseIn: function(t, b, c, d) {
+    EaseIn: function (t, b, c, d) {
       return c * (t /= d) * t + b;
     },
     /**
@@ -13076,7 +13203,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    EaseOut: function(t, b, c, d) {
+    EaseOut: function (t, b, c, d) {
       return -c * (t /= d) * (t - 2) + b;
     },
     /**
@@ -13084,7 +13211,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    EaseInOut: function(t, b, c, d) {
+    EaseInOut: function (t, b, c, d) {
       if ((t /= d / 2) < 1) {
         return c / 2 * t * t + b;
       }
@@ -13095,7 +13222,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    StrongEaseIn: function(t, b, c, d) {
+    StrongEaseIn: function (t, b, c, d) {
       return c * (t /= d) * t * t * t * t + b;
     },
     /**
@@ -13103,7 +13230,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    StrongEaseOut: function(t, b, c, d) {
+    StrongEaseOut: function (t, b, c, d) {
       return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
     },
     /**
@@ -13111,7 +13238,7 @@
      * @function
      * @memberof Konva.Easings
      */
-    StrongEaseInOut: function(t, b, c, d) {
+    StrongEaseInOut: function (t, b, c, d) {
       if ((t /= d / 2) < 1) {
         return c / 2 * t * t * t * t * t + b;
       }
@@ -13122,17 +13249,17 @@
      * @function
      * @memberof Konva.Easings
      */
-    Linear: function(t, b, c, d) {
+    Linear: function (t, b, c, d) {
       return c * t / d + b;
     }
   };
 })();
 
-(function() {
+(function () {
   'use strict';
   Konva.DD = {
     // properties
-    anim: new Konva.Animation(function() {
+    anim: new Konva.Animation(function () {
       var b = this.dirty;
       this.dirty = false;
       return b;
@@ -13146,7 +13273,7 @@
     node: null,
 
     // methods
-    _drag: function(evt) {
+    _drag: function (evt) {
       var dd = Konva.DD,
         node = dd.node;
       if (node) {
@@ -13173,8 +13300,7 @@
         if (!dd.isDragging) {
           dd.isDragging = true;
           node.fire(
-            'dragstart',
-            {
+            'dragstart', {
               type: 'dragstart',
               target: node,
               evt: evt
@@ -13185,8 +13311,7 @@
 
         // execute ondragmove if defined
         node.fire(
-          'dragmove',
-          {
+          'dragmove', {
             type: 'dragmove',
             target: node,
             evt: evt
@@ -13195,7 +13320,7 @@
         );
       }
     },
-    _endDragBefore: function(evt) {
+    _endDragBefore: function (evt) {
       var dd = Konva.DD,
         node = dd.node,
         layer;
@@ -13223,14 +13348,13 @@
         }
       }
     },
-    _endDragAfter: function(evt) {
+    _endDragAfter: function (evt) {
       evt = evt || {};
       var dragEndNode = evt.dragEndNode;
 
       if (evt && dragEndNode) {
         dragEndNode.fire(
-          'dragend',
-          {
+          'dragend', {
             type: 'dragend',
             target: dragEndNode,
             evt: evt
@@ -13248,7 +13372,7 @@
    * @method
    * @memberof Konva.Node.prototype
    */
-  Konva.Node.prototype.startDrag = function() {
+  Konva.Node.prototype.startDrag = function () {
     var dd = Konva.DD,
       stage = this.getStage(),
       layer = this.getLayer(),
@@ -13271,7 +13395,7 @@
     }
   };
 
-  Konva.Node.prototype._setDragPosition = function(evt) {
+  Konva.Node.prototype._setDragPosition = function (evt) {
     var dd = Konva.DD,
       pos = this.getStage().getPointerPosition(),
       dbf = this.getDragBoundFunc();
@@ -13304,14 +13428,14 @@
    * @method
    * @memberof Konva.Node.prototype
    */
-  Konva.Node.prototype.stopDrag = function() {
+  Konva.Node.prototype.stopDrag = function () {
     var dd = Konva.DD,
       evt = {};
     dd._endDragBefore(evt);
     dd._endDragAfter(evt);
   };
 
-  Konva.Node.prototype.setDraggable = function(draggable) {
+  Konva.Node.prototype.setDraggable = function (draggable) {
     this._setAttr('draggable', draggable);
     this._dragChange();
   };
@@ -13319,7 +13443,7 @@
   var origRemove = Konva.Node.prototype.remove;
 
   Konva.Node.prototype.__originalRemove = origRemove;
-  Konva.Node.prototype.remove = function() {
+  Konva.Node.prototype.remove = function () {
     var dd = Konva.DD;
 
     // stop DD
@@ -13335,24 +13459,24 @@
    * @method
    * @memberof Konva.Node.prototype
    */
-  Konva.Node.prototype.isDragging = function() {
+  Konva.Node.prototype.isDragging = function () {
     var dd = Konva.DD;
     return !!(dd.node && dd.node._id === this._id && dd.isDragging);
   };
 
-  Konva.Node.prototype._listenDrag = function() {
+  Konva.Node.prototype._listenDrag = function () {
     var that = this;
 
     this._dragCleanup();
 
     if (this.getClassName() === 'Stage') {
-      this.on('contentMousedown.konva contentTouchstart.konva', function(evt) {
+      this.on('contentMousedown.konva contentTouchstart.konva', function (evt) {
         if (!Konva.DD.node) {
           that.startDrag(evt);
         }
       });
     } else {
-      this.on('mousedown.konva touchstart.konva', function(evt) {
+      this.on('mousedown.konva touchstart.konva', function (evt) {
         // ignore right and middle buttons
         if (evt.evt.button === 1 || evt.evt.button === 2) {
           return;
@@ -13370,7 +13494,7 @@
         */
   };
 
-  Konva.Node.prototype._dragChange = function() {
+  Konva.Node.prototype._dragChange = function () {
     if (this.attrs.draggable) {
       this._listenDrag();
     } else {
@@ -13378,10 +13502,10 @@
       this._dragCleanup();
 
       /*
-             * force drag and drop to end
-             * if this node is currently in
-             * drag and drop mode
-             */
+       * force drag and drop to end
+       * if this node is currently in
+       * drag and drop mode
+       */
       var stage = this.getStage();
       var dd = Konva.DD;
       if (stage && dd.node && dd.node._id === this._id) {
@@ -13390,7 +13514,7 @@
     }
   };
 
-  Konva.Node.prototype._dragCleanup = function() {
+  Konva.Node.prototype._dragCleanup = function () {
     if (this.getClassName() === 'Stage') {
       this.off('contentMousedown.konva');
       this.off('contentTouchstart.konva');
@@ -13458,7 +13582,7 @@
   }
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Rect constructor
@@ -13468,76 +13592,76 @@
    * @param {Object} config
    * @param {Number} [config.cornerRadius]
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var rect = new Konva.Rect({
    *   width: 100,
@@ -13547,17 +13671,17 @@
    *   strokeWidth: 5
    * });
    */
-  Konva.Rect = function(config) {
+  Konva.Rect = function (config) {
     this.___init(config);
   };
 
   Konva.Rect.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       Konva.Shape.call(this, config);
       this.className = 'Rect';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var cornerRadius = this.getCornerRadius(),
         width = this.getWidth(),
         height = this.getHeight();
@@ -13639,7 +13763,7 @@
   Konva.Collection.mapMethods(Konva.Rect);
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   // the 0.0001 offset fixes a bug in Chrome 27
   var PIx2 = Math.PI * 2 - 0.0001,
@@ -13653,76 +13777,76 @@
    * @param {Object} config
    * @param {Number} config.radius
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * // create circle
    * var circle = new Konva.Circle({
@@ -13732,41 +13856,41 @@
    *   strokeWidth: 5
    * });
    */
-  Konva.Circle = function(config) {
+  Konva.Circle = function (config) {
     this.___init(config);
   };
 
   Konva.Circle.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = CIRCLE;
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       context.beginPath();
       context.arc(0, 0, this.getRadius(), 0, PIx2, false);
       context.closePath();
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.radius() !== width / 2) {
         this.setRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.radius() !== height / 2) {
         this.setRadius(height / 2);
@@ -13802,7 +13926,7 @@
   Konva.Collection.mapMethods(Konva.Circle);
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   // the 0.0001 offset fixes a bug in Chrome 27
   var PIx2 = Math.PI * 2 - 0.0001,
@@ -13815,76 +13939,76 @@
    * @param {Object} config
    * @param {Object} config.radius defines x and y radius
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var ellipse = new Konva.Ellipse({
    *   radius : {
@@ -13894,19 +14018,19 @@
    *   fill: 'red'
    * });
    */
-  Konva.Ellipse = function(config) {
+  Konva.Ellipse = function (config) {
     this.___init(config);
   };
 
   Konva.Ellipse.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = ELLIPSE;
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var rx = this.getRadiusX(),
         ry = this.getRadiusY();
 
@@ -13921,22 +14045,22 @@
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getRadiusX() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getRadiusY() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       this.setRadius({
         x: width / 2
       });
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       this.setRadius({
         y: height / 2
@@ -14013,7 +14137,7 @@
   Konva.Collection.mapMethods(Konva.Ellipse);
 })();
 
-(function() {
+(function () {
   'use strict';
   // the 0.0001 offset fixes a bug in Chrome 27
   var PIx2 = Math.PI * 2 - 0.0001;
@@ -14026,76 +14150,76 @@
    * @param {Number} config.outerRadius
    * @param {Boolean} [config.clockwise]
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var ring = new Konva.Ring({
    *   innerRadius: 40,
@@ -14105,19 +14229,19 @@
    *   strokeWidth: 5
    * });
    */
-  Konva.Ring = function(config) {
+  Konva.Ring = function (config) {
     this.___init(config);
   };
 
   Konva.Ring.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Ring';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       context.beginPath();
       context.arc(0, 0, this.getInnerRadius(), 0, PIx2, false);
       context.moveTo(this.getOuterRadius(), 0);
@@ -14126,28 +14250,28 @@
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.outerRadius() !== width / 2) {
         this.setOuterRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.outerRadius() !== height / 2) {
         this.setOuterRadius(height / 2);
       }
     },
-    setOuterRadius: function(val) {
+    setOuterRadius: function (val) {
       this._setAttr('outerRadius', val);
       this.setWidth(val * 2);
       this.setHeight(val * 2);
@@ -14203,7 +14327,7 @@
   Konva.Collection.mapMethods(Konva.Ring);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Wedge constructor
@@ -14214,76 +14338,76 @@
    * @param {Number} config.radius
    * @param {Boolean} [config.clockwise]
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * // draw a wedge that's pointing downwards
    * var wedge = new Konva.Wedge({
@@ -14295,19 +14419,19 @@
    *   rotationDeg: -120
    * });
    */
-  Konva.Wedge = function(config) {
+  Konva.Wedge = function (config) {
     this.___init(config);
   };
 
   Konva.Wedge.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Wedge';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       context.beginPath();
       context.arc(
         0,
@@ -14322,22 +14446,22 @@
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.radius() !== width / 2) {
         this.setRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.radius() !== height / 2) {
         this.setRadius(height / 2);
@@ -14420,7 +14544,7 @@
   Konva.Collection.mapMethods(Konva.Wedge);
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /**
    * Arc constructor
@@ -14432,76 +14556,76 @@
    * @param {Number} config.outerRadius
    * @param {Boolean} [config.clockwise]
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * // draw a Arc that's pointing downwards
    * var arc = new Konva.Arc({
@@ -14514,19 +14638,19 @@
    *   rotationDeg: -120
    * });
    */
-  Konva.Arc = function(config) {
+  Konva.Arc = function (config) {
     this.___init(config);
   };
 
   Konva.Arc.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Arc';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var angle = Konva.getAngle(this.angle()),
         clockwise = this.clockwise();
 
@@ -14537,22 +14661,22 @@
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.getOuterRadius() !== width / 2) {
         this.setOuterRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.getOuterRadius() !== height / 2) {
         this.setOuterRadius(height / 2);
@@ -14651,7 +14775,7 @@
   Konva.Collection.mapMethods(Konva.Arc);
 })(Konva);
 
-(function() {
+(function () {
   'use strict';
   // CONSTANTS
   var IMAGE = 'Image';
@@ -14665,76 +14789,76 @@
    * @param {Image} config.image
    * @param {Object} [config.crop]
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var imageObj = new Image();
    * imageObj.onload = function() {
@@ -14748,26 +14872,26 @@
    * };
    * imageObj.src = '/path/to/image.jpg'
    */
-  Konva.Image = function(config) {
+  Konva.Image = function (config) {
     this.___init(config);
   };
 
   Konva.Image.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = IMAGE;
       this.sceneFunc(this._sceneFunc);
       this.hitFunc(this._hitFunc);
     },
-    _useBufferCanvas: function() {
+    _useBufferCanvas: function () {
       return (
         (this.hasShadow() || this.getAbsoluteOpacity() !== 1) &&
         this.hasStroke() &&
         this.getStage()
       );
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var width = this.getWidth(),
         height = this.getHeight(),
         image = this.getImage(),
@@ -14806,7 +14930,7 @@
         context.drawImage.apply(context, params);
       }
     },
-    _hitFunc: function(context) {
+    _hitFunc: function (context) {
       var width = this.getWidth(),
         height = this.getHeight();
 
@@ -14815,11 +14939,11 @@
       context.closePath();
       context.fillStrokeShape(this);
     },
-    getWidth: function() {
+    getWidth: function () {
       var image = this.getImage();
       return this.attrs.width || (image ? image.width : 0);
     },
-    getHeight: function() {
+    getHeight: function () {
       var image = this.getImage();
       return this.attrs.height || (image ? image.height : 0);
     }
@@ -14974,9 +15098,9 @@
    *    layer.draw();
    *  });
    */
-  Konva.Image.fromURL = function(url, callback) {
+  Konva.Image.fromURL = function (url, callback) {
     var img = new Image();
-    img.onload = function() {
+    img.onload = function () {
       var image = new Konva.Image({
         image: img
       });
@@ -14988,7 +15112,7 @@
 })();
 
 /*eslint-disable max-depth */
-(function() {
+(function () {
   'use strict';
   // var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
   // constants
@@ -15033,6 +15157,7 @@
     // cached variables
     attrChangeListLen = ATTR_CHANGE_LIST.length;
   var dummyContext;
+
   function getDummyContext() {
     if (dummyContext) {
       return dummyContext;
@@ -15059,76 +15184,76 @@
    * @param {String} [config.wrap] can be word, char, or none. Default is word
    * @param {Boolean} [config.ellipsis] can be true or false. Default is false. if Konva.Text config is set to wrap="none" and ellipsis=true, then it will add "..." to the end
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var text = new Konva.Text({
    *   x: 10,
@@ -15139,18 +15264,20 @@
    *   fill: 'green'
    * });
    */
-  Konva.Text = function(config) {
+  Konva.Text = function (config) {
     this.___init(config);
   };
+
   function _fillFunc(context) {
     context.fillText(this.partialText, 0, 0);
   }
+
   function _strokeFunc(context) {
     context.strokeText(this.partialText, 0, 0);
   }
 
   Konva.Text.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       config = config || {};
 
       // set default color to black
@@ -15184,7 +15311,7 @@
       this.sceneFunc(this._sceneFunc);
       this.hitFunc(this._hitFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var padding = this.getPadding(),
         textHeight = this.getTextHeight(),
         lineHeightPx = this.getLineHeight() * textHeight,
@@ -15246,9 +15373,9 @@
           spacesNumber = text.split(' ').length - 1;
           oneWord = spacesNumber === 0;
           lineWidth =
-            align === JUSTIFY && lastLine && !oneWord
-              ? totalWidth - padding * 2
-              : width;
+            align === JUSTIFY && lastLine && !oneWord ?
+            totalWidth - padding * 2 :
+            width;
           context.lineTo(Math.round(lineWidth), Math.round(lineHeightPx / 2));
           // TODO: I have no idea what is real ratio
           // just /15 looks good enough
@@ -15264,9 +15391,9 @@
           spacesNumber = text.split(' ').length - 1;
           oneWord = spacesNumber === 0;
           lineWidth =
-            align === JUSTIFY && lastLine && !oneWord
-              ? totalWidth - padding * 2
-              : width;
+            align === JUSTIFY && lastLine && !oneWord ?
+            totalWidth - padding * 2 :
+            width;
           context.lineTo(Math.round(lineWidth), 0);
           context.lineWidth = fontSize / 15;
           context.strokeStyle = fill;
@@ -15303,7 +15430,7 @@
         }
       }
     },
-    _hitFunc: function(context) {
+    _hitFunc: function (context) {
       var width = this.getWidth(),
         height = this.getHeight();
 
@@ -15312,7 +15439,7 @@
       context.closePath();
       context.fillStrokeShape(this);
     },
-    setText: function(text) {
+    setText: function (text) {
       var str = Konva.Util._isString(text) ? text : (text || '').toString();
       this._setAttr(TEXT, str);
       return this;
@@ -15323,11 +15450,11 @@
      * @memberof Konva.Text.prototype
      * @returns {Number}
      */
-    getWidth: function() {
+    getWidth: function () {
       var isAuto = this.attrs.width === AUTO || this.attrs.width === undefined;
-      return isAuto
-        ? this.getTextWidth() + this.getPadding() * 2
-        : this.attrs.width;
+      return isAuto ?
+        this.getTextWidth() + this.getPadding() * 2 :
+        this.attrs.width;
     },
     /**
      * get the height of the text area, which takes into account multi-line text, line heights, and padding
@@ -15335,13 +15462,13 @@
      * @memberof Konva.Text.prototype
      * @returns {Number}
      */
-    getHeight: function() {
+    getHeight: function () {
       var isAuto =
         this.attrs.height === AUTO || this.attrs.height === undefined;
-      return isAuto
-        ? this.getTextHeight() * this.textArr.length * this.getLineHeight() +
-            this.getPadding() * 2
-        : this.attrs.height;
+      return isAuto ?
+        this.getTextHeight() * this.textArr.length * this.getLineHeight() +
+        this.getPadding() * 2 :
+        this.attrs.height;
     },
     /**
      * get text width
@@ -15349,7 +15476,7 @@
      * @memberof Konva.Text.prototype
      * @returns {Number}
      */
-    getTextWidth: function() {
+    getTextWidth: function () {
       return this.textWidth;
     },
     /**
@@ -15358,10 +15485,10 @@
      * @memberof Konva.Text.prototype
      * @returns {Number}
      */
-    getTextHeight: function() {
+    getTextHeight: function () {
       return this.textHeight;
     },
-    _getTextSize: function(text) {
+    _getTextSize: function (text) {
       var _context = getDummyContext(),
         fontSize = this.getFontSize(),
         metrics;
@@ -15376,7 +15503,7 @@
         height: parseInt(fontSize, 10)
       };
     },
-    _getContextFont: function() {
+    _getContextFont: function () {
       // IE don't want to work with usual font style
       // bold was not working
       // removing font variant will solve
@@ -15400,14 +15527,17 @@
         this.getFontFamily()
       );
     },
-    _addTextLine: function(line) {
+    _addTextLine: function (line) {
       if (this.align() === JUSTIFY) {
         line = line.trim();
       }
       var width = this._getTextWidth(line);
-      return this.textArr.push({ text: line, width: width });
+      return this.textArr.push({
+        text: line,
+        width: width
+      });
     },
-    _getTextWidth: function(text) {
+    _getTextWidth: function (text) {
       var latterSpacing = this.getLetterSpacing();
       var length = text.length;
       return (
@@ -15415,7 +15545,7 @@
         (length ? latterSpacing * (length - 1) : 0)
       );
     },
-    _setTextData: function() {
+    _setTextData: function () {
       var lines = this.getText().split('\n'),
         fontSize = +this.getFontSize(),
         textWidth = 0,
@@ -15438,21 +15568,21 @@
       getDummyContext().font = this._getContextFont();
       for (var i = 0, max = lines.length; i < max; ++i) {
         var line = lines[i];
-        var additionalWidth = shouldAddEllipsis
-          ? this._getTextWidth(ELLIPSIS)
-          : 0;
+        var additionalWidth = shouldAddEllipsis ?
+          this._getTextWidth(ELLIPSIS) :
+          0;
 
         var lineWidth = this._getTextWidth(line);
         if (fixedWidth && lineWidth > maxWidth) {
           /*
-          * if width is fixed and line does not fit entirely
-          * break the line into multiple fitting lines
-          */
+           * if width is fixed and line does not fit entirely
+           * break the line into multiple fitting lines
+           */
           while (line.length > 0) {
             /*
-            * use binary search to find the longest substring that
-            * that would fit in the specified width
-            */
+             * use binary search to find the longest substring that
+             * that would fit in the specified width
+             */
             var low = 0,
               high = line.length,
               match = '',
@@ -15470,10 +15600,10 @@
               }
             }
             /*
-            * 'low' is now the index of the substring end
-            * 'match' is the substring
-            * 'matchWidth' is the substring width in px
-            */
+             * 'low' is now the index of the substring end
+             * 'match' is the substring
+             * 'matchWidth' is the substring width in px
+             */
             if (match) {
               // a fitting substring was found
               if (wrapAtWord) {
@@ -15508,9 +15638,9 @@
                 (fixedHeight && currentHeightPx + lineHeightPx > maxHeightPx)
               ) {
                 /*
-                * stop wrapping if wrapping is disabled or if adding
-                * one more line would overflow the fixed height
-                */
+                 * stop wrapping if wrapping is disabled or if adding
+                 * one more line would overflow the fixed height
+                 */
                 break;
               }
               line = line.slice(low);
@@ -15813,7 +15943,7 @@
   Konva.Collection.mapMethods(Konva.Text);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Line constructor.&nbsp; Lines are defined by an array of points and
@@ -15828,76 +15958,76 @@
    * @param {Boolean} [config.closed] defines whether or not the line shape is closed, creating a polygon or blob
    * @param {Boolean} [config.bezier] if no tension is provided but bezier=true, we draw the line as a bezier using the passed points
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var line = new Konva.Line({
    *   x: 100,
@@ -15907,26 +16037,26 @@
    *   tension: 1
    * });
    */
-  Konva.Line = function(config) {
+  Konva.Line = function (config) {
     this.___init(config);
   };
 
   Konva.Line.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Line';
 
       this.on(
         'pointsChange.konva tensionChange.konva closedChange.konva bezierChange.konva',
-        function() {
+        function () {
           this._clearCache('tensionPoints');
         }
       );
 
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var points = this.getPoints(),
         length = points.length,
         tension = this.getTension(),
@@ -16002,17 +16132,17 @@
         context.strokeShape(this);
       }
     },
-    getTensionPoints: function() {
+    getTensionPoints: function () {
       return this._getCache('tensionPoints', this._getTensionPoints);
     },
-    _getTensionPoints: function() {
+    _getTensionPoints: function () {
       if (this.getClosed()) {
         return this._getTensionPointsClosed();
       } else {
         return Konva.Util._expandPoints(this.getPoints(), this.getTension());
       }
     },
-    _getTensionPointsClosed: function() {
+    _getTensionPointsClosed: function () {
       var p = this.getPoints(),
         len = p.length,
         tension = this.getTension(),
@@ -16037,30 +16167,30 @@
         ),
         middle = Konva.Util._expandPoints(p, tension),
         tp = [firstControlPoints[2], firstControlPoints[3]]
-          .concat(middle)
-          .concat([
-            lastControlPoints[0],
-            lastControlPoints[1],
-            p[len - 2],
-            p[len - 1],
-            lastControlPoints[2],
-            lastControlPoints[3],
-            firstControlPoints[0],
-            firstControlPoints[1],
-            p[0],
-            p[1]
-          ]);
+        .concat(middle)
+        .concat([
+          lastControlPoints[0],
+          lastControlPoints[1],
+          p[len - 2],
+          p[len - 1],
+          lastControlPoints[2],
+          lastControlPoints[3],
+          firstControlPoints[0],
+          firstControlPoints[1],
+          p[0],
+          p[1]
+        ]);
 
       return tp;
     },
-    getWidth: function() {
+    getWidth: function () {
       return this.getSelfRect().width;
     },
-    getHeight: function() {
+    getHeight: function () {
       return this.getSelfRect().height;
     },
     // overload size detection
-    getSelfRect: function() {
+    getSelfRect: function () {
       var points;
       if (this.getTension() !== 0) {
         points = this._getTensionPoints();
@@ -16178,7 +16308,7 @@
   Konva.Collection.mapMethods(Konva.Line);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Sprite constructor
@@ -16192,76 +16322,76 @@
    * @param {Image} config.image image object
    * @param {Integer} [config.frameRate] animation frame rate
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var imageObj = new Image();
    * imageObj.onload = function() {
@@ -16296,33 +16426,33 @@
    * };
    * imageObj.src = '/path/to/image.jpg'
    */
-  Konva.Sprite = function(config) {
+  Konva.Sprite = function (config) {
     this.___init(config);
   };
 
   Konva.Sprite.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Sprite';
 
       this._updated = true;
       var that = this;
-      this.anim = new Konva.Animation(function() {
+      this.anim = new Konva.Animation(function () {
         // if we don't need to redraw layer we should return false
         var updated = that._updated;
         that._updated = false;
         return updated;
       });
-      this.on('animationChange.konva', function() {
+      this.on('animationChange.konva', function () {
         // reset index when animation changes
         this.frameIndex(0);
       });
-      this.on('frameIndexChange.konva', function() {
+      this.on('frameIndexChange.konva', function () {
         this._updated = true;
       });
       // smooth change for frameRate
-      this.on('frameRateChange.konva', function() {
+      this.on('frameRateChange.konva', function () {
         if (!this.anim.isRunning()) {
           return;
         }
@@ -16333,7 +16463,7 @@
       this.sceneFunc(this._sceneFunc);
       this.hitFunc(this._hitFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var anim = this.getAnimation(),
         index = this.frameIndex(),
         ix4 = index * 4,
@@ -16372,7 +16502,7 @@
         }
       }
     },
-    _hitFunc: function(context) {
+    _hitFunc: function (context) {
       var anim = this.getAnimation(),
         index = this.frameIndex(),
         ix4 = index * 4,
@@ -16392,15 +16522,15 @@
       context.closePath();
       context.fillShape(this);
     },
-    _useBufferCanvas: function() {
+    _useBufferCanvas: function () {
       return (
         (this.hasShadow() || this.getAbsoluteOpacity() !== 1) &&
         this.hasStroke()
       );
     },
-    _setInterval: function() {
+    _setInterval: function () {
       var that = this;
-      this.interval = setInterval(function() {
+      this.interval = setInterval(function () {
         that._updateIndex();
       }, 1000 / this.getFrameRate());
     },
@@ -16409,18 +16539,18 @@
      * @method
      * @memberof Konva.Sprite.prototype
      */
-    start: function() {
+    start: function () {
       if (this.isRunning()) {
         return;
       }
       var layer = this.getLayer();
 
       /*
-             * animation object has no executable function because
-             *  the updates are done with a fixed FPS with the setInterval
-             *  below.  The anim object only needs the layer reference for
-             *  redraw
-             */
+       * animation object has no executable function because
+       *  the updates are done with a fixed FPS with the setInterval
+       *  below.  The anim object only needs the layer reference for
+       *  redraw
+       */
       this.anim.setLayers(layer);
       this._setInterval();
       this.anim.start();
@@ -16430,7 +16560,7 @@
      * @method
      * @memberof Konva.Sprite.prototype
      */
-    stop: function() {
+    stop: function () {
       this.anim.stop();
       clearInterval(this.interval);
     },
@@ -16440,10 +16570,10 @@
      * @memberof Konva.Animation.prototype
      * @returns {Boolean}
      */
-    isRunning: function() {
+    isRunning: function () {
       return this.anim.isRunning();
     },
-    _updateIndex: function() {
+    _updateIndex: function () {
       var index = this.frameIndex(),
         animation = this.getAnimation(),
         animations = this.getAnimations(),
@@ -16622,7 +16752,7 @@
 })();
 
 /*eslint-disable  no-shadow, max-len, max-depth */
-(function() {
+(function () {
   'use strict';
   /**
    * Path constructor.
@@ -16633,76 +16763,76 @@
    * @param {Object} config
    * @param {String} config.data SVG data string
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var path = new Konva.Path({
    *   x: 240,
@@ -16712,12 +16842,12 @@
    *   scale: 2
    * });
    */
-  Konva.Path = function(config) {
+  Konva.Path = function (config) {
     this.___init(config);
   };
 
   Konva.Path.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       this.dataArray = [];
       var that = this;
 
@@ -16730,7 +16860,7 @@
       for (var i = 0; i < this.dataArray.length; ++i) {
         this.pathLength += this.dataArray[i].pathLength;
       }
-      this.on('dataChange.konva', function() {
+      this.on('dataChange.konva', function () {
         that.dataArray = Konva.Path.parsePathData(this.getData());
         this.pathLength = 0;
         for (var i = 0; i < this.dataArray.length; ++i) {
@@ -16740,7 +16870,7 @@
 
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var ca = this.dataArray;
 
       // context position
@@ -16792,9 +16922,9 @@
 
       context.fillStrokeShape(this);
     },
-    getSelfRect: function() {
+    getSelfRect: function () {
       var points = [];
-      this.dataArray.forEach(function(data) {
+      this.dataArray.forEach(function (data) {
         points = points.concat(data.points);
       });
       var minX = points[0];
@@ -16832,7 +16962,7 @@
      * @example
      * var length = path.getLength();
      */
-    getLength: function() {
+    getLength: function () {
       return this.pathLength;
     },
     /**
@@ -16844,7 +16974,7 @@
      * @example
      * var point = path.getPointAtLength(10);
      */
-    getPointAtLength: function(length) {
+    getPointAtLength: function (length) {
       var point,
         i = 0,
         ii = this.dataArray.length;
@@ -16924,10 +17054,10 @@
   };
   Konva.Util.extend(Konva.Path, Konva.Shape);
 
-  Konva.Path.getLineLength = function(x1, y1, x2, y2) {
+  Konva.Path.getLineLength = function (x1, y1, x2, y2) {
     return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
   };
-  Konva.Path.getPointOnLine = function(dist, P1x, P1y, P2x, P2y, fromX, fromY) {
+  Konva.Path.getPointOnLine = function (dist, P1x, P1y, P2x, P2y, fromX, fromY) {
     if (fromX === undefined) {
       fromX = P1x;
     }
@@ -16982,7 +17112,7 @@
     return pt;
   };
 
-  Konva.Path.getPointOnCubicBezier = function(
+  Konva.Path.getPointOnCubicBezier = function (
     pct,
     P1x,
     P1y,
@@ -16996,12 +17126,15 @@
     function CB1(t) {
       return t * t * t;
     }
+
     function CB2(t) {
       return 3 * t * t * (1 - t);
     }
+
     function CB3(t) {
       return 3 * t * (1 - t) * (1 - t);
     }
+
     function CB4(t) {
       return (1 - t) * (1 - t) * (1 - t);
     }
@@ -17013,7 +17146,7 @@
       y: y
     };
   };
-  Konva.Path.getPointOnQuadraticBezier = function(
+  Konva.Path.getPointOnQuadraticBezier = function (
     pct,
     P1x,
     P1y,
@@ -17025,9 +17158,11 @@
     function QB1(t) {
       return t * t;
     }
+
     function QB2(t) {
       return 2 * t * (1 - t);
     }
+
     function QB3(t) {
       return (1 - t) * (1 - t);
     }
@@ -17039,7 +17174,7 @@
       y: y
     };
   };
-  Konva.Path.getPointOnEllipticalArc = function(cx, cy, rx, ry, theta, psi) {
+  Konva.Path.getPointOnEllipticalArc = function (cx, cy, rx, ry, theta, psi) {
     var cosPsi = Math.cos(psi),
       sinPsi = Math.sin(psi);
     var pt = {
@@ -17052,12 +17187,12 @@
     };
   };
   /*
-     * get parsed data array from the data
-     *  string.  V, v, H, h, and l data are converted to
-     *  L data for the purpose of high performance Path
-     *  rendering
-     */
-  Konva.Path.parsePathData = function(data) {
+   * get parsed data array from the data
+   *  string.  V, v, H, h, and l data are converted to
+   *  L data for the purpose of high performance Path
+   *  rendering
+   */
+  Konva.Path.parsePathData = function (data) {
     // Path Data Segment must begin with a moveTo
     //m (x y)+  Relative moveTo (subsequent points are treated as lineTo)
     //M (x y)+  Absolute moveTo (subsequent points are treated as lineTo)
@@ -17179,7 +17314,7 @@
             cpy = p.shift();
             points.push(cpx, cpy);
             break;
-          // Note: lineTo handlers need to be above this point
+            // Note: lineTo handlers need to be above this point
           case 'm':
             var dx = p.shift();
             var dy = p.shift();
@@ -17386,7 +17521,7 @@
 
     return ca;
   };
-  Konva.Path.calcLength = function(x, y, cmd, points) {
+  Konva.Path.calcLength = function (x, y, cmd, points) {
     var len, p1, p2, t;
     var path = Konva.Path;
 
@@ -17515,7 +17650,7 @@
 
     return 0;
   };
-  Konva.Path.convertEndpointToCenterParameterization = function(
+  Konva.Path.convertEndpointToCenterParameterization = function (
     x1,
     y1,
     x2,
@@ -17529,8 +17664,7 @@
     // Derived from: http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes
     var psi = psiDeg * (Math.PI / 180.0);
     var xp = Math.cos(psi) * (x1 - x2) / 2.0 + Math.sin(psi) * (y1 - y2) / 2.0;
-    var yp =
-      -1 * Math.sin(psi) * (x1 - x2) / 2.0 + Math.cos(psi) * (y1 - y2) / 2.0;
+    var yp = -1 * Math.sin(psi) * (x1 - x2) / 2.0 + Math.cos(psi) * (y1 - y2) / 2.0;
 
     var lambda = xp * xp / (rx * rx) + yp * yp / (ry * ry);
 
@@ -17541,7 +17675,7 @@
 
     var f = Math.sqrt(
       (rx * rx * (ry * ry) - rx * rx * (yp * yp) - ry * ry * (xp * xp)) /
-        (rx * rx * (yp * yp) + ry * ry * (xp * xp))
+      (rx * rx * (yp * yp) + ry * ry * (xp * xp))
     );
 
     if (fa === fs) {
@@ -17557,13 +17691,13 @@
     var cx = (x1 + x2) / 2.0 + Math.cos(psi) * cxp - Math.sin(psi) * cyp;
     var cy = (y1 + y2) / 2.0 + Math.sin(psi) * cxp + Math.cos(psi) * cyp;
 
-    var vMag = function(v) {
+    var vMag = function (v) {
       return Math.sqrt(v[0] * v[0] + v[1] * v[1]);
     };
-    var vRatio = function(u, v) {
+    var vRatio = function (u, v) {
       return (u[0] * v[0] + u[1] * v[1]) / (vMag(u) * vMag(v));
     };
-    var vAngle = function(u, v) {
+    var vAngle = function (u, v) {
       return (u[0] * v[1] < u[1] * v[0] ? -1 : 1) * Math.acos(vRatio(u, v));
     };
     var theta = vAngle([1, 0], [(xp - cxp) / rx, (yp - cyp) / ry]);
@@ -17609,7 +17743,7 @@
   Konva.Collection.mapMethods(Konva.Path);
 })();
 
-(function() {
+(function () {
   'use strict';
   var EMPTY_STRING = '',
     //CALIBRI = 'Calibri',
@@ -17630,76 +17764,76 @@
    * @param {String} config.data SVG data string
    * @param {Function} config.getKerning a getter for kerning values for the specified characters
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var kerningPairs = {
    *   'A': {
@@ -17727,19 +17861,20 @@
    *   }
    * });
    */
-  Konva.TextPath = function(config) {
+  Konva.TextPath = function (config) {
     this.___init(config);
   };
 
   function _fillFunc(context) {
     context.fillText(this.partialText, 0, 0);
   }
+
   function _strokeFunc(context) {
     context.strokeText(this.partialText, 0, 0);
   }
 
   Konva.TextPath.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       var that = this;
       this.dummyCanvas = Konva.Util.createCanvasElement();
       this.dataArray = [];
@@ -17758,7 +17893,7 @@
       this.className = 'TextPath';
 
       this.dataArray = Konva.Path.parsePathData(this.attrs.data);
-      this.on('dataChange.konva', function() {
+      this.on('dataChange.konva', function () {
         that.dataArray = Konva.Path.parsePathData(this.attrs.data);
         that._setTextData();
       });
@@ -17772,7 +17907,7 @@
       this.sceneFunc(this._sceneFunc);
       this.hitFunc(this._hitFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       context.setAttr('font', this._getContextFont());
       context.setAttr('textBaseline', this.getTextBaseline());
       context.setAttr('textAlign', 'left');
@@ -17824,7 +17959,7 @@
 
       context.restore();
     },
-    _hitFunc: function(context) {
+    _hitFunc: function (context) {
       context.beginPath();
 
       var glyphInfo = this.glyphInfo;
@@ -17845,7 +17980,7 @@
      * @method
      * @memberof Konva.TextPath.prototype
      */
-    getTextWidth: function() {
+    getTextWidth: function () {
       return this.textWidth;
     },
     /**
@@ -17853,7 +17988,7 @@
      * @method
      * @memberof Konva.TextPath.prototype
      */
-    getTextHeight: function() {
+    getTextHeight: function () {
       return this.textHeight;
     },
     /**
@@ -17862,10 +17997,10 @@
      * @memberof Konva.TextPath.prototype
      * @param {String} text
      */
-    setText: function(text) {
+    setText: function (text) {
       Konva.Text.prototype.setText.call(this, text);
     },
-    _getTextSize: function(text) {
+    _getTextSize: function (text) {
       var dummyCanvas = this.dummyCanvas;
       var _context = dummyCanvas.getContext('2d');
 
@@ -17881,7 +18016,7 @@
         height: parseInt(this.attrs.fontSize, 10)
       };
     },
-    _setTextData: function() {
+    _setTextData: function () {
       var that = this;
       var size = this._getTextSize(this.attrs.text);
       var letterSpacing = this.getLetterSpacing();
@@ -17928,7 +18063,7 @@
       //   }
       // }
 
-      var getNextPathSegment = function() {
+      var getNextPathSegment = function () {
         currentT = 0;
         var pathData = that.dataArray;
 
@@ -17948,7 +18083,7 @@
         return {};
       };
 
-      var findSegmentToFitCharacter = function(c) {
+      var findSegmentToFitCharacter = function (c) {
         var glyphWidth = that._getTextSize(c).width + letterSpacing;
 
         if (c === ' ' && align === 'justify') {
@@ -18162,10 +18297,10 @@
         p0 = p1;
       }
     },
-    getSelfRect: function() {
+    getSelfRect: function () {
       var points = [];
 
-      this.glyphInfo.forEach(function(info) {
+      this.glyphInfo.forEach(function (info) {
         points.push(info.p0.x);
         points.push(info.p0.y);
         points.push(info.p1.x);
@@ -18368,7 +18503,7 @@
   Konva.Collection.mapMethods(Konva.TextPath);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * RegularPolygon constructor.&nbsp; Examples include triangles, squares, pentagons, hexagons, etc.
@@ -18379,76 +18514,76 @@
    * @param {Number} config.sides
    * @param {Number} config.radius
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var hexagon = new Konva.RegularPolygon({
    *   x: 100,
@@ -18460,19 +18595,19 @@
    *   strokeWidth: 4
    * });
    */
-  Konva.RegularPolygon = function(config) {
+  Konva.RegularPolygon = function (config) {
     this.___init(config);
   };
 
   Konva.RegularPolygon.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'RegularPolygon';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var sides = this.attrs.sides,
         radius = this.attrs.radius,
         n,
@@ -18490,22 +18625,22 @@
       context.closePath();
       context.fillStrokeShape(this);
     },
-    getWidth: function() {
+    getWidth: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.radius() !== width / 2) {
         this.setRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.radius() !== height / 2) {
         this.setRadius(height / 2);
@@ -18562,7 +18697,7 @@
   Konva.Collection.mapMethods(Konva.RegularPolygon);
 })();
 
-(function() {
+(function () {
   'use strict';
   /**
    * Star constructor
@@ -18574,76 +18709,76 @@
    * @param {Number} config.innerRadius
    * @param {Number} config.outerRadius
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var star = new Konva.Star({
    *   x: 100,
@@ -18656,19 +18791,19 @@
    *   strokeWidth: 4
    * });
    */
-  Konva.Star = function(config) {
+  Konva.Star = function (config) {
     this.___init(config);
   };
 
   Konva.Star.prototype = {
     _centroid: true,
-    ___init: function(config) {
+    ___init: function (config) {
       // call super constructor
       Konva.Shape.call(this, config);
       this.className = 'Star';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var innerRadius = this.innerRadius(),
         outerRadius = this.outerRadius(),
         numPoints = this.numPoints();
@@ -18687,22 +18822,22 @@
       context.fillStrokeShape(this);
     },
     // implements Shape.prototype.getWidth()
-    getWidth: function() {
+    getWidth: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.getHeight()
-    getHeight: function() {
+    getHeight: function () {
       return this.getOuterRadius() * 2;
     },
     // implements Shape.prototype.setWidth()
-    setWidth: function(width) {
+    setWidth: function (width) {
       Konva.Node.prototype.setWidth.call(this, width);
       if (this.outerRadius() !== width / 2) {
         this.setOuterRadius(width / 2);
       }
     },
     // implements Shape.prototype.setHeight()
-    setHeight: function(height) {
+    setHeight: function (height) {
       Konva.Node.prototype.setHeight.call(this, height);
       if (this.outerRadius() !== height / 2) {
         this.setOuterRadius(height / 2);
@@ -18781,7 +18916,7 @@
   Konva.Collection.mapMethods(Konva.Star);
 })();
 
-(function() {
+(function () {
   'use strict';
   // constants
   var ATTR_CHANGE_LIST = [
@@ -18809,25 +18944,25 @@
    * @memberof Konva
    * @param {Object} config
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * // create label
    * var label = new Konva.Label({
@@ -18860,18 +18995,18 @@
    *   fill: 'green'
    *  }));
    */
-  Konva.Label = function(config) {
+  Konva.Label = function (config) {
     this.____init(config);
   };
 
   Konva.Label.prototype = {
-    ____init: function(config) {
+    ____init: function (config) {
       var that = this;
 
       Konva.Group.call(this, config);
       this.className = LABEL;
 
-      this.on('add.konva', function(evt) {
+      this.on('add.konva', function (evt) {
         that._addListeners(evt.child);
         that._sync();
       });
@@ -18883,7 +19018,7 @@
      * @method
      * @memberof Konva.Label.prototype
      */
-    getText: function() {
+    getText: function () {
       return this.find('Text')[0];
     },
     /**
@@ -18893,13 +19028,13 @@
      * @method
      * @memberof Konva.Label.prototype
      */
-    getTag: function() {
+    getTag: function () {
       return this.find('Tag')[0];
     },
-    _addListeners: function(text) {
+    _addListeners: function (text) {
       var that = this,
         n;
-      var func = function() {
+      var func = function () {
         that._sync();
       };
 
@@ -18908,13 +19043,13 @@
         text.on(ATTR_CHANGE_LIST[n] + CHANGE_KONVA, func);
       }
     },
-    getWidth: function() {
+    getWidth: function () {
       return this.getText().getWidth();
     },
-    getHeight: function() {
+    getHeight: function () {
       return this.getText().getHeight();
     },
-    _sync: function() {
+    _sync: function () {
       var text = this.getText(),
         tag = this.getTag(),
         width,
@@ -18984,17 +19119,17 @@
    * @param {Number} [config.pointerHeight]
    * @param {Number} [config.cornerRadius]
    */
-  Konva.Tag = function(config) {
+  Konva.Tag = function (config) {
     this.___init(config);
   };
 
   Konva.Tag.prototype = {
-    ___init: function(config) {
+    ___init: function (config) {
       Konva.Shape.call(this, config);
       this.className = 'Tag';
       this.sceneFunc(this._sceneFunc);
     },
-    _sceneFunc: function(context) {
+    _sceneFunc: function (context) {
       var width = this.getWidth(),
         height = this.getHeight(),
         pointerDirection = this.getPointerDirection(),
@@ -19090,7 +19225,7 @@
       context.closePath();
       context.fillStrokeShape(this);
     },
-    getSelfRect: function() {
+    getSelfRect: function () {
       var x = 0,
         y = 0,
         pointerWidth = this.getPointerWidth(),
@@ -19208,7 +19343,7 @@
   Konva.Collection.mapMethods(Konva.Tag);
 })();
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
   /**
    * Arrow constructor
@@ -19223,76 +19358,76 @@
    * @param {Number} config.pointerWidth Arrow pointer width. Default value is 10.
    * @param {Boolean} config.pointerAtBeginning Do we need to draw pointer on both sides?. Default false.
    * @param {String} [config.fill] fill color
-     * @param {Image} [config.fillPatternImage] fill pattern image
-     * @param {Number} [config.fillPatternX]
-     * @param {Number} [config.fillPatternY]
-     * @param {Object} [config.fillPatternOffset] object with x and y component
-     * @param {Number} [config.fillPatternOffsetX] 
-     * @param {Number} [config.fillPatternOffsetY] 
-     * @param {Object} [config.fillPatternScale] object with x and y component
-     * @param {Number} [config.fillPatternScaleX]
-     * @param {Number} [config.fillPatternScaleY]
-     * @param {Number} [config.fillPatternRotation]
-     * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
-     * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientStartPointX]
-     * @param {Number} [config.fillLinearGradientStartPointY]
-     * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillLinearGradientEndPointX]
-     * @param {Number} [config.fillLinearGradientEndPointY]
-     * @param {Array} [config.fillLinearGradientColorStops] array of color stops
-     * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientStartPointX]
-     * @param {Number} [config.fillRadialGradientStartPointY]
-     * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
-     * @param {Number} [config.fillRadialGradientEndPointX] 
-     * @param {Number} [config.fillRadialGradientEndPointY] 
-     * @param {Number} [config.fillRadialGradientStartRadius]
-     * @param {Number} [config.fillRadialGradientEndRadius]
-     * @param {Array} [config.fillRadialGradientColorStops] array of color stops
-     * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
-     * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
-     * @param {String} [config.stroke] stroke color
-     * @param {Number} [config.strokeWidth] stroke width
-     * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
-     * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
-     * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
-     * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
-     * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
-     * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
-     *  is miter
-     * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
-     *  is butt
-     * @param {String} [config.shadowColor]
-     * @param {Number} [config.shadowBlur]
-     * @param {Object} [config.shadowOffset] object with x and y component
-     * @param {Number} [config.shadowOffsetX]
-     * @param {Number} [config.shadowOffsetY]
-     * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
-     *  between 0 and 1
-     * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
-     * @param {Array} [config.dash]
-     * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
+   * @param {Image} [config.fillPatternImage] fill pattern image
+   * @param {Number} [config.fillPatternX]
+   * @param {Number} [config.fillPatternY]
+   * @param {Object} [config.fillPatternOffset] object with x and y component
+   * @param {Number} [config.fillPatternOffsetX] 
+   * @param {Number} [config.fillPatternOffsetY] 
+   * @param {Object} [config.fillPatternScale] object with x and y component
+   * @param {Number} [config.fillPatternScaleX]
+   * @param {Number} [config.fillPatternScaleY]
+   * @param {Number} [config.fillPatternRotation]
+   * @param {String} [config.fillPatternRepeat] can be "repeat", "repeat-x", "repeat-y", or "no-repeat".  The default is "no-repeat"
+   * @param {Object} [config.fillLinearGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientStartPointX]
+   * @param {Number} [config.fillLinearGradientStartPointY]
+   * @param {Object} [config.fillLinearGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillLinearGradientEndPointX]
+   * @param {Number} [config.fillLinearGradientEndPointY]
+   * @param {Array} [config.fillLinearGradientColorStops] array of color stops
+   * @param {Object} [config.fillRadialGradientStartPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientStartPointX]
+   * @param {Number} [config.fillRadialGradientStartPointY]
+   * @param {Object} [config.fillRadialGradientEndPoint] object with x and y component
+   * @param {Number} [config.fillRadialGradientEndPointX] 
+   * @param {Number} [config.fillRadialGradientEndPointY] 
+   * @param {Number} [config.fillRadialGradientStartRadius]
+   * @param {Number} [config.fillRadialGradientEndRadius]
+   * @param {Array} [config.fillRadialGradientColorStops] array of color stops
+   * @param {Boolean} [config.fillEnabled] flag which enables or disables the fill.  The default value is true
+   * @param {String} [config.fillPriority] can be color, linear-gradient, radial-graident, or pattern.  The default value is color.  The fillPriority property makes it really easy to toggle between different fill types.  For example, if you want to toggle between a fill color style and a fill pattern style, simply set the fill property and the fillPattern properties, and then use setFillPriority('color') to render the shape with a color fill, or use setFillPriority('pattern') to render the shape with the pattern fill configuration
+   * @param {String} [config.stroke] stroke color
+   * @param {Number} [config.strokeWidth] stroke width
+   * @param {Boolean} [config.strokeHitEnabled] flag which enables or disables stroke hit region.  The default is true
+   * @param {Boolean} [config.perfectDrawEnabled] flag which enables or disables using buffer canvas.  The default is true
+   * @param {Boolean} [config.shadowForStrokeEnabled] flag which enables or disables shasow for stroke.  The default is true
+   * @param {Boolean} [config.strokeScaleEnabled] flag which enables or disables stroke scale.  The default is true
+   * @param {Boolean} [config.strokeEnabled] flag which enables or disables the stroke.  The default value is true
+   * @param {String} [config.lineJoin] can be miter, round, or bevel.  The default
+   *  is miter
+   * @param {String} [config.lineCap] can be butt, round, or sqare.  The default
+   *  is butt
+   * @param {String} [config.shadowColor]
+   * @param {Number} [config.shadowBlur]
+   * @param {Object} [config.shadowOffset] object with x and y component
+   * @param {Number} [config.shadowOffsetX]
+   * @param {Number} [config.shadowOffsetY]
+   * @param {Number} [config.shadowOpacity] shadow opacity.  Can be any real number
+   *  between 0 and 1
+   * @param {Boolean} [config.shadowEnabled] flag which enables or disables the shadow.  The default value is true
+   * @param {Array} [config.dash]
+   * @param {Boolean} [config.dashEnabled] flag which enables or disables the dashArray.  The default value is true
    * @param {Number} [config.x]
-     * @param {Number} [config.y]
-     * @param {Number} [config.width]
-     * @param {Number} [config.height]
-     * @param {Boolean} [config.visible]
-     * @param {Boolean} [config.listening] whether or not the node is listening for events
-     * @param {String} [config.id] unique id
-     * @param {String} [config.name] non-unique name
-     * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
-     * @param {Object} [config.scale] set scale
-     * @param {Number} [config.scaleX] set scale x
-     * @param {Number} [config.scaleY] set scale y
-     * @param {Number} [config.rotation] rotation in degrees
-     * @param {Object} [config.offset] offset from center point and rotation point
-     * @param {Number} [config.offsetX] set offset x
-     * @param {Number} [config.offsetY] set offset y
-     * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
-     *  the entire stage by dragging any portion of the stage
-     * @param {Number} [config.dragDistance]
-     * @param {Function} [config.dragBoundFunc]
+   * @param {Number} [config.y]
+   * @param {Number} [config.width]
+   * @param {Number} [config.height]
+   * @param {Boolean} [config.visible]
+   * @param {Boolean} [config.listening] whether or not the node is listening for events
+   * @param {String} [config.id] unique id
+   * @param {String} [config.name] non-unique name
+   * @param {Number} [config.opacity] determines node opacity.  Can be any number between 0 and 1
+   * @param {Object} [config.scale] set scale
+   * @param {Number} [config.scaleX] set scale x
+   * @param {Number} [config.scaleY] set scale y
+   * @param {Number} [config.rotation] rotation in degrees
+   * @param {Object} [config.offset] offset from center point and rotation point
+   * @param {Number} [config.offsetX] set offset x
+   * @param {Number} [config.offsetY] set offset y
+   * @param {Boolean} [config.draggable] makes the node draggable.  When stages are draggable, you can drag and drop
+   *  the entire stage by dragging any portion of the stage
+   * @param {Number} [config.dragDistance]
+   * @param {Function} [config.dragBoundFunc]
    * @example
    * var line = new Konva.Line({
    *   points: [73, 70, 340, 23, 450, 60, 500, 20],
@@ -19302,17 +19437,17 @@
    *   pointerWidth : 12
    * });
    */
-  Konva.Arrow = function(config) {
+  Konva.Arrow = function (config) {
     this.____init(config);
   };
 
   Konva.Arrow.prototype = {
-    ____init: function(config) {
+    ____init: function (config) {
       // call super constructor
       Konva.Line.call(this, config);
       this.className = 'Arrow';
     },
-    _sceneFunc: function(ctx) {
+    _sceneFunc: function (ctx) {
       Konva.Line.prototype._sceneFunc.apply(this, arguments);
       var PI2 = Math.PI * 2;
       var points = this.points();
@@ -19452,7 +19587,7 @@
   Konva.Collection.mapMethods(Konva.Arrow);
 })(Konva);
 
-(function(Konva) {
+(function (Konva) {
   'use strict';
 
   var ATTR_CHANGE_LIST = [
@@ -19592,7 +19727,7 @@
    * layer.add(transformer);
    */
 
-  Konva.Transformer = function(config) {
+  Konva.Transformer = function (config) {
     this.____init(config);
   };
 
@@ -19609,7 +19744,7 @@
 
   Konva.Transformer.prototype = {
     _centroid: false,
-    ____init: function(config) {
+    ____init: function (config) {
       // call super constructor
       Konva.Group.call(this, config);
       this.className = 'Transformer';
@@ -19636,7 +19771,7 @@
      * @example
      * transformer.attachTo(shape);
      */
-    attachTo: function(node) {
+    attachTo: function (node) {
       this.setNode(node);
     },
 
@@ -19648,7 +19783,7 @@
      * @example
      * transformer.setNode(shape);
      */
-    setNode: function(node) {
+    setNode: function (node) {
       if (this._node) {
         this.detach();
       }
@@ -19658,7 +19793,7 @@
       node.on(TRANSFORM_CHANGE_STR, this._resetTransformCache.bind(this));
       node.on(
         REDRAW_CHANGE_STR,
-        function() {
+        function () {
           if (!this._transforming) {
             this.update();
           }
@@ -19673,7 +19808,7 @@
       return this;
     },
 
-    getNode: function() {
+    getNode: function () {
       return this._node;
     },
 
@@ -19685,7 +19820,7 @@
      * @example
      * transformer.detach();
      */
-    detach: function() {
+    detach: function () {
       if (this.getNode()) {
         this.getNode().off('.resizer');
         this._node = undefined;
@@ -19693,17 +19828,17 @@
       this._resetTransformCache();
     },
 
-    _resetTransformCache: function() {
+    _resetTransformCache: function () {
       this._clearCache(NODE_RECT);
       this._clearCache('transform');
       this._clearSelfAndDescendantCache('absoluteTransform');
     },
 
-    _getNodeRect: function() {
+    _getNodeRect: function () {
       return this._getCache(NODE_RECT, this.__getNodeRect);
     },
 
-    __getNodeRect: function() {
+    __getNodeRect: function () {
       var node = this.getNode();
       if (!node) {
         return {
@@ -19714,7 +19849,9 @@
           rotation: 0
         };
       }
-      var rect = node.getClientRect({ skipTransform: true });
+      var rect = node.getClientRect({
+        skipTransform: true
+      });
       var rotation = Konva.getAngle(node.rotation());
 
       var dx = rect.x * node.scaleX() - node.offsetX() * node.scaleX();
@@ -19729,31 +19866,31 @@
       };
     },
 
-    getX: function() {
+    getX: function () {
       return this._getNodeRect().x;
     },
 
-    getY: function() {
+    getY: function () {
       return this._getNodeRect().y;
     },
 
-    getRotation: function() {
+    getRotation: function () {
       return this._getNodeRect().rotation;
     },
 
-    getWidth: function() {
+    getWidth: function () {
       return this._getNodeRect().width;
     },
 
-    getHeight: function() {
+    getHeight: function () {
       return this._getNodeRect().height;
     },
 
-    _createElements: function() {
+    _createElements: function () {
       this._createBack();
 
       ANCHORS_NAMES.forEach(
-        function(name) {
+        function (name) {
           this._createAnchor(name);
         }.bind(this)
       );
@@ -19761,7 +19898,7 @@
       this._createAnchor('rotater');
     },
 
-    _createAnchor: function(name) {
+    _createAnchor: function (name) {
       var anchor = new Konva.Rect({
         stroke: 'rgb(0, 161, 255)',
         fill: 'white',
@@ -19771,21 +19908,21 @@
         draggable: true
       });
       var self = this;
-      anchor.on('mousedown touchstart', function(e) {
+      anchor.on('mousedown touchstart', function (e) {
         self._handleMouseDown(e);
       });
-      anchor.on('dragstart', function(e) {
+      anchor.on('dragstart', function (e) {
         e.cancelBubble = true;
       });
-      anchor.on('dragmove', function(e) {
+      anchor.on('dragmove', function (e) {
         e.cancelBubble = true;
       });
-      anchor.on('dragend', function(e) {
+      anchor.on('dragend', function (e) {
         e.cancelBubble = true;
       });
 
       // add hover styling
-      anchor.on('mouseenter', function() {
+      anchor.on('mouseenter', function () {
         var tr = this.getParent();
 
         var rad = Konva.getAngle(tr.rotation());
@@ -19797,7 +19934,7 @@
         anchor.getStage().content.style.cursor = cursor;
         tr._cursorChange = true;
       });
-      anchor.on('mouseout', function() {
+      anchor.on('mouseout', function () {
         if (!anchor.getStage() || !this.getParent()) {
           return;
         }
@@ -19807,13 +19944,13 @@
       this.add(anchor);
     },
 
-    _createBack: function() {
+    _createBack: function () {
       var back = new Konva.Shape({
         name: 'back',
         width: 0,
         height: 0,
         listening: false,
-        sceneFunc: function(ctx) {
+        sceneFunc: function (ctx) {
           var tr = this.getParent();
           var padding = tr.getPadding();
           ctx.beginPath();
@@ -19837,7 +19974,7 @@
       this.add(back);
     },
 
-    _handleMouseDown: function(e) {
+    _handleMouseDown: function (e) {
       this.movingResizer = e.target.name().split(' ')[0];
 
       // var node = this.getNode();
@@ -19855,11 +19992,15 @@
 
       this._transforming = true;
 
-      this._fire('transformstart', { evt: e });
-      this.getNode()._fire('transformstart', { evt: e });
+      this._fire('transformstart', {
+        evt: e
+      });
+      this.getNode()._fire('transformstart', {
+        evt: e
+      });
     },
 
-    _handleMouseMove: function(e) {
+    _handleMouseMove: function (e) {
       var x, y, newHypotenuse;
       var resizerNode = this.findOne('.' + this.movingResizer);
       var stage = resizerNode.getStage();
@@ -19888,7 +20029,7 @@
         if (keepProportion) {
           newHypotenuse = Math.sqrt(
             Math.pow(this.findOne('.bottom-right').x() - resizerNode.x(), 2) +
-              Math.pow(this.findOne('.bottom-right').y() - resizerNode.y(), 2)
+            Math.pow(this.findOne('.bottom-right').y() - resizerNode.y(), 2)
           );
 
           x = newHypotenuse * this.cos;
@@ -19903,7 +20044,7 @@
         if (keepProportion) {
           newHypotenuse = Math.sqrt(
             Math.pow(this.findOne('.bottom-left').x() - resizerNode.x(), 2) +
-              Math.pow(this.findOne('.bottom-left').y() - resizerNode.y(), 2)
+            Math.pow(this.findOne('.bottom-left').y() - resizerNode.y(), 2)
           );
 
           x = newHypotenuse * this.cos;
@@ -19924,7 +20065,7 @@
         if (keepProportion) {
           newHypotenuse = Math.sqrt(
             Math.pow(this.findOne('.top-right').x() - resizerNode.x(), 2) +
-              Math.pow(this.findOne('.top-right').y() - resizerNode.y(), 2)
+            Math.pow(this.findOne('.top-right').y() - resizerNode.y(), 2)
           );
 
           x = newHypotenuse * this.cos;
@@ -19944,7 +20085,7 @@
         if (keepProportion) {
           newHypotenuse = Math.sqrt(
             Math.pow(this.findOne('.bottom-right').x(), 2) +
-              Math.pow(this.findOne('.bottom-right').y(), 2)
+            Math.pow(this.findOne('.bottom-right').y(), 2)
           );
 
           x = newHypotenuse * this.cos;
@@ -19990,24 +20131,21 @@
         var dx = padding;
         var dy = padding;
 
-        this._fitNodeInto(
-          {
-            rotation: Konva.angleDeg
-              ? newRotation
-              : Konva.Util._degToRad(newRotation),
-            x:
-              attrs.x +
+        this._fitNodeInto({
+            rotation: Konva.angleDeg ?
+              newRotation :
+              Konva.Util._degToRad(newRotation),
+            x: attrs.x +
               (attrs.width / 2 + padding) *
-                (Math.cos(alpha) - Math.cos(newAlpha)) +
+              (Math.cos(alpha) - Math.cos(newAlpha)) +
               (attrs.height / 2 + padding) *
-                (Math.sin(-alpha) - Math.sin(-newAlpha)) -
+              (Math.sin(-alpha) - Math.sin(-newAlpha)) -
               (dx * Math.cos(rot) + dy * Math.sin(-rot)),
-            y:
-              attrs.y +
+            y: attrs.y +
               (attrs.height / 2 + padding) *
-                (Math.cos(alpha) - Math.cos(newAlpha)) +
+              (Math.cos(alpha) - Math.cos(newAlpha)) +
               (attrs.width / 2 + padding) *
-                (Math.sin(alpha) - Math.sin(newAlpha)) -
+              (Math.sin(alpha) - Math.sin(newAlpha)) -
               (dy * Math.cos(rot) + dx * Math.sin(rot)),
             width: attrs.width + padding * 2,
             height: attrs.height + padding * 2
@@ -20066,8 +20204,7 @@
 
       // console.log(x, y, width, height);
 
-      this._fitNodeInto(
-        {
+      this._fitNodeInto({
           x: x + this.offsetX(),
           y: y + this.offsetY(),
           width: width,
@@ -20077,26 +20214,30 @@
       );
     },
 
-    _handleMouseUp: function(e) {
+    _handleMouseUp: function (e) {
       this._removeEvents(e);
     },
 
-    _removeEvents: function(e) {
+    _removeEvents: function (e) {
       if (this._transforming) {
         this._transforming = false;
         window.removeEventListener('mousemove', this._handleMouseMove);
         window.removeEventListener('touchmove', this._handleMouseMove);
         window.removeEventListener('mouseup', this._handleMouseUp, true);
         window.removeEventListener('touchend', this._handleMouseUp, true);
-        this._fire('transformend', { evt: e });
+        this._fire('transformend', {
+          evt: e
+        });
         var node = this.getNode();
         if (node) {
-          node.fire('transformend', { evt: e });
+          node.fire('transformend', {
+            evt: e
+          });
         }
       }
     },
 
-    _fitNodeInto: function(newAttrs, evt) {
+    _fitNodeInto: function (newAttrs, evt) {
       // waring! in this attrs padding may be included
       var boundBoxFunc = this.getBoundBoxFunc();
       if (boundBoxFunc) {
@@ -20108,7 +20249,9 @@
       if (newAttrs.rotation !== undefined) {
         this.getNode().rotation(newAttrs.rotation);
       }
-      var pure = node.getClientRect({ skipTransform: true });
+      var pure = node.getClientRect({
+        skipTransform: true
+      });
       var padding = this.getPadding();
       var scaleX = (newAttrs.width - padding * 2) / pure.width;
       var scaleY = (newAttrs.height - padding * 2) / pure.height;
@@ -20125,8 +20268,12 @@
       });
       this._settings = false;
 
-      this._fire('transform', { evt: evt });
-      this.getNode()._fire('transform', { evt: evt });
+      this._fire('transform', {
+        evt: evt
+      });
+      this.getNode()._fire('transform', {
+        evt: evt
+      });
       this.update();
       this.getLayer().batchDraw();
     },
@@ -20136,14 +20283,17 @@
      * @method
      * @memberof Konva.Transformer.prototype
      */
-    forceUpdate: function() {
+    forceUpdate: function () {
       this._resetTransformCache();
       this.update();
     },
-    update: function() {
+    update: function () {
       var attrs = this._getNodeRect();
       var node = this.getNode();
-      var scale = { x: 1, y: 1 };
+      var scale = {
+        x: 1,
+        y: 1
+      };
       if (node && node.getParent()) {
         scale = node.getParent().getAbsoluteScale();
       }
@@ -20218,8 +20368,7 @@
         visible: resizeEnabled && enabledAnchors.indexOf('bottom-right') >= 0
       });
 
-      var scaledRotateAnchorOffset =
-        -this.rotateAnchorOffset() * Math.abs(invertedScale.y);
+      var scaledRotateAnchorOffset = -this.rotateAnchorOffset() * Math.abs(invertedScale.y);
       this.findOne('.rotater').setAttrs({
         x: width / 2,
         y: scaledRotateAnchorOffset * Konva.Util._sign(height),
@@ -20243,7 +20392,7 @@
      * @memberof Konva.Transformer.prototype
      * @returns {Boolean}
      */
-    isTransforming: function() {
+    isTransforming: function () {
       return this._transforming;
     },
     /**
@@ -20252,7 +20401,7 @@
      * @memberof Konva.Transformer.prototype
      * @returns {Boolean}
      */
-    stopTransform: function() {
+    stopTransform: function () {
       if (this._transforming) {
         this._removeEvents();
         var resizerNode = this.findOne('.' + this.movingResizer);
@@ -20261,7 +20410,7 @@
         }
       }
     },
-    destroy: function() {
+    destroy: function () {
       // console.log(this.isTransforming() && this.getStage());
       if (this.getStage() && this._cursorChange) {
         this.getStage().content.style.cursor = '';
@@ -20272,7 +20421,7 @@
     },
     // do not work as a container
     // we will recreate inner nodes manually
-    toObject: function() {
+    toObject: function () {
       return Konva.Node.prototype.toObject.call(this);
     }
   };
@@ -20283,13 +20432,13 @@
       Konva.Util.warn('enabledAnchors value should be an array');
     }
     if (val instanceof Array) {
-      val.forEach(function(name) {
+      val.forEach(function (name) {
         if (ANCHORS_NAMES.indexOf(name) === -1) {
           Konva.Util.warn(
             'Unknown anchor name: ' +
-              name +
-              '. Available names are: ' +
-              ANCHORS_NAMES.join(', ')
+            name +
+            '. Available names are: ' +
+            ANCHORS_NAMES.join(', ')
           );
         }
       });

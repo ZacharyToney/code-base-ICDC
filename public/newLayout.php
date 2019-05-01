@@ -63,7 +63,7 @@ else
   						<a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					Persons
   						</a>
-
+							<!--Buttons to add objects to the canvas-->
 	  					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 	    					<a class="dropdown-item" onclick="addPerson()">Male</a>
 	    					<a class="dropdown-item" onclick="addPersonFemale()">Female</a>
@@ -136,7 +136,10 @@ else
 
 
 				<hr class="my-4">
-				
+				<!--
+				This div adds the time layout to the page. 
+				Also has input for class name/section and the date picker
+				-->
 				<div class="row">
 					<div class="col-lg-12" id="adminControls">
 						<hr>

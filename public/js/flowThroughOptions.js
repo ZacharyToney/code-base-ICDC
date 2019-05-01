@@ -1,19 +1,15 @@
+/*  A $( document ).ready() block.
+ $( document ).ready(function() {
+ }); */
 
-
-// A $( document ).ready() block.
-// $( document ).ready(function() {
-
-// });
-
-function flowThroughOptions(){
-	var countOfOptions = $('#jsonClassRoomStringsFromDatabase option').length; 
+function flowThroughOptions() {
+	var countOfOptions = $('#jsonClassRoomStringsFromDatabase option').length;
 
 	if (countOfOptions == 0) {
 
-	}
-	else{
+	} else {
 
-		$('#jsonClassRoomStringsFromDatabase option:eq('+ (countOfOptions - 1) +')').prop('selected', true);
+		$('#jsonClassRoomStringsFromDatabase option:eq(' + (countOfOptions - 1) + ')').prop('selected', true);
 
 		var i;
 		for (i = 0; i < (countOfOptions); i++) {
@@ -21,18 +17,21 @@ function flowThroughOptions(){
 
 
 
-		      // create a closure to preserve the value of "i"
-			  (function(i){
 
-				setTimeout(function(){
-				     $('#jsonClassRoomStringsFromDatabase option:eq('+ i +')').prop('selected', true);
+			/**
+			 * Create a closure to preserve the value of "i"
+			 */
+			(function (i) {
+
+				setTimeout(function () {
+					$('#jsonClassRoomStringsFromDatabase option:eq(' + i + ')').prop('selected', true);
 
 					var optionSelected = $('#jsonClassRoomStringsFromDatabase').find("option:selected");
-					var valueSelected  = optionSelected.val();
+					var valueSelected = optionSelected.val();
 					loadJsonString(valueSelected);
-			    }, i * 1500);
-			    
-			  }(i));
+				}, i * 1500);
+
+			}(i));
 
 
 

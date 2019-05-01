@@ -12,6 +12,7 @@ if (isset($_POST['dateSearch'])) {
 	$dateSearch = $_POST['dateSearch'];
 	$username = $_POST['username'];
 
+	//Query to search everything by date
 	$sql = "SELECT * FROM classMaps WHERE username = '" . $username ."' AND dateOfSnapShot = '" . $dateSearch . "'";
 	$result = mysqli_fetch_all($conn->query($sql));
 	if (!empty($result)) {

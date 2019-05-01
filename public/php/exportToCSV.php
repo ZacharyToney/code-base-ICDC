@@ -1,3 +1,7 @@
+<!--
+  CSV export is here for developers to use if needed. Button can be taken out from newLayout.php if not needed.
+-->
+
 <?php
 /* vars for export */
 $link = mysqli_connect("localhost", "root", "", "icdc");
