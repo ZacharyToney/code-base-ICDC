@@ -9,7 +9,9 @@ require('connectToDatabase.php');
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-
+/**
+ * Query to get username from database
+ */
 $sql = "SELECT * FROM users WHERE username = '".$username."'";
 
 $result = $conn->query($sql);
@@ -28,6 +30,9 @@ if ($result->num_rows > 0) {
 		    $conn->close();
 		    exit;
 			}
+			/**
+			 * error message if username is incorrect
+			 */
 			else{
 				$errorMessage = "The password you entered was incorrect.";
 		    $_SESSION['errorMessage'] = $errorMessage;
@@ -37,6 +42,9 @@ if ($result->num_rows > 0) {
 			}
     }
 } 
+/**
+ * error message if username does not exist
+ */
 else {
     $errorMessage = "The username you entered does not exist.";
     $_SESSION['errorMessage'] = $errorMessage;

@@ -21,7 +21,9 @@
 	<body>
 
 <?php include_once('header.php'); ?>
-
+<!--
+  Text boxes to insert username and password
+-->
 		<div class="container">
       <form class="col-lg-6" action="/php/login.php" method="post">
         <div class="form-group">

@@ -163,6 +163,10 @@ else
 						<hr>
 					</div>	
 
+					<!--
+						get function
+					-->
+
 					      <script>
 					          $(document).ready( function() {
 									var d = new Date(),        
